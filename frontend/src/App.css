@@ -17,3 +17,15 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #E0580C;
 }
+
+.input{
+  width: 100%;
+  padding: 6px;
+  border: 2px solid #DEDEDE;
+  border-radius: 6px;
+  outline: none;
+}
+
+.input:focus{
+  border: 2px solid #E0580C;
+}

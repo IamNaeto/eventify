@@ -10,7 +10,7 @@ const Header = () => {
             <div className="flex items-center justify-center gap-6">
                 <Link to={""} className="hover:text-[#E0580C] delay-150 transition-all">Explore</Link>
                 <Link to={""} className="hover:text-[#E0580C] delay-150 transition-all">Manage Events</Link>
-                <Link to={""} className="hover:text-[#E0580C] delay-150 transition-all">Create Event +</Link>
+                <Link to={"/event/create"} className="hover:text-[#E0580C] delay-150 transition-all">Create Event +</Link>
             </div>
 
             <div className="flex items-center justify-center gap-6">
