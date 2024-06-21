@@ -118,6 +118,7 @@ const Create = () => {
               handleInitialValidation={handleInitialValidation}
               primaryBtnCaption={"Next"}
               secondaryBtnCaption={"Back"}
+              route={"/"}
             />
           ) : progressStage === 2 ? (
             <EventFormFinal
@@ -131,6 +132,8 @@ const Create = () => {
               price={price}
               setPrice={setPrice}
               handleSubmit={handleSubmit}
+              primaryBtnAction={"Create Event"}
+              secondaryBtnAction={"Back"}
             />
           ) : (
             <EventFormSuccess />

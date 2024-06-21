@@ -14,8 +14,8 @@ const Header = () => {
             </div>
 
             <div className="flex items-center justify-center gap-6">
-                <button className="border border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] transition-all delay-150 py-2 px-4 rounded-md">Sign in</button>
-                <Link className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md">Create Event</Link>
+                <button className="border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md">Sign in</button>
+                <Link to={"/event/create"} className="border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md">Create Event</Link>
             </div>
         </div>
      );

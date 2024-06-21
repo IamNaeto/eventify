@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -49,10 +50,11 @@ const Hero = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
           viewport={{ once: true }}
+          className="mt-4"
         >
-          <button className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-3 px-6 rounded-md">
+          <Link to={"/event/create"} className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] font-semibold py-3 px-6 rounded-md">
             Create An Event
-          </button>
+          </Link>
         </motion.div>
       </div>
 
