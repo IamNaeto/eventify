@@ -20,6 +20,9 @@ const CreateEventIntro = ({
   setLink,
   link,
   handleInitialValidation,
+  primaryBtnCaption,
+  secondaryBtnCaption,
+  route
 }) => {
   return (
     <form
@@ -130,13 +133,13 @@ const CreateEventIntro = ({
         type="submit"
         className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md"
       >
-        Next
+        {primaryBtnCaption}
       </button>
       <Link
-        to="/"
+        to={route}
         className="flex items-center justify-center border border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] transition-all delay-150 py-2 px-4 rounded-md"
       >
-        Back
+        {secondaryBtnCaption}
       </Link>
     </form>
   );

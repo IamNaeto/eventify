@@ -5,6 +5,7 @@ import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const EventOverview = () => {
   return (
@@ -72,22 +73,22 @@ const EventOverview = () => {
           </div>
 
           <div className="w-full grid grid-cols-2 items-center justify-center gap-2">
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C]">
+            <Link to={"/event/edit"} className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-lg hover:shadow-[#E0580C]">
               {" "}
               <CiEdit /> Edit Event
-            </button>
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C]">
+            </Link>
+            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-lg hover:shadow-[#E0580C]">
               {" "}
               <RiDeleteBin3Line /> Delete Event
             </button>
           </div>
 
           <div className="w-full grid grid-cols-2 items-center justify-center gap-2">
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C]">
+            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-lg hover:shadow-[#E0580C]">
               {" "}
               <HiOutlineUsers /> View Attendees
             </button>
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C]">
+            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-lg hover:shadow-[#E0580C]">
               {" "}
               <AiOutlineCloudUpload /> Share event
             </button>

@@ -9,6 +9,8 @@ const CreateEventFinal = ({
   price,
   setPrice,
   handleSubmit,
+  primaryBtnAction,
+  secondaryBtnAction
 }) => {
   return (
     <form
@@ -107,14 +109,14 @@ const CreateEventFinal = ({
         type="submit"
         className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md"
       >
-        Create Event
+        {primaryBtnAction}
       </button>
       <button
         type="button"
         className="border border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] transition-all delay-150 py-2 px-4 rounded-md"
         onClick={() => setProgressStage(1)}
       >
-        Back
+        {secondaryBtnAction}
       </button>
     </form>
   );

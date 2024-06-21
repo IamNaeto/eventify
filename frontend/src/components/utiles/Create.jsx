@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
-import CreateEventFinal from "./CreateEventFinal";
-import CreateEventSuccess from "./CreateEventSuccess";
-import CreateEventIntro from "./CreateEventInto";
+import EventFormFinal from "./EventFormFinal";
+import EventFormSuccess from "./EventFormSuccess";
+import EventFormIntro from "./EventFormInto";
 
 const Create = () => {
   const [progressStage, setProgressStage] = useState(1);
@@ -96,7 +96,7 @@ const Create = () => {
           </div>
 
           {progressStage === 1 ? (
-            <CreateEventIntro
+            <EventFormIntro
               setName={setName}
               name={name}
               setDescription={setDescription}
@@ -116,9 +116,11 @@ const Create = () => {
               setLink={setLink}
               link={link}
               handleInitialValidation={handleInitialValidation}
+              primaryBtnCaption={"Next"}
+              secondaryBtnCaption={"Back"}
             />
           ) : progressStage === 2 ? (
-            <CreateEventFinal
+            <EventFormFinal
               setProgressStage={setProgressStage}
               setCategory={setCategory}
               category={category}
@@ -131,7 +133,7 @@ const Create = () => {
               handleSubmit={handleSubmit}
             />
           ) : (
-            <CreateEventSuccess />
+            <EventFormSuccess />
           )}
         </div>
 
