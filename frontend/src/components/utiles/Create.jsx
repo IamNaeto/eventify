@@ -9,13 +9,14 @@ import EventFormIntro from "./EventFormInto";
 const Create = () => {
   const [progressStage, setProgressStage] = useState(1);
   const [name, setName] = useState("");
+  const [host, setHost] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endDate, setEndDate] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [mode, setMode] = useState("");
   const [location, setLocation] = useState("");
-  const [venue, setVenue] = useState("");
   const [link, setLink] = useState("");
   const [category, setCategory] = useState("");
   const [capacity, setCapacity] = useState("");
@@ -29,14 +30,15 @@ const Create = () => {
     e.preventDefault();
     if (
       !name ||
+      !host ||
       !description ||
       !startDate ||
       !startTime ||
       !endDate ||
       !endTime ||
-      !location ||
-      (location === "Physical" && !venue) ||
-      (location === "Virtual (Zoom/Meet)" && !link)
+      !mode ||
+      (mode === "Physical" && !location) ||
+      (mode === "Virtual (Zoom/Meet)" && !link)
     ) {
       toast.error("All fields must be filled");
       return;
@@ -54,13 +56,14 @@ const Create = () => {
 
     const data = {
       event_name: name,
+      event_host_name: host,
       event_description: description,
       event_start_date: startDate,
       event_start_time: startTime,
       event_end_date: endDate,
       event_end_time: endTime,
+      event_mode: mode,
       event_location: location,
-      event_venue: venue,
       event_link: link,
       event_category: category,
       event_capacity: capacity,
@@ -99,6 +102,8 @@ const Create = () => {
             <EventFormIntro
               setName={setName}
               name={name}
+              setHost={setHost}
+              host={host}
               setDescription={setDescription}
               description={description}
               setStartDate={setStartDate}
@@ -109,10 +114,10 @@ const Create = () => {
               endDate={endDate}
               setEndTime={setEndTime}
               endTime={endTime}
+              setMode={setMode}
+              mode={mode}
               setLocation={setLocation}
               location={location}
-              setVenue={setVenue}
-              venue={venue}
               setLink={setLink}
               link={link}
               handleInitialValidation={handleInitialValidation}

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 const CreateEventIntro = ({
   setName,
   name,
+  setHost,
+  host,
   setDescription,
   description,
   setStartDate,
@@ -13,10 +15,10 @@ const CreateEventIntro = ({
   endDate,
   setEndTime,
   endTime,
+  setMode,
+  mode,
   setLocation,
   location,
-  setVenue,
-  venue,
   setLink,
   link,
   handleInitialValidation,
@@ -37,6 +39,14 @@ const CreateEventIntro = ({
         name="event_name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Event Host Name"
+        className="input"
+        name="event_host_name"
+        value={host}
+        onChange={(e) => setHost(e.target.value)}
       />
 
       <textarea
@@ -88,32 +98,32 @@ const CreateEventIntro = ({
       </div>
 
       <label htmlFor="">
-        Add Location
+        Event Mode
         <select
-          name="location"
+          name="event_mode"
           id=""
           className="input"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          value={mode}
+          onChange={(e) => setMode(e.target.value)}
         >
           <option value="">---select---</option>
           <option value="Physical">Physical</option>
           <option value="Virtual (Zoom/Meet)">Virtual (Zoom/Meet)</option>
         </select>
       </label>
-      {location === "Physical" ? (
+      {mode === "Physical" ? (
         <label htmlFor="">
-          Enter Venue
+          Enter Location
           <input
             type="text"
             className="input"
-            placeholder="Enter event venue"
-            name="venue"
-            value={venue}
-            onChange={(e) => setVenue(e.target.value)}
+            placeholder="Enter event location"
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         </label>
-      ) : location === "Virtual (Zoom/Meet)" ? (
+      ) : mode === "Virtual (Zoom/Meet)" ? (
         <label htmlFor="">
           Enter Link
           <input
