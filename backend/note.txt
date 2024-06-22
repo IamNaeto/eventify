@@ -1,0 +1,7 @@
+Installations
+- npm init - y
+- npm install express
+- npm install nodemon
+    * Nodemon allows authomatically update of changes in a file. Its like a watch mood
+- npm install mongodb
+- npm install mongoose
