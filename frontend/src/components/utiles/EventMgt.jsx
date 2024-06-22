@@ -10,19 +10,19 @@ const EventMgt = () => {
     <div className="min-h-[70vh] w-full relative grid gap-6 top-[76px] px-[3%] pb-10 pt-4 bg-[#FAFAFA] overflow-x-hidden">
       <section className="grid grid-cols-3 items-center justify-center gap-4 font-bold text-lg text-center">
         <h1
-          className={`p-2 border-b-2 ${toggleMgt === "Event Overview" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"} cursor-pointer `}
+          className={`p-2 border-b-2 ${toggleMgt === "Event Overview" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"} cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
           onClick={() => setToggleMgt("Event Overview")}
         >
           Event Overview
         </h1>
         <h1
-          className={`p-2 border-b-2 ${toggleMgt === "Attendees" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"} cursor-pointer`}
+          className={`p-2 border-b-2 ${toggleMgt === "Attendees" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"} cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
           onClick={() => setToggleMgt("Attendees")}
         >
           Attendees
         </h1>
         <h1
-          className={`p-2 border-b-2 ${toggleMgt === "Share Invites" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"}  cursor-pointer`}
+          className={`p-2 border-b-2 ${toggleMgt === "Share Invites" ? "border-b-[#E0580C] text-[#3C3C3C]" : "border-b-[#C0C0C0] text-[#C0C0C0]"}  cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
           onClick={() => setToggleMgt("Share Invites")}
         >
           Share Invites
