@@ -12,7 +12,7 @@ function App() {
      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/event/create" element={<CreateEvent />} />
-        <Route path="/event/edit" element={<EditEvent />} />
+        <Route path="/event/edit/:id" element={<EditEvent />} />
         <Route path="/manage/events" element={<ManageEvents />} />
         <Route path="/manage/event/:id" element={<ManageEvent />} />
       </Routes>

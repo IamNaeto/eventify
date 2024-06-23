@@ -7,6 +7,7 @@ import EventFormSuccess from "./EventFormSuccess";
 import EventFormIntro from "./EventFormInto";
 import axios from "axios";
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
   const [progressStage, setProgressStage] = useState(1);
@@ -24,8 +25,10 @@ const Create = () => {
   const [capacity, setCapacity] = useState("");
   const [ticket, setTicket] = useState("");
   const [price, setPrice] = useState("");
-   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+
+  const navigate = useNavigate();
 
   const { width, height } = useWindowSize();
 
@@ -50,8 +53,9 @@ const Create = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
-  const createEventEndpoint = `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/create`;
+  const createEventEndpoint = `${
+    import.meta.env.VITE_APP_EVENT_ROUTE_URL
+  }/create`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,38 +81,32 @@ const Create = () => {
       event_price: price,
     };
 
-     try {
+    try {
       setIsLoading(true);
       const request = await axios.post(createEventEndpoint, data);
       console.log(request);
-       setProgressStage(3);
+      setProgressStage(3);
       setShowConfetti(true);
       toast.success("Event created successfully");
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-         // Stop confetti after 5 seconds
-    setTimeout(() => setShowConfetti(false), 5000);
-
+      // Stop confetti after 5 seconds
+      setTimeout(() => setShowConfetti(false), 5000);
     } catch (error) {
-       console.log("Error: ", error);
-        if (error.response && error.response.status === 409) {
-            toast.error("Event already exists");
-        } else {
-            toast.error(error.message);
-        }
+      console.log("Error: ", error);
+      if (error.response && error.response.status === 409) {
+        toast.error("Event already exists");
+      } else {
+        toast.error(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
+  };
 
-
-    // console.log(`Data: ${JSON.stringify(data)}`);
-    // setProgressStage(3);
-    // setShowConfetti(true);
-    // toast.success("Event created successfully");
-    // window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // // Stop confetti after 5 seconds
-    // setTimeout(() => setShowConfetti(false), 5000);
+  const seeAllEvents = () => {
+    navigate("/manage/events");
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
 
   return (
@@ -172,13 +170,23 @@ const Create = () => {
               secondaryBtnAction={"Back"}
             />
           ) : (
-            <EventFormSuccess />
+            <EventFormSuccess
+              title={"Yooopiiee! Event Created Sucessfully"}
+              seeAllEvents={seeAllEvents}
+              primaryBtnCaption={"See All Events"}
+              secondaryBtnCaption={"Copy Event Link"}
+            />
           )}
         </div>
 
         <Toaster position="top-right" richColors />
         {showConfetti && (
-          <Confetti width={width} height={height} numberOfPieces={300}  style={{ zIndex: 9999, position: "fixed", top: 0, left: 0 }}/>
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={300}
+            style={{ zIndex: 9999, position: "fixed", top: 0, left: 0 }}
+          />
         )}
       </div>
     </div>
