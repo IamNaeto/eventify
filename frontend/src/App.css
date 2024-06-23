@@ -24,10 +24,15 @@ body {
   border: 2px solid #dedede;
   border-radius: 6px;
   outline: none;
+  font-weight: normal;
 }
 
 .input:focus {
   border: 2px solid #e0580c;
+}
+
+label{
+  font-weight: 500;
 }
 
 
