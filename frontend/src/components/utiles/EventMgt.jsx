@@ -1,10 +1,34 @@
 import Attendees from "./Attendees";
 import EventOverview from "./EventOverview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShareInvites from "./ShareInvites";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const EventMgt = () => {
   const [toggleMgt, setToggleMgt] = useState("Event Overview");
+  const [event, setEvent] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams()
+
+   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setIsLoading(true)
+        const response = await axios.get(
+          `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/${id}`
+        );
+        setEvent(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   return (
     <div className="min-h-[70vh] w-full relative grid gap-6 top-[76px] px-[3%] pb-10 pt-4 bg-[#FAFAFA] overflow-x-hidden">
@@ -31,7 +55,7 @@ const EventMgt = () => {
 
       <section>
         {toggleMgt === "Event Overview" ? (
-          <EventOverview />
+          <EventOverview event={event} isLoading={isLoading}/>
         ) : toggleMgt === "Attendees" ? (
           <Attendees />
         ) : (

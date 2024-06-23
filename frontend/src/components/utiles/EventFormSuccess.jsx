@@ -1,4 +1,14 @@
+import { useNavigate } from "react-router-dom";
+
 const CreateEventSuccess = () => {
+
+  const navigate = useNavigate()
+
+   const seeAllEvents = () => {
+    navigate("/manage/events");
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+
   return (
     <div className="bg-[rgb(255,255,255)] text-[16px] grid items-center justify-center gap-4 p-10 rounded-xl mt-4 shadow-xl">
       <h1 className="text-3xl font-bold text-[#1E1E1E]">
@@ -9,7 +19,10 @@ const CreateEventSuccess = () => {
         <img src="/img/success.png" alt="success image" />
       </div>
 
-      <button className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md">
+      <button 
+      className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] text-center py-2 px-4 rounded-md"
+      onClick={seeAllEvents}
+      >
         See All Events
       </button>
       <button className="border border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] transition-all delay-150 py-2 px-4 rounded-md">

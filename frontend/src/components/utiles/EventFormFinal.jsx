@@ -1,3 +1,5 @@
+import { LuLoader2 } from "react-icons/lu";
+
 const CreateEventFinal = ({
   setProgressStage,
   setCategory,
@@ -10,7 +12,8 @@ const CreateEventFinal = ({
   setPrice,
   handleSubmit,
   primaryBtnAction,
-  secondaryBtnAction
+  secondaryBtnAction,
+  isLoading
 }) => {
   return (
     <form
@@ -42,6 +45,7 @@ const CreateEventFinal = ({
           <option value="Education">Education</option>
           <option value="Profession">Profession</option>
           <option value="Sexuality">Sexuality</option>
+          <option value="Fun & Cruise">Fun & Cruise</option>
           <option value="Music & Concert">Music & Concert</option>
           <option value="Science & Nature">Science & Nature</option>
           <option value="Fashion & Beauty">Fashion & Beauty</option>
@@ -107,9 +111,13 @@ const CreateEventFinal = ({
 
       <button
         type="submit"
-        className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md"
+        className="border border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md flex items-center justify-center"
       >
-        {primaryBtnAction}
+        { isLoading ? 
+        <LuLoader2 className="text-2xl animate-spin"/> 
+        : 
+        primaryBtnAction }
+        
       </button>
       <button
         type="button"

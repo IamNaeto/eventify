@@ -6,8 +6,39 @@ import { RiDeleteBin3Line } from "react-icons/ri";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import { BiSolidError } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
-const EventOverview = () => {
+// formatDate function
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  return date.toLocaleDateString('en-US', options).replace(/,/g, '.').replace(/\. /g, ', ');
+}
+
+const EventOverview = ({event, isLoading}) => {
+   if (isLoading)
+    return (
+      <div className="bg-[#f1f5fd] flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
+        <p>Loading...</p> <PropagateLoader color="#E0580C" />
+      </div>
+    );
+
+  if (!event)
+    return (
+      <div className="bg-[#f1f5fd] flex items-center justify-center p-10 text-3xl  text-red-900 min-h-screen">
+        {" "}
+        <BiSolidError className="text-6xl" />
+        <p>404! Product not found</p>
+      </div>
+    );
   return (
     <main className="grid gap-8 text-[#1E1E1E]">
       <section className="grid grid-cols-2 gap-4">
@@ -24,12 +55,12 @@ const EventOverview = () => {
               alt=""
               className="w-[40px] h-40px]"
             />
-            <p className="text-18px font-medium">Hosted by BigJohnny</p>
+            <p className="text-18px font-medium">{event.event_host_name}</p>
           </div>
         </div>
 
         <div className="flex flex-col items-start gap-4">
-          <h1 className="text-3xl font-bold">Dey Play Event</h1>
+          <h1 className="text-3xl font-bold">{event.event_name}</h1>
 
           <div className="flex items-center gap-2">
             <div className="p-2 border-2 border-[#A4A4A4] shadow rounded-xl">
@@ -37,9 +68,9 @@ const EventOverview = () => {
             </div>
             <div>
               <p className="text-lg font-semibold">
-                Wednesday, November 15, 2023
+               {formatDate(event.event_start_date)}
               </p>
-              <p className="text-[16px]">1:00 PM to 2:00 PM</p>
+              <p className="text-[16px]">{event.event_start_time}</p>
             </div>
           </div>
 
@@ -51,24 +82,26 @@ const EventOverview = () => {
               <p className="text-lg flex items-center gap-1 font-semibold">
                 Location <CgArrowTopRight />
               </p>
-              <p className="text-[16px]">Lagos, Nigeria</p>
+              <p className="text-[16px]">{event.event_mode === "Physical" ? event.event_location : event.event_link}</p>
             </div>
           </div>
 
           <div className="w-full grid grid-cols-3 gap-6">
             <div className="p-4 rounded-lg border border-[#360789] shadow shadow-[#360789]">
               <h1 className="text-lg font-semibold">Event Category</h1>
-              <p className="text-[14px] text-[#3C3C3C]">Tech</p>
+              <p className="text-[14px] text-[#3C3C3C]">{event.event_category}</p>
             </div>
 
             <div className="p-4 rounded-lg border border-[#E0580C] shadow shadow-[#E0580C]">
               <h1 className="text-lg font-semibold">Event Capacity</h1>
-              <p className="text-[14px] text-[#3C3C3C]">50 Persons</p>
+              <p className="text-[14px] text-[#3C3C3C]">{event.event_capacity} Persons</p>
             </div>
 
             <div className="p-4 rounded-lg border border-[#12B76A] shadow shadow-[#12B76A]">
               <h1 className="text-lg font-semibold">Ticket Type</h1>
-              <p className="text-[14px] text-[#3C3C3C]">Free</p>
+              {
+                event.event_ticket === "Premium" ? <p className="text-[14px] text-[#3C3C3C]">{event.event_price}</p> : <p className="text-[14px] text-[#3C3C3C]">{event.event_ticket}</p>
+              }
             </div>
           </div>
 
@@ -99,21 +132,7 @@ const EventOverview = () => {
       <section className="w-full grid gap-4">
         <h1 className="text-2xl font-bold">About This Event</h1>
         <p className="text-[16px] text-[#585858]">
-          Embark on an extraordinary journey into the realm of innovation and
-          technology with our upcoming event! We invite you to immerse yourself
-          in an electrifying atmosphere where groundbreaking ideas and
-          cutting-edge solutions converge. This event is not just a gathering;
-          it's a celebration of technological marvels and the visionaries
-          shaping the future. Throughout the day, you'll have the opportunity to
-          engage with industry trailblazers through insightful keynote sessions,
-          hands-on workshops, and interactive panel discussions. Get ready to
-          broaden your horizons, exchange ideas with like-minded enthusiasts,
-          and witness firsthand the transformative power of technology. Whether
-          you're a seasoned professional, an aspiring tech wizard, or simply
-          curious about the latest trends, our event offers something for
-          everyone. Join us as we explore the boundless possibilities of the
-          tech landscape, fostering collaboration, and sparking inspiration that
-          transcends conventional boundaries.
+          {event.event_description}
         </p>
       </section>
     </main>

@@ -5,6 +5,8 @@ import Confetti from "react-confetti";
 import EventFormFinal from "./EventFormFinal";
 import EventFormSuccess from "./EventFormSuccess";
 import EventFormIntro from "./EventFormInto";
+import axios from "axios";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 const Create = () => {
   const [progressStage, setProgressStage] = useState(1);
@@ -22,6 +24,7 @@ const Create = () => {
   const [capacity, setCapacity] = useState("");
   const [ticket, setTicket] = useState("");
   const [price, setPrice] = useState("");
+   const [isLoading, setIsLoading] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const { width, height } = useWindowSize();
@@ -47,7 +50,10 @@ const Create = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = (e) => {
+
+  const createEventEndpoint = `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/create`;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!category || !capacity || !ticket || (ticket === "Premium" && !price)) {
       toast.error("All fields must be filled");
@@ -71,14 +77,38 @@ const Create = () => {
       event_price: price,
     };
 
-    console.log(`Data: ${JSON.stringify(data)}`);
-    setProgressStage(3);
-    setShowConfetti(true);
-    toast.success("Event created successfully");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+     try {
+      setIsLoading(true);
+      const request = await axios.post(createEventEndpoint, data);
+      console.log(request);
+       setProgressStage(3);
+      setShowConfetti(true);
+      toast.success("Event created successfully");
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Stop confetti after 5 seconds
+         // Stop confetti after 5 seconds
     setTimeout(() => setShowConfetti(false), 5000);
+
+    } catch (error) {
+       console.log("Error: ", error);
+        if (error.response && error.response.status === 409) {
+            toast.error("Event already exists");
+        } else {
+            toast.error(error.message);
+        }
+    } finally {
+      setIsLoading(false);
+    }
+
+
+    // console.log(`Data: ${JSON.stringify(data)}`);
+    // setProgressStage(3);
+    // setShowConfetti(true);
+    // toast.success("Event created successfully");
+    // window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // // Stop confetti after 5 seconds
+    // setTimeout(() => setShowConfetti(false), 5000);
   };
 
   return (
@@ -137,6 +167,7 @@ const Create = () => {
               price={price}
               setPrice={setPrice}
               handleSubmit={handleSubmit}
+              isLoading={isLoading}
               primaryBtnAction={"Create Event"}
               secondaryBtnAction={"Back"}
             />

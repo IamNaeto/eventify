@@ -1,16 +1,44 @@
 import CustomCalendar from "./Calender";
 import CreatedEvents from "./CreatedEvents";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UpcomingEvents from "./UpcomingEvents";
 import PastEvents from "./PastEvents";
 import { CiCompass1 } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import { Toaster, toast } from "sonner";
 
 const EventsMgt = () => {
   const [toggleEvents, setToggleEvents] = useState("Created Events");
+  const [createdEventData, setCreatedEventData] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
+
+  useEffect(() => {
+ fetchData();
+  }, [getEventsEndpoint])
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(getEventsEndpoint);
+      const data = response.data;
+      setCreatedEventData(data);
+      console.log(data);
+      toast.success("Data fetched successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error: " + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6 grid gap-6">
+      <Toaster position="top-right" richColors />
       <section className="flex flex-col gap-4 text-[#1E1E1E]">
         <h1 className="text-2xl font-bold">Welcome Paul,</h1>
 
@@ -22,7 +50,7 @@ const EventsMgt = () => {
             onClick={() => setToggleEvents("Created Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">0</h1>
+              <h1 className="text-3xl font-semibold">{createdEventData ? createdEventData.length : "0"}</h1>
               <p className="text-lg font-medium">Created Events</p>
             </div>
 
@@ -59,10 +87,15 @@ const EventsMgt = () => {
         </div>
       </section>
 
-      <section className="w-full flex items-start gap-10">
+      <section className="w-full flex items-start gap-6">
         <div className="w-[76%]">
-          {toggleEvents === "Created Events" ? (
-            <CreatedEvents />
+
+          { isLoading ?
+          <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
+            <div className="text-2xl font-semibold text-[#E0580C]">Loading...</div>
+            <PropagateLoader color="#E0580C" />
+          </div> : toggleEvents === "Created Events" ? (
+            <CreatedEvents createdEventData={createdEventData}/>
           ) : toggleEvents === "Upcoming Events" ? (
             <UpcomingEvents />
           ) : (
