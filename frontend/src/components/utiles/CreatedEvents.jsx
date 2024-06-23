@@ -56,7 +56,7 @@ const CreatedEvents = ({ createdEventData }) => {
 
               <div>
                 <button 
-                className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-lg font-semibold"
+                className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-lg font-semibold border-2 border-[#EBEBEB]"
                 onClick={() => handleManageEvent(data._id)}
                 >
                   Manage Event <CgArrowTopRight className="text-xl]" />
