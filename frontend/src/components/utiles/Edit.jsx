@@ -202,7 +202,7 @@ const Edit = () => {
               handleInitialValidation={handleInitialValidation}
               primaryBtnCaption={"Next"}
               secondaryBtnCaption={"Back"}
-              route={"/"}
+              route={`/manage/event/${id}`}
             />
           ) : progressStage === 2 ? (
             <EventFormFinal
