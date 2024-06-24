@@ -40,14 +40,14 @@ const EventOverview = ({ event, isLoading }) => {
 
   if (isLoading)
     return (
-      <div className="bg-[#f1f5fd] flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
+      <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
         <p>Loading...</p> <PropagateLoader color="#E0580C" />
       </div>
     );
 
   if (!event)
     return (
-      <div className="bg-[#f1f5fd] flex items-center justify-center p-10 text-3xl  text-red-900 min-h-screen">
+      <div className="flex flex-col items-center justify-center p-10 text-3xl  text-red-900 min-h-[70vh]">
         {" "}
         <BiSolidError className="text-6xl" />
         <p>404! Product not found</p>

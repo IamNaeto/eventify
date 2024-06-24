@@ -78,7 +78,7 @@ const Edit = () => {
 
   if (!event)
     return (
-      <div className="flex items-center justify-center p-10 text-3xl text-red-900 min-h-screen">
+      <div className="flex flex-col items-center justify-center p-10 text-3xl text-red-900 min-h-screen">
         <BiSolidError className="text-6xl" />
         <p>404! event not found</p>
       </div>
