@@ -8,17 +8,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { Toaster, toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const EventsMgt = () => {
   const [toggleEvents, setToggleEvents] = useState("Created Events");
-  const [createdEventData, setCreatedEventData] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [createdEventData, setCreatedEventData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
 
   useEffect(() => {
- fetchData();
-  }, [getEventsEndpoint])
+    fetchData();
+  }, [getEventsEndpoint]);
 
   const fetchData = async () => {
     try {
@@ -36,6 +38,24 @@ const EventsMgt = () => {
     }
   };
 
+  const handleCreateEventRoute = (id) => {
+    navigate("/event/create");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const currentDate = new Date();
+
+  // Filtering upcoming and past events
+  const upcomingEvents = createdEventData.filter((event) => {
+    const eventEndDate = new Date(event.event_end_date);
+    return eventEndDate >= currentDate;
+  });
+
+  const pastEvents = createdEventData.filter((event) => {
+    const eventEndDate = new Date(event.event_end_date);
+    return eventEndDate < currentDate;
+  });
+
   return (
     <main className="min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6 grid gap-6">
       <Toaster position="top-right" richColors />
@@ -50,7 +70,9 @@ const EventsMgt = () => {
             onClick={() => setToggleEvents("Created Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">{createdEventData ? createdEventData.length : "0"}</h1>
+              <h1 className="text-3xl font-semibold">
+                {createdEventData ? createdEventData.length : "0"}
+              </h1>
               <p className="text-lg font-medium">Created Events</p>
             </div>
 
@@ -64,7 +86,9 @@ const EventsMgt = () => {
             onClick={() => setToggleEvents("Upcoming Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">0</h1>
+              <h1 className="text-3xl font-semibold">
+                {upcomingEvents ? upcomingEvents.length : "0"}
+              </h1>
               <p className="text-lg font-medium">Upcoming Events</p>
             </div>
 
@@ -78,7 +102,9 @@ const EventsMgt = () => {
             onClick={() => setToggleEvents("Past Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">0</h1>
+              <h1 className="text-3xl font-semibold">
+                {pastEvents ? pastEvents.length : "0"}
+              </h1>
               <p className="text-lg font-medium">Past Events</p>
             </div>
 
@@ -89,29 +115,31 @@ const EventsMgt = () => {
 
       <section className="w-full flex items-start gap-6">
         <div className="w-[76%]">
-
-          { isLoading ?
-          <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
-            <div className="text-2xl font-semibold text-[#E0580C]">Loading...</div>
-            <PropagateLoader color="#E0580C" />
-          </div> : toggleEvents === "Created Events" ? (
-            <CreatedEvents createdEventData={createdEventData}/>
+          {isLoading ? (
+            <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
+              <div className="text-2xl font-semibold text-[#E0580C]">
+                Loading...
+              </div>
+              <PropagateLoader color="#E0580C" />
+            </div>
+          ) : toggleEvents === "Created Events" ? (
+            <CreatedEvents createdEventData={createdEventData} />
           ) : toggleEvents === "Upcoming Events" ? (
-            <UpcomingEvents />
+            <UpcomingEvents upcomingEvents={upcomingEvents} />
           ) : (
-            <PastEvents />
+            <PastEvents pastEvents={pastEvents} />
           )}
         </div>
         <div className="grid gap-4 w-[25%]">
           <CustomCalendar />
 
           <div className="w-full flex flex-col gap-4">
-            <Link
-              to={"/event/create"}
+            <button
+              onClick={handleCreateEventRoute}
               className="w-full border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] text-center py-2 px-4 rounded-md"
             >
               Create Event +
-            </Link>
+            </button>
             <Link
               to={""}
               className="flex items-center justify-center gap-2 w-full border-2 border-[#E0580C] bg-[#FEFEFE] text-center text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"

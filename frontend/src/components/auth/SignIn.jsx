@@ -1,7 +1,35 @@
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { LuLoader2 } from "react-icons/lu";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const SignIn = ({ closeModal, setAuthPage }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      toast.error("All fields must be filled");
+      return;
+    }
+
+    const data = {
+      email: email,
+      password: password,
+    };
+    setIsLoading(true);
+    console.log(JSON.stringify(data));
+    toast.success("Sigin Successful");
+    setTimeout(() => {
+      setEmail("");
+      setPassword("");
+      setIsLoading(false);
+    }, 3000);
+  };
+
   const handleGoogleSigin = () => {
     toast.info("Coming soon!");
   };
@@ -36,29 +64,42 @@ const SignIn = ({ closeModal, setAuthPage }) => {
       </div>
 
       <form action="" className="grid gap-2">
-        <label htmlFor="">
+        <label htmlFor="email">
           Email
           <input
             type="email"
+            id="email"
             className="input"
             placeholder="Enter Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
 
-        <label htmlFor="">
+        <label htmlFor="password">
           Password
           <input
             type="password"
+            id="password"
             className="input"
             placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
 
-        <button className="border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md">
-          Continue
+        <button
+          onClick={handleSignIn}
+          className="flex items-center justify-center border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md"
+        >
+          {isLoading ? (
+            <LuLoader2 className="text-2xl animate-spin" />
+          ) : (
+            "Sign in"
+          )}
         </button>
         <p className="text-base font-semibold">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <span
             onClick={() => setAuthPage("Sign Up")}
             className="text-[#E0580C] cursor-pointer"
