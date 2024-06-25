@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="relative top-[75px] py-5 px-[3%] border-b grid grid-cols-2 gap-4 border-b-[#A6A6A6]">
+    <section className="relative top-[80px] py-8 px-[3%] border-b grid grid-cols-2 gap-4 border-b-[#A6A6A6]">
       <div className="flex flex-col gap-4">
         <motion.img
           src="/img/eventify-icon.png"
