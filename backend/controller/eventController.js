@@ -42,11 +42,22 @@ const createEvents = async (req, res) => {
       });
     }
 
-    // Check if an event with the same name already exists
+    // A middleware that attaches the user ID to the request
+    const userId = req.user?.id;
+
+    // Ensure userId is defined
+    if (!userId) {
+      return res.status(401).send({
+        msg: "Unauthorized: No user ID found",
+      });
+    }
+
+    // Check if an event with the same name, start date, start time, and user ID already exists
     const existingEvent = await eventSchema.findOne({
       event_name,
       event_start_date,
       event_start_time,
+      createdBy: userId, // Ensure it matches the createdBy field
     });
 
     if (existingEvent) {
@@ -54,7 +65,12 @@ const createEvents = async (req, res) => {
     }
 
     // Create the new event
-    const eventDetails = await eventSchema.create(req.body);
+    const eventData = {
+      ...req.body,
+      createdBy: userId, // Store the user ID as the creator of the event
+    };
+
+    const eventDetails = await eventSchema.create(eventData);
 
     // Send the created event details as a response
     res.status(201).send(eventDetails);
@@ -70,7 +86,15 @@ const createEvents = async (req, res) => {
 // Helps to get all events
 const getEvents = async (req, res) => {
   try {
-    const events = await eventSchema.find();
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized user! Please signin" });
+    }
+
+    const events = await eventSchema.find({ createdBy: userId });
     if (events) {
       res.status(200).send(events);
     } else {
@@ -82,14 +106,24 @@ const getEvents = async (req, res) => {
   }
 };
 
-// Helps to get a singular event
+// Get a single event by ID
 const getEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const event = await eventSchema.findById(id);
-    if (!event) {
-      return res.status(404).send({ msg: "event not found!" });
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized user! Please signin" });
     }
+
+    const event = await eventSchema.findOne({ _id: id, createdBy: userId });
+
+    if (!event) {
+      return res.status(404).send({ msg: "Event not found" });
+    }
+
     res.status(200).send(event);
   } catch (error) {
     res
@@ -98,34 +132,72 @@ const getEvent = async (req, res) => {
   }
 };
 
-// Helps to edit or update a event
+// Helps to edit or update an event
 const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const eventID = await eventSchema.findByIdAndUpdate(id, req.body);
-    if (!eventID) {
-      res.status(404).send({ msg: "Invalid ID; event not found" });
-      return;
+    const userId = req.user?.id;
+
+    // Ensure userId is defined
+    if (!userId) {
+      return res.status(401).send({ msg: "Unauthorized: No user ID found" });
     }
-    const updatedevent = await eventSchema.findById(id);
-    res.status(200).send(updatedevent);
+
+    // Find the event by id and userId
+    const eventToUpdate = await eventSchema.findOne({
+      _id: id,
+      createdBy: userId,
+    });
+
+    // Check if the event exists and belongs to the user
+    if (!eventToUpdate) {
+      return res.status(404).send({
+        msg: "Invalid ID; event not found or you do not have permission to update this event",
+      });
+    }
+
+    // Update the event
+    const updatedEvent = await eventSchema.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.status(200).send(updatedEvent);
   } catch (error) {
-    res.status(500).send({ msg: "Internal Server Error" });
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
   }
 };
 
-// Helps to delete a event by id
+// Helps to delete an event by id
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedevent = await eventSchema.findByIdAndDelete(id);
-    if (!deletedevent) {
-      res.status(404).send({ msg: "Invalid ID; event not found" });
-      return;
+    const userId = req.user?.id;
+
+    // Ensure userId is defined
+    if (!userId) {
+      return res.status(401).send({ msg: "Unauthorized: No user ID found" });
     }
-    res.status(200).send({ msg: "event deleted successfully" });
+
+    // Find the event by id and userId
+    const eventToDelete = await eventSchema.findOneAndDelete({
+      _id: id,
+      createdBy: userId,
+    });
+
+    // Check if the event exists and belongs to the user
+    if (!eventToDelete) {
+      return res.status(404).send({
+        msg: "Invalid ID; event not found or you do not have permission to delete this event",
+      });
+    }
+
+    res.status(200).send({ msg: "Event deleted successfully" });
   } catch (error) {
-    res.status(500).send({ msg: "Internal Server Error" });
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
   }
 };
 

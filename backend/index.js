@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const eventRoute = require("./route/eventRoute.js");
+const userRoute = require("./route/userRoute.js");
 const cors = require("cors");
 
 const app = express(); // express instance
@@ -10,7 +11,8 @@ app.use(cors()); // Use CORS middleware
 
 app.use(express.json()); // registering express json middleware
 app.use(express.urlencoded({ extended: false })); // registering urlencoded to express which helps us to post using a form or urlencoded format
-app.use(process.env.APP_EVENT_ROUTE_URL, eventRoute);
+app.use(process.env.APP_EVENT_ROUTE_URL, eventRoute); //manage event route
+app.use(process.env.APP_EVENT_USER_ROUTE_URL, userRoute); // manage user route
 
 const PORT = process.env.PORT || 3000; //port number
 

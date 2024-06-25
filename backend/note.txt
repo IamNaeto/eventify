@@ -5,3 +5,8 @@ Installations
     * Nodemon allows authomatically update of changes in a file. Its like a watch mood
 - npm install mongodb
 - npm install mongoose
+- npm install dotenv
+- npm install cors
+- npm install jsonwebtoken
+- npm install bcrypt
+    * Use for hashing passwords

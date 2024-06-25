@@ -1,3 +1,4 @@
+// routes/eventRoutes.js
 const express = require("express");
 const router = express.Router();
 const {
@@ -8,17 +9,21 @@ const {
   deleteEvent,
 } = require("../controller/eventController.js");
 
-// get method
-router.get("/", getEvents);
-router.get("/:id", getEvent);
+const { verifyJWT } = require("../controller/userController.js");
 
-// post method
-router.post("/create", createEvents);
+// Get all events for the authenticated user
+router.get("/", verifyJWT, getEvents);
 
-// put method
-router.put("/update/:id", updateEvent);
+// Get a single event by ID for the authenticated user
+router.get("/:id", verifyJWT, getEvent);
 
-// delete method
-router.delete("/delete/:id", deleteEvent);
+// Create a new event for the authenticated user
+router.post("/create", verifyJWT, createEvents);
+
+// Update an event by ID for the authenticated user
+router.put("/update/:id", verifyJWT, updateEvent);
+
+// Delete an event by ID for the authenticated user
+router.delete("/delete/:id", verifyJWT, deleteEvent);
 
 module.exports = router;
