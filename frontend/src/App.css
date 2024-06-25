@@ -35,6 +35,16 @@ label{
   font-weight: 500;
 }
 
+.sigup-bg{
+  background-image: url("/img/signup.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.sigin-bg{
+  background-image: url("/img/signin.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 /**react calender styling**/
 .react-calendar__tile--now {

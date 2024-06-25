@@ -2,21 +2,24 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { LuLoader2 } from "react-icons/lu";
 import { toast } from "sonner";
 import { useState } from "react";
+import axios from "axios";
 
 const SignUp = ({ closeModal, setAuthPage }) => {
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const signupAuthUrl = `${import.meta.env.VITE_APP_AUTH_ROUTE_URL}/signup`;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
 
-    if (!fullName || !email || !password || !confirmPassword) {
-      toast.error("All fields must be filled");
+    if (!fullname || !email || !password || !confirmPassword) {
+      toast.error("Ooops! All fields must be filled");
       setIsLoading(false);
       return;
     } else if (password !== confirmPassword) {
@@ -26,18 +29,29 @@ const SignUp = ({ closeModal, setAuthPage }) => {
     }
 
     const data = {
-      fullName: fullName,
+      fullname: fullname,
       email: email,
       password: password,
     };
 
-    console.log(JSON.stringify(data));
-    toast.success("Signup successful");
-
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      const request = await axios.post(signupAuthUrl, data);
+      console.log(request);
+      toast.success("Signup successful");
+      setTimeout(() => {
+        setIsLoading(false);
+        setAuthPage("Sign In");
+      }, 3000);
+    } catch (error) {
+      console.log("Error: ", error);
+      if (error.response && error.response.status === 409) {
+        toast.error("User with this email already exists");
+      } else {
+        toast.error(error.message);
+      }
       setIsLoading(false);
-      setAuthPage("Sign In");
-    }, 3000);
+    }
   };
 
   const handleGoogleSigin = () => {
@@ -74,16 +88,16 @@ const SignUp = ({ closeModal, setAuthPage }) => {
       </div>
 
       <form action="" className="grid gap-2">
-        <label htmlFor="fullName" className="label">
+        <label htmlFor="fullname" className="label">
           Full Name
           <input
             type="text"
-            id="fullName"
-            name="fullName"
+            id="fullname"
+            name="fullname"
             className="input"
             placeholder="Enter Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
           />
         </label>
 

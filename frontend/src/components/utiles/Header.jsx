@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-// import SignUp from "../auth/SignUp";
-// import SignIn from "../auth/SignIn";
-import Auths from "../pages/Auths";
+import Auths from "../modal/Auths";
 import { useState } from "react";
 
 const Header = () => {

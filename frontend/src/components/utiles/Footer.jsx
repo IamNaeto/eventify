@@ -72,7 +72,7 @@ const Footer = () => {
         className="flex items-center justify-between gap-4 text-[12px]  text-[#3C3C3C] py-4"
       >
         <p className="text-[#E0580C] font-medium">
-          © 2023 Evento. All rights reserved.
+          © 2024 Eventify. All rights reserved.
         </p>
 
         <div className="flex items-center justify-center font-medium gap-4">
