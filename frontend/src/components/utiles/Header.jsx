@@ -44,7 +44,7 @@ const Header = () => {
       </Link>
 
       <div className="flex items-center justify-center gap-6">
-        <Link to={""} className="hover:text-[#E0580C] delay-150 transition-all">
+        <Link to={"/event/explore"} className="hover:text-[#E0580C] delay-150 transition-all">
           Explore
         </Link>
         <Link

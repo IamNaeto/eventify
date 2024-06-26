@@ -52,6 +52,7 @@ const CreateEventFinal = ({
           <option value="Health & Wellness">Health & Wellness</option>
           <option value="Travel & Adventure">Travel & Adventure</option>
           <option value="Networking & Business">Networking & Business</option>
+          <option value="Celebrations & Ceremonies">Celebrations & Ceremonies</option>
         </select>
       </label>
 

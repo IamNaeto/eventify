@@ -72,3 +72,10 @@ label{
   background-color: #fceee7 !important;
   color: #d65f1b !important;
 }
+
+.explore-bg{
+  background-image: url("/img/explore-bg.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-attachment: fixed;
+}
