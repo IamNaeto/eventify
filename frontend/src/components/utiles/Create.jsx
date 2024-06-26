@@ -27,6 +27,7 @@ const Create = () => {
   const [price, setPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const token = localStorage.getItem("eventify_auth_token");
 
   const navigate = useNavigate();
 
@@ -83,7 +84,16 @@ const Create = () => {
 
     try {
       setIsLoading(true);
-      const request = await axios.post(createEventEndpoint, data);
+
+      if (!token) {
+        toast.error("Unauthorized, please signin");
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const request = await axios.post(createEventEndpoint, data, { headers });
       console.log(request);
       setProgressStage(3);
       setShowConfetti(true);

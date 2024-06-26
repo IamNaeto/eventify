@@ -31,7 +31,7 @@ const Edit = () => {
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState(null);
   const { width, height } = useWindowSize();
-
+  const token = localStorage.getItem("eventify_auth_token");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -40,8 +40,18 @@ const Edit = () => {
     const fetchEvent = async () => {
       try {
         setLoading(true);
+
+        if (!token) {
+          toast.error("Unauthorized, please sign in");
+        }
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
         const response = await axios.get(
-          `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/${id}`
+          `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/${id}`,
+          { headers }
         );
         const eventData = response.data;
         setEvent(eventData);
@@ -131,9 +141,19 @@ const Edit = () => {
 
     try {
       setIsLoading(true);
+
+      if (!token) {
+        toast.error("Unauthorized, please sign in");
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       const request = await axios.put(
         `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/update/${id}`,
-        data
+        data,
+        { headers }
       );
       console.log(request);
       setProgressStage(3);

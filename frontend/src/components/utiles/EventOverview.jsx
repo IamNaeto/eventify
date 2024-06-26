@@ -34,7 +34,7 @@ const EventOverview = ({ event, isLoading }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const token = localStorage.getItem("eventify_auth_token");
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
@@ -54,10 +54,20 @@ const EventOverview = ({ event, isLoading }) => {
       </div>
     );
 
+  // function to delete product using the id
   const handleProductDelete = async () => {
     try {
+      if (!token) {
+        toast.error("Unauthorized, please login");
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       const request = await axios.delete(
-        `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/delete/${id}`
+        `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/delete/${id}`,
+        { headers }
       );
       console.log(request);
       toast.success(`${event.event_name} event deleted successfully`);

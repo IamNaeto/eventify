@@ -15,6 +15,7 @@ const EventsMgt = () => {
   const [createdEventData, setCreatedEventData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("eventify_auth_token");
 
   const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
 
@@ -25,11 +26,21 @@ const EventsMgt = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(getEventsEndpoint);
+
+      if (!token) {
+        toast.error("Unauthorzied user, please login");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.get(getEventsEndpoint, { headers });
       const data = response.data;
       setCreatedEventData(data);
       console.log(data);
-      toast.success("Data fetched successfully");
+      // toast.success("Data fetched successfully");
     } catch (error) {
       console.error(error);
       toast.error("Error: " + error.message);
