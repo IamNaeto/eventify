@@ -9,6 +9,7 @@ import { TbLoader2 } from "react-icons/tb";
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -19,7 +20,7 @@ const Header = () => {
     if (token) {
       setIsAuthenticated(true);
     }
-    setIsLoading(false);
+    setLoading(false);
   }, []);
 
   const openModal = () => setModalIsOpen(true);
@@ -59,7 +60,8 @@ const Header = () => {
           Create Event +
         </Link>
       </div>
-      {!isAuthenticated ? (
+      {loading ? <TbLoader2 className="animate-spin text-4xl text-[#E0580C] shadow-lg p-1 rounded-full  border border-[#EBEBEB]" /> :
+       !isAuthenticated ? (
         <div className="flex items-center justify-center gap-6">
           <button
             className="border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
@@ -75,18 +77,18 @@ const Header = () => {
           </Link>
         </div>
       ) : (
-        <div className="flex items-center justify-center gap-4 text-[#E0580C] hover:text-[#9D3E08] delay-100 transition-all">
-          <div className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] cursor-pointer">
+        <div className="flex items-center justify-center gap-4 text-[#E0580C] delay-100 transition-all">
+          <div className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] hover:text-[#9D3E08] cursor-pointer">
             <HiOutlineBell />
           </div>
 
-          <div className="p-2 rounded-full shadow-lg border border-[#EBEBEB] cursor-pointer">
+          <div className="p-2 rounded-full shadow-lg border border-[#EBEBEB]  cursor-pointer">
             <img src="/img/event-user.png" alt="user" />
           </div>
 
           <div
             onClick={handleLogOut}
-            className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] cursor-pointer"
+            className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] hover:text-[#9D3E08]  cursor-pointer"
           >
             {isLoading ? (
               <TbLoader2 className="animate-spin" />
