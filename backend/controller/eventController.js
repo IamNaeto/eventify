@@ -83,7 +83,7 @@ const createEvents = async (req, res) => {
   }
 };
 
-// Helps to get all events
+// Helps to get all events specific to a user
 const getEvents = async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -106,7 +106,7 @@ const getEvents = async (req, res) => {
   }
 };
 
-// Get a single event by ID
+// Get a single event by ID specific to a user
 const getEvent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -125,6 +125,22 @@ const getEvent = async (req, res) => {
     }
 
     res.status(200).send(event);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
+  }
+};
+
+// Helps to get all events from all users
+const getAllEvents = async (req, res) => {
+  try {
+    const events = await eventSchema.find().populate("createdBy");
+    if (events.length > 0) {
+      res.status(200).send(events);
+    } else {
+      res.status(404).send({ msg: "No events found" });
+    }
   } catch (error) {
     res
       .status(500)
@@ -205,6 +221,7 @@ module.exports = {
   createEvents,
   getEvents,
   getEvent,
+  getAllEvents,
   updateEvent,
   deleteEvent,
 };

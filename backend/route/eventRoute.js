@@ -5,11 +5,15 @@ const {
   createEvents,
   getEvents,
   getEvent,
+  getAllEvents,
   updateEvent,
   deleteEvent,
 } = require("../controller/eventController.js");
 
 const { verifyJWT } = require("../controller/userController.js");
+
+// Get all events for all users
+router.get("/allEvents", getAllEvents);
 
 // Get all events for the authenticated user
 router.get("/", verifyJWT, getEvents);
