@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import WhatNextHint from "./WhatNextHint";
 import FormatDate from "./FormatedDate";
 import { FiEye } from "react-icons/fi";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
-const RecentEvents = ({ allEvents, searchQuery }) => {
+const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
   const [visibleEvents, setVisibleEvents] = useState(6);
   const [showingAll, setShowingAll] = useState(false);
 
@@ -29,6 +30,13 @@ const RecentEvents = ({ allEvents, searchQuery }) => {
   const sortedEvents = filteredEvents.sort(
     (a, b) => new Date(b.event_start_date) - new Date(a.event_start_date)
   );
+
+  if (isLoading)
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
+        <p>Loading...</p> <PropagateLoader color="#E0580C" />
+      </div>
+    );
 
   return (
     <main className="relative top-[76px] px-[3%] pt-10 pb-20">

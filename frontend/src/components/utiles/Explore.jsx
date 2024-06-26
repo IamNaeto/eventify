@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { useState, useEffect } from "react";
-import PropagateLoader from "react-spinners/PropagateLoader";
 
 const Explore = () => {
   const [allEvents, setAllEvents] = useState([]);
@@ -33,7 +32,7 @@ const Explore = () => {
       const response = await axios.get(getAllEventsEndpoint);
       const data = response.data;
       setAllEvents(data);
-    //   toast.success("Data fetched successfully");
+      //   toast.success("Data fetched successfully");
     } catch (error) {
       console.error(error);
       toast.error("Error: " + error.message);
@@ -42,18 +41,15 @@ const Explore = () => {
     }
   };
 
-  if (isLoading)
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
-        <p>Loading...</p> <PropagateLoader color="#E0580C" />
-      </div>
-    );
-
   return (
     <div>
       <ExploreHero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Categories allEvents={allEvents} setFilteredEvents={setFilteredEvents} />
-      <RecentEvents allEvents={filteredEvents} searchQuery={searchQuery} />
+      <RecentEvents
+        allEvents={filteredEvents}
+        searchQuery={searchQuery}
+        isLoading={isLoading}
+      />
       <Toaster position="top-right" richColors />
     </div>
   );
