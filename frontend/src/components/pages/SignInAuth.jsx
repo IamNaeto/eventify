@@ -37,7 +37,7 @@ const SignInAuth = () => {
         setEmail("");
         setPassword("");
         setIsLoading(false);
-        navigate("/manage/events");
+        navigate("/event/explore");
       }, 3000);
     } catch (error) {
       console.log("Error: ", error);

@@ -14,12 +14,14 @@ const CreatedEvents = ({ createdEventData = [] }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Reverse the event data
+  const reversedEventData = [...createdEventData].reverse();
+
   return (
     <main>
-      {createdEventData.length > 0 ? (
-      <section className="grid grid-cols-2 gap-6">
-        
-          {createdEventData.map((data) => (
+      {reversedEventData.length > 0 ? (
+        <section className="grid grid-cols-2 gap-6">
+          {reversedEventData.map((data) => (
             <div
               key={data._id}
               className="grid gap-2 rounded-xl border-[2px] border-[#FEFEFE] shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90"
@@ -76,10 +78,10 @@ const CreatedEvents = ({ createdEventData = [] }) => {
               </div>
             </div>
           ))}
-      </section>
+        </section>
       ) : (
-          <WhatNextHint />
-        )}
+        <WhatNextHint />
+      )}
     </main>
   );
 };

@@ -3,14 +3,14 @@ import { LuLoader2 } from "react-icons/lu";
 import { toast } from "sonner";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ closeModal, setAuthPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
 
   const signinAuthUrl = `${import.meta.env.VITE_APP_AUTH_ROUTE_URL}/signin`;
 
@@ -28,19 +28,18 @@ const SignIn = ({ closeModal, setAuthPage }) => {
     };
 
     try {
-      setIsLoading(true)
-      const res = await axios.post(signinAuthUrl, data)
-      localStorage.setItem("eventify_auth_token", res.data.token)
+      setIsLoading(true);
+      const res = await axios.post(signinAuthUrl, data);
+      localStorage.setItem("eventify_auth_token", res.data.token);
       toast.success("Sigin Successful");
       setTimeout(() => {
-      setEmail("");
-      setPassword("");
-      setIsLoading(false);
-      navigate("/manage/events")
-    }, 3000);
-      
+        setEmail("");
+        setPassword("");
+        setIsLoading(false);
+        navigate("/event/explore");
+      }, 3000);
     } catch (error) {
-       console.log("Error: ", error);
+      console.log("Error: ", error);
       if (error.response && error.response.status === 401) {
         toast.error("Invalid email or password");
       } else {
@@ -48,7 +47,6 @@ const SignIn = ({ closeModal, setAuthPage }) => {
       }
       setIsLoading(false);
     }
-
   };
 
   const handleGoogleSigin = () => {

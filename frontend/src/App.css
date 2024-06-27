@@ -20,7 +20,7 @@ body {
 
 .input {
   width: 100%;
-  padding: 6px;
+  padding: 6px 10px;
   border: 2px solid #dedede;
   border-radius: 6px;
   outline: none;
