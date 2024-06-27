@@ -6,6 +6,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { TbLoader2 } from "react-icons/tb";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -14,6 +15,7 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation()
 
   useEffect(() => {
     const token = localStorage.getItem("eventify_auth_token");
@@ -43,26 +45,29 @@ const Header = () => {
         <img src="/img/eventify-logo.svg" alt="" />
       </Link>
 
-      <div className="flex items-center justify-center gap-6">
-        <Link to={"/event/explore"} className="hover:text-[#E0580C] delay-150 transition-all">
+      <div className="flex items-center justify-center gap-4">
+        <Link to={"/"} className={`${location.pathname === "/" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}>
+        Home
+      </Link>
+        <Link to={"/event/explore"} className={`${location.pathname === "/event/explore" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}>
           Explore
         </Link>
         <Link
           to={"/manage/events"}
-          className="hover:text-[#E0580C] delay-150 transition-all"
+          className={`${location.pathname === "/manage/events" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}
         >
           Manage Events
         </Link>
         <Link
           to={"/event/create"}
-          className="hover:text-[#E0580C] delay-150 transition-all"
+          className={`${location.pathname === "/event/create" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}
         >
           Create Event +
         </Link>
       </div>
       {loading ? <TbLoader2 className="animate-spin text-4xl text-[#E0580C] shadow-lg p-1 rounded-full  border border-[#EBEBEB]" /> :
        !isAuthenticated ? (
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex items-center justify-center gap-4">
           <button
             className="border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
             onClick={openModal}
