@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { HiOutlineBell } from "react-icons/hi2";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { TbLoader2 } from "react-icons/tb";
 import { useLocation } from "react-router-dom";
 
