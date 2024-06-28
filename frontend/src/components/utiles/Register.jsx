@@ -1,16 +1,9 @@
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
 import { CgArrowTopRight } from "react-icons/cg";
-import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin3Line } from "react-icons/ri";
-import { HiOutlineUsers } from "react-icons/hi2";
-import { AiOutlineCloudUpload } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { BiSolidError } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -32,7 +25,6 @@ function formatDate(dateString) {
 const Register = () => {
     const [event, setEvent] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
     const { id } = useParams();
 
   useEffect(() => {

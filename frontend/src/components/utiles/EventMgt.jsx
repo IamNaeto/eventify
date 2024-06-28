@@ -14,7 +14,7 @@ const EventMgt = () => {
   const token = localStorage.getItem("eventify_auth_token");
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchEvent = async () => {
       try {
         setIsLoading(true);
         if (!token) {
@@ -38,7 +38,7 @@ const EventMgt = () => {
       }
     };
 
-    fetchProduct();
+    fetchEvent();
   }, [id]);
 
   return (
