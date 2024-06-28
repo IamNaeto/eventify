@@ -6,6 +6,7 @@ const {
   getEvents,
   getEvent,
   getAllEvents,
+  getSingleEvent,
   updateEvent,
   deleteEvent,
 } = require("../controller/eventController.js");
@@ -14,6 +15,9 @@ const { verifyJWT } = require("../controller/userController.js");
 
 // Get all events for all users
 router.get("/allEvents", getAllEvents);
+
+// Get a single event from all users event
+router.get("/singleEvent/:id", getSingleEvent);
 
 // Get all events for the authenticated user
 router.get("/", verifyJWT, getEvents);

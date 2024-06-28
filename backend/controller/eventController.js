@@ -148,6 +148,25 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+// Helps to get a single events from all events of the users
+const getSingleEvent = async (req, res) => {
+  try {
+    const { id } = req.params; // Get the event ID from the request parameters
+
+    const event = await eventSchema.findById(id);
+
+    if (event) {
+      res.status(200).send(event);
+    } else {
+      res.status(404).send({ msg: "Event not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
+  }
+};
+
 // Helps to edit or update an event
 const updateEvent = async (req, res) => {
   try {
@@ -222,6 +241,7 @@ module.exports = {
   getEvents,
   getEvent,
   getAllEvents,
+  getSingleEvent,
   updateEvent,
   deleteEvent,
 };

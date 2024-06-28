@@ -1,69 +1,81 @@
 const mongoose = require("mongoose");
 
-const eventSchema = mongoose.Schema(
+const eventSchema = new mongoose.Schema(
   {
     event_name: {
       type: String,
-      require: true,
+      required: true,
     },
     event_host_name: {
       type: String,
-      require: true,
+      required: true,
     },
     event_description: {
       type: String,
-      require: true,
+      required: true,
     },
     event_start_date: {
       type: String,
-      require: true,
+      required: true,
     },
     event_start_time: {
       type: String,
-      require: true,
+      required: true,
     },
     event_end_date: {
       type: String,
-      require: true,
+      required: true,
     },
     event_end_time: {
       type: String,
-      require: true,
+      required: true,
     },
     event_mode: {
       type: String,
-      require: true,
+      required: true,
+      enum: ["Physical", "Virtual (Zoom/Meet)"], // Specify valid modes
     },
     event_location: {
       type: String,
-      require: true,
+      required: function () {
+        return this.event_mode === "Physical";
+      },
     },
     event_link: {
       type: String,
-      require: true,
+      required: function () {
+        return this.event_mode === "Virtual (Zoom/Meet)";
+      },
     },
     event_category: {
       type: String,
-      require: true,
+      required: true,
     },
     event_capacity: {
-      type: String,
-      require: true,
+      type: Number,
+      required: true,
     },
     event_ticket: {
       type: String,
-      require: true,
+      required: true,
+      enum: ["Free", "Premium"], // Specify valid ticket types
     },
     event_price: {
-      type: String,
-      require: true,
+      type: Number,
+      required: function () {
+        return this.event_ticket === "Premium";
+      },
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      require: true,
+      required: true,
     },
+    attendees: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    ],
   },
-
   {
     timestamps: true,
   }
