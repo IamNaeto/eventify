@@ -9,6 +9,7 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import SignInAuth from "./components/pages/SignInAuth";
 import SignUpAuth from "./components/pages/SignUpAuth";
 import ExploreEvents from "./components/pages/ExploreEvents";
+import RegisterEvent from "./components/pages/RegisterEvent";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/event/edit/:id" element={<EditEvent />} />
           <Route path="/manage/events" element={<ManageEvents />} />
           <Route path="/manage/event/:id" element={<ManageEvent />} />
+          <Route path="/event/register/:id" element={<RegisterEvent />} />
         </Route>
       </Routes>
     </div>

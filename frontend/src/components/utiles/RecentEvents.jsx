@@ -11,6 +11,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
   const [visibleEvents, setVisibleEvents] = useState(6);
   const [showingAll, setShowingAll] = useState(false);
+  const navigate = useNavigate()
 
   const handleViewMore = () => {
     if (visibleEvents >= allEvents.length) {
@@ -37,6 +38,11 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
       </div>
     );
 
+     const handleEventClick = (id) => {
+    navigate(`/event/register/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <main className="relative top-[76px] px-[3%] pt-10 pb-20">
       <p className="text-xs text-[#959595] font-medium mb-1">Discover</p>
@@ -49,6 +55,7 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
           {reversedEventData.slice(0, visibleEvents).map((data) => (
             <div
               key={data._id}
+              onClick={() => handleEventClick(data._id)}
               className="grid gap-2 rounded-xl border-[2px] border-[#FEFEFE] shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90"
             >
               <div className="w-full">
