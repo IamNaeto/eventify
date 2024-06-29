@@ -10,6 +10,7 @@ import { Toaster, toast } from "sonner";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { LuLoader2 } from "react-icons/lu";
+import { jwtDecode } from "jwt-decode";
 
 // formatDate function
 function formatDate(dateString) {
@@ -33,21 +34,17 @@ const Register = () => {
   const { id } = useParams();
   const token = localStorage.getItem("eventify_auth_token");
   const [isRegistered, setIsRegistered] = useState(false);
-  const [userId, setUserId] = useState(
-    localStorage.getItem("registeredUserId") || ""
-  );
   const [showConfetti, setShowConfetti] = useState(false);
   const { width, height } = useWindowSize();
 
   useEffect(() => {
-    // fetch event by its id
     const fetchEvent = async () => {
       try {
         setIsLoading(true);
 
         if (!token) {
-          toast.error("Unauthorized user, please login");
-          setLoading(false);
+          console.error('Unauthorized user, please login');
+          setIsLoading(false);
           return;
         }
 
@@ -59,23 +56,34 @@ const Register = () => {
           `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/singleEvent/${id}`,
           { headers }
         );
+
         setEvent(response.data);
-        console.log(response.data);
-        // Check if user is already registered for this event
-        const isUserRegistered = response.data.attendees.some(
-          (attendee) => attendee.userId === userId
-        );
-        console.log("Is user registered:", isUserRegistered);
-        setIsRegistered(isUserRegistered);
+        console.log('Fetched event:', response.data);
+
+        // Decode the token to get payload data
+        try {
+          const decodedToken = jwtDecode(token);
+          const userId = decodedToken.userId;
+          console.log('User ID:', userId);
+
+          // Check if user is already registered for this event
+          const isUserRegisteredLocal = response.data.attendees.some(
+            (attendee) => attendee.userId === userId
+          );
+          console.log('Is user registered:', isUserRegisteredLocal);
+          setIsRegistered(isUserRegisteredLocal);
+        } catch (decodeError) {
+          console.error('Error decoding token:', decodeError);
+        }
       } catch (error) {
-        console.error("Error fetching event details:", error);
+        console.error('Error fetching event details:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchEvent();
-  }, [id, token, userId]);
+  }, [id, token]);
 
   // Handle event registration
   const handleRegister = async () => {
@@ -100,22 +108,20 @@ const Register = () => {
 
       console.log(response.data);
 
-      const { msg, event, user } = response.data;
-      const registeredUserId = user._id;
-
-      localStorage.setItem("registeredUserId", registeredUserId); // Store userId in localStorage
-      setUserId(registeredUserId); // Set the user ID in state after registration
       setIsRegistered(true);
       setShowConfetti(true);
-      setTimeout(() => {
-        toast.success("Event registered successfully");
-      }, 2000);
+      toast.success("Event registered successfully");
 
-      // Stop confetti after 5 seconds
-      setTimeout(() => setShowConfetti(false), 5000);
+      // Stop confetti after 6 seconds
+      setTimeout(() => setShowConfetti(false), 6000);
     } catch (error) {
       console.error("Error registering for the event:", error);
-      toast.error("Error registering for the event");
+       if (error.response && error.response.status === 409) {
+        toast.error("Event already registered");
+      } else {
+        toast.error(error.message);
+      }
+      
     } finally {
       setLoading(false);
     }
@@ -143,11 +149,7 @@ const Register = () => {
 
       console.log(response.data);
       setIsRegistered(false);
-      localStorage.removeItem("registeredUserId"); // Remove userId from localStorage on cancellation
-      setUserId(""); // Clear userId state
-      setTimeout(() => {
-        toast.success("Event registration cancelled successfully");
-      }, 2000);
+      toast.success("Event registration cancelled successfully");
     } catch (error) {
       console.error("Error cancelling registered event:", error);
       toast.error("Error cancelling registered event");
@@ -212,12 +214,14 @@ const Register = () => {
             </div>
             <div>
               <p className="text-lg font-semibold">
-                {formatDate(event.event_start_date)} to{" "}
-                {formatDate(event.event_end_date)}
+                {formatDate(event.event_start_date)} {"to"}
+                {formatDate(event.event_end_date)}  
               </p>
+              { isRegistered ?
               <p className="text-[16px]">
                 {event.event_start_time} to {event.event_end_time}
               </p>
+              : <p>************** to **************</p>}
             </div>
           </div>
 
@@ -229,11 +233,12 @@ const Register = () => {
               <p className="text-lg flex items-center gap-1 font-semibold">
                 Location <CgArrowTopRight />
               </p>
-              <p className="text-[16px]">
+              { isRegistered ? <p className="text-[16px]">
                 {event.event_mode === "Physical"
                   ? event.event_location
                   : event.event_link}
-              </p>
+              </p> : <p>***************</p>}
+              
             </div>
           </div>
 

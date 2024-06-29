@@ -7,11 +7,12 @@ import FormatDate from "./FormatedDate";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { IoCalendarClearOutline } from "react-icons/io5";
 
-const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
+const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
   const [visibleEvents, setVisibleEvents] = useState(6);
   const [showingAll, setShowingAll] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleViewMore = () => {
     if (visibleEvents >= allEvents.length) {
@@ -31,17 +32,17 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
 
   const reversedEventData = [...filteredEvents].reverse();
 
+  const handleEventClick = (id) => {
+    navigate(`/event/register/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (isLoading)
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
         <p>Loading...</p> <PropagateLoader color="#E0580C" />
       </div>
     );
-
-     const handleEventClick = (id) => {
-    navigate(`/event/register/${id}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <main className="relative top-[76px] px-[3%] pt-10 pb-20">
@@ -52,69 +53,96 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading }) => {
       </h1>
       {reversedEventData.length > 0 ? (
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {reversedEventData.slice(0, visibleEvents).map((data) => (
-            <div
-              key={data._id}
-              onClick={() => handleEventClick(data._id)}
-              className="grid gap-2 rounded-xl border-[2px] border-[#FEFEFE] shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90"
-            >
-              <div className="w-full">
-                <img
-                  src={data.event_image || "/img/event-img.png"}
-                  alt="event-img"
-                  className="w-full"
-                />
-              </div>
+          {reversedEventData.slice(0, visibleEvents).map((data) => {
+            const isRegistered = data.attendees?.some(
+              (attendee) => attendee.userId === userId
+            );
+            return (
+              <div
+                key={data._id}
+                onClick={() => handleEventClick(data._id)}
+                className="grid gap-2 rounded-xl border-[2px] border-[#FEFEFE] shadow-md cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90 relative"
+              >
+                <div className="w-full">
+                  <img
+                    src={data.event_image || "/img/event-img.png"}
+                    alt="event-img"
+                    className="w-full"
+                  />
+                </div>
 
-              <div className="grid gap-4 p-4">
-                <div className="text-[#E57435] text-[16px] font-medium flex items-center justify-between gap-4">
-                  <p>{FormatDate(data.event_start_date)}</p>
-                  {data.event_ticket === "Premium" ? (
-                    <p className="py-1 px-3 rounded-md bg-[#FCEEE7]">
-                      {data.event_price}
+                <div className="grid gap-4 p-4">
+                  <div className="text-[#E57435] text-[16px] font-medium flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2">
+                      <IoCalendarClearOutline className="text-xl" />
+                      <p>{FormatDate(data.event_start_date)}</p>
+                    </div>
+                    {data.event_ticket === "Premium" ? (
+                      <p className="py-1 px-3 rounded-md bg-[#FCEEE7]">
+                        {data.event_price}
+                      </p>
+                    ) : (
+                      <p className="py-1 px-3 rounded-md bg-[#FCEEE7]">
+                        {data.event_ticket}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid gap-2 text-[#676767] text-sm font-medium">
+                    <h1 className="text-[#1E1E1E] text-2xl font-bold">
+                      {data.event_name}
+                    </h1>
+
+                    <p className="text-base text-[#E57435] font-medium">
+                      Host: {data.event_host_name}
                     </p>
-                  ) : (
-                    <p className="py-1 px-3 rounded-md bg-[#FCEEE7]">
-                      {data.event_ticket}
+                    <p className="flex items-center gap-2">
+                      <SlLocationPin />
+                      {isRegistered ? (
+                        <span>
+                          {data.event_mode === "Physical"
+                            ? data.event_location
+                            : data.event_link}
+                        </span>
+                      ) : (
+                        <span className="text-base font-medium">Location</span>
+                      )}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <MdOutlineAccessTime />
+                      {isRegistered ? (
+                        <span>{data.event_start_time} WAT</span>
+                      ) : (
+                        <span>Time</span>
+                      )}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <img
+                      src="/img/registered-users.png"
+                      alt="joiners"
+                      className=""
+                    />
+                    <p className="text-xs font-medium text-[#676767]">
+                      +32 People registered
+                    </p>
+                  </div>
+                  <p className="text-xs font-medium text-[#676767]">
+                    Event created by:{" "}
+                    <span className="font-semibold">
+                      {data.createdBy.fullname}
+                    </span>
+                  </p>
+                  {isRegistered && (
+                    <p className="absolute top-2 right-2 p-2 rounded-md text-sm text-[#FCEEE7] font-medium bg-green-800">
+                      Registered
                     </p>
                   )}
                 </div>
-
-                <div className="grid gap-2 text-[#676767] text-sm font-medium">
-                  <h1 className="text-[#1E1E1E] text-2xl font-bold">
-                    {data.event_name}
-                  </h1>
-
-                  <p className="text-base text-[#E57435] font-medium">
-                    Host: {data.event_host_name}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <SlLocationPin />
-                    <span>
-                      {data.event_mode === "Physical"
-                        ? data.event_location
-                        : data.event_link}
-                    </span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <MdOutlineAccessTime />
-                    <span>{data.event_start_time} WAT</span>
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <img
-                    src="/img/registered-users.png"
-                    alt="joiners"
-                    className=""
-                  />
-                  <p className="text-xs font-medium text-[#676767]">
-                    +32 People registered
-                  </p>
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
       ) : (
         <WhatNextHint />

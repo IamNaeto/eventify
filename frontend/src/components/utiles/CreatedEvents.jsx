@@ -53,6 +53,9 @@ const CreatedEvents = ({ createdEventData = [] }) => {
                   <h1 className="text-[#1E1E1E] text-2xl font-bold">
                     {data.event_name}
                   </h1>
+                  <p className="text-base text-[#E57435] font-medium">
+                      Host: {data.event_host_name}
+                    </p>
                   <p className="flex items-center gap-2">
                     <SlLocationPin />{" "}
                     <span>
