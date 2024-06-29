@@ -6,6 +6,10 @@ import { BiSolidError } from "react-icons/bi";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Toaster, toast } from "sonner";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
+import { LuLoader2 } from "react-icons/lu";
 
 // formatDate function
 function formatDate(dateString) {
@@ -23,50 +27,164 @@ function formatDate(dateString) {
 }
 
 const Register = () => {
-    const [event, setEvent] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const { id } = useParams();
+  const [event, setEvent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const token = localStorage.getItem("eventify_auth_token");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [userId, setUserId] = useState(
+    localStorage.getItem("registeredUserId") || ""
+  );
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
+    // fetch event by its id
     const fetchEvent = async () => {
       try {
         setIsLoading(true);
 
+        if (!token) {
+          toast.error("Unauthorized user, please login");
+          setLoading(false);
+          return;
+        }
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
         const response = await axios.get(
-          `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/singleEvent/${id}`
+          `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/singleEvent/${id}`,
+          { headers }
         );
         setEvent(response.data);
         console.log(response.data);
+        // Check if user is already registered for this event
+        const isUserRegistered = response.data.attendees.some(
+          (attendee) => attendee.userId === userId
+        );
+        console.log("Is user registered:", isUserRegistered);
+        setIsRegistered(isUserRegistered);
       } catch (error) {
-        console.error("Error fetching product details:", error);
+        console.error("Error fetching event details:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchEvent();
-  }, [id]);
+  }, [id, token, userId]);
 
+  // Handle event registration
+  const handleRegister = async () => {
+    try {
+      setLoading(true);
 
-  if (isLoading)
+      if (!token) {
+        toast.error("Unauthorized user, please login");
+        setLoading(false);
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/register/${id}`,
+        {},
+        { headers }
+      );
+
+      console.log(response.data);
+
+      const { msg, event, user } = response.data;
+      const registeredUserId = user._id;
+
+      localStorage.setItem("registeredUserId", registeredUserId); // Store userId in localStorage
+      setUserId(registeredUserId); // Set the user ID in state after registration
+      setIsRegistered(true);
+      setShowConfetti(true);
+      setTimeout(() => {
+        toast.success("Event registered successfully");
+      }, 2000);
+
+      // Stop confetti after 5 seconds
+      setTimeout(() => setShowConfetti(false), 5000);
+    } catch (error) {
+      console.error("Error registering for the event:", error);
+      toast.error("Error registering for the event");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Cancel event registeration
+  const handleCancelRegistration = async () => {
+    try {
+      setLoading(true);
+
+      if (!token) {
+        toast.error("Unauthorized user, please login");
+        setLoading(false);
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.delete(
+        `${import.meta.env.VITE_APP_EVENT_ROUTE_URL}/register/${id}`,
+        { headers }
+      );
+
+      console.log(response.data);
+      setIsRegistered(false);
+      localStorage.removeItem("registeredUserId"); // Remove userId from localStorage on cancellation
+      setUserId(""); // Clear userId state
+      setTimeout(() => {
+        toast.success("Event registration cancelled successfully");
+      }, 2000);
+    } catch (error) {
+      console.error("Error cancelling registered event:", error);
+      toast.error("Error cancelling registered event");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
         <p>Loading...</p> <PropagateLoader color="#E0580C" />
       </div>
     );
+  }
 
-  if (!event)
+  if (!event) {
     return (
-      <div className="flex flex-col items-center justify-center p-10 text-3xl  text-red-900 min-h-[70vh]">
+      <div className="flex flex-col items-center justify-center p-10 text-3xl text-red-900 min-h-[70vh]">
         {" "}
         <BiSolidError className="text-6xl" />
-        <p>404! Product not found</p>
+        <p>404! Event not found</p>
       </div>
     );
-
+  }
 
   return (
     <main className="grid gap-8 text-[#1E1E1E] min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6">
+      <Toaster position="top-right" richColors zIndex="100" />
+      {showConfetti && (
+        <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={300}
+          style={{ zIndex: 9999, position: "fixed", top: 0, left: 0 }}
+        />
+      )}
       <section className="grid grid-cols-2 gap-4">
         <div className="min-h-[430px] w-full">
           <img
@@ -149,17 +267,40 @@ const Register = () => {
           </div>
 
           <div className="w-full grid gap-2 border border-[#C0C0C0] shadow-md p-4 rounded-xl">
-            <p className="text-[#3C3C3C] text-base font-medium">Hello! To join the event, please register below.</p>
-            <button
-              className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg bg-[#E0580C] border-2 border-[#E0580C] text-[#FFF] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
-            >
-              {" "} Register
-            </button>
-            <button
-              className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg bg-[#E0580C] border-2 border-[#E0580C] text-[#FFF] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
-            >
-              {" "} Cancle Registration
-            </button>
+            {isRegistered ? (
+              <>
+                <p className="text-[#3C3C3C] text-base font-medium">
+                  Thank You for Joining. We hope you enjoyed the event! To
+                  cancel the event click the button below.
+                </p>
+                <button
+                  onClick={handleCancelRegistration}
+                  className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg bg-[#E0580C] border-2 border-[#E0580C] text-[#FFF] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
+                >
+                  {loading ? (
+                    <LuLoader2 className="animate-spin text-2xl" />
+                  ) : (
+                    "Cancel Registration"
+                  )}
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-[#3C3C3C] text-base font-medium">
+                  Hello! To join the event, please register below.
+                </p>
+                <button
+                  onClick={handleRegister}
+                  className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg bg-[#E0580C] border-2 border-[#E0580C] text-[#FFF] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
+                >
+                  {loading ? (
+                    <LuLoader2 className="animate-spin text-2xl" />
+                  ) : (
+                    "Register"
+                  )}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>
