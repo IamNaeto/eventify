@@ -1,4 +1,3 @@
-// routes/eventRoutes.js
 const express = require("express");
 const router = express.Router();
 const {
@@ -9,6 +8,9 @@ const {
   getSingleEvent,
   updateEvent,
   deleteEvent,
+  registerForEvent,
+  cancelRegistration,
+  getAttendees,
 } = require("../controller/eventController.js");
 
 const { verifyJWT } = require("../controller/userController.js");
@@ -18,6 +20,15 @@ router.get("/allEvents", getAllEvents);
 
 // Get a single event from all users event
 router.get("/singleEvent/:id", getSingleEvent);
+
+// Register for an event
+router.post("/register/:id", verifyJWT, registerForEvent);
+
+// Cancel registration for an event
+router.delete("/register/:id", verifyJWT, cancelRegistration);
+
+// Get attendees for an event
+router.get("/attendees/:id", verifyJWT, getAttendees);
 
 // Get all events for the authenticated user
 router.get("/", verifyJWT, getEvents);

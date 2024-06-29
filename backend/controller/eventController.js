@@ -1,4 +1,5 @@
 const eventSchema = require("../models/eventModel");
+const userModel = require("../models/userModel");
 
 // Helps to create an event
 const createEvents = async (req, res) => {
@@ -133,19 +134,24 @@ const getEvent = async (req, res) => {
 };
 
 // Helps to get all events from all users
+const eventModel = require("../models/eventModel");
+
+// Function to fetch all events
 const getAllEvents = async (req, res) => {
   try {
-    const events = await eventSchema.find().populate("createdBy");
-    if (events.length > 0) {
-      res.status(200).send(events);
-    } else {
-      res.status(404).send({ msg: "No events found" });
-    }
+    const events = await eventModel
+      .find()
+      .populate("createdBy", "_id fullname email") // Include only id, fullname, and email
+      .exec();
+
+    res.status(200).send(events);
   } catch (error) {
-    res
-      .status(500)
-      .send({ msg: "Internal Server Error", error: error.message });
+    res.status(500).send({ message: error.message });
   }
+};
+
+module.exports = {
+  getAllEvents,
 };
 
 // Helps to get a single events from all events of the users
@@ -236,6 +242,111 @@ const deleteEvent = async (req, res) => {
   }
 };
 
+const registerForEvent = async (req, res) => {
+  try {
+    const { id } = req.params; // Event ID
+    const userId = req.user?.id; // User ID from middleware
+
+    if (!userId) {
+      return res.status(401).send({ msg: "Unauthorized: No user ID found" });
+    }
+
+    // Find the event
+    const event = await eventSchema.findById(id);
+    if (!event) {
+      return res.status(404).send({ msg: "Event not found" });
+    }
+
+    // Check if the user is already registered
+    if (
+      event.attendees.some((attendee) => attendee.userId.toString() === userId)
+    ) {
+      return res
+        .status(409)
+        .send({ msg: "User already registered for this event" });
+    }
+
+    // Fetch user details using user ID
+    const user = await userModel.findById(userId, "fullname email");
+    if (!user) {
+      return res.status(404).send({ msg: "User not found" });
+    }
+
+    // Add the user to the attendees list
+    event.attendees.push({
+      userId: user._id,
+      fullname: user.fullname,
+      email: user.email,
+    });
+    await event.save();
+
+    res.status(200).send({ msg: "User registered successfully", event, user });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
+  }
+};
+
+// Cancel registration for an event
+const cancelRegistration = async (req, res) => {
+  try {
+    const { id } = req.params; // Event ID
+    const userId = req.user?.id; // User ID from middleware
+
+    if (!userId) {
+      return res.status(401).send({ msg: "Unauthorized: No user ID found" });
+    }
+
+    // Find the event
+    const event = await eventSchema.findById(id);
+    if (!event) {
+      return res.status(404).send({ msg: "Event not found" });
+    }
+
+    // Check if the user is registered
+    const attendeeIndex = event.attendees.findIndex(
+      (attendee) => attendee.userId.toString() === userId
+    );
+    if (attendeeIndex === -1) {
+      return res
+        .status(404)
+        .send({ msg: "User not registered for this event" });
+    }
+
+    // Remove the user from the attendees list
+    event.attendees.splice(attendeeIndex, 1);
+    await event.save();
+
+    res.status(200).send({ msg: "User registration cancelled successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
+  }
+};
+
+// Get attendees for an event
+const getAttendees = async (req, res) => {
+  try {
+    const { id } = req.params; // Event ID
+
+    // Find the event
+    const event = await eventSchema
+      .findById(id)
+      .populate("attendees.userId", "fullname email");
+    if (!event) {
+      return res.status(404).send({ msg: "Event not found" });
+    }
+
+    res.status(200).send(event.attendees);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   createEvents,
   getEvents,
@@ -244,4 +355,7 @@ module.exports = {
   getSingleEvent,
   updateEvent,
   deleteEvent,
+  registerForEvent,
+  cancelRegistration,
+  getAttendees,
 };

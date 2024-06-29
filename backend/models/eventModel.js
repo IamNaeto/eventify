@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+const attendeeSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  fullname: String,
+  email: String,
+});
+
 const eventSchema = new mongoose.Schema(
   {
     event_name: {
@@ -52,7 +62,7 @@ const eventSchema = new mongoose.Schema(
       required: true,
     },
     event_capacity: {
-      type: Number,
+      type: String,
       required: true,
     },
     event_ticket: {
@@ -61,7 +71,7 @@ const eventSchema = new mongoose.Schema(
       enum: ["Free", "Premium"], // Specify valid ticket types
     },
     event_price: {
-      type: Number,
+      type: String,
       required: function () {
         return this.event_ticket === "Premium";
       },
@@ -69,12 +79,9 @@ const eventSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "user",
     },
-    attendees: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-      },
-    ],
+    attendees: [attendeeSchema],
   },
   {
     timestamps: true,
