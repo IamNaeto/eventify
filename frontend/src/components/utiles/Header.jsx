@@ -7,35 +7,39 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TbLoader2 } from "react-icons/tb";
 import { useLocation } from "react-router-dom";
+import useFetchUserData from "../custom-hook/useFetchUserData";
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem("eventify_auth_token");
+
+  const { userData, isLoading } = useFetchUserData(token);
 
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("eventify_auth_token");
     if (token) {
       setIsAuthenticated(true);
     }
-    setLoading(false);
+    setAuthLoading(false);
   }, []);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
   const handleLogOut = () => {
-    setIsLoading(true);
+    setLoading(true);
     setTimeout(() => {
       localStorage.removeItem("eventify_auth_token");
       setIsAuthenticated(false);
       navigate("/");
       toast.success("Logout successful");
-      setIsLoading(false);
+      setLoading(false);
     }, 3000);
   };
 
@@ -46,27 +50,50 @@ const Header = () => {
       </Link>
 
       <div className="flex items-center justify-center gap-4">
-        <Link to={"/"} className={`${location.pathname === "/" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}>
-        Home
-      </Link>
-        <Link to={"/event/explore"} className={`${location.pathname === "/event/explore" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}>
+        <Link
+          to={"/"}
+          className={`${
+            location.pathname === "/"
+              ? "visited:text-[#E0580C]"
+              : "hover:text-red-600"
+          } delay-150 transition-all`}
+        >
+          Home
+        </Link>
+        <Link
+          to={"/event/explore"}
+          className={`${
+            location.pathname === "/event/explore"
+              ? "visited:text-[#E0580C]"
+              : "hover:text-red-600"
+          } delay-150 transition-all`}
+        >
           Explore
         </Link>
         <Link
           to={"/manage/events"}
-          className={`${location.pathname === "/manage/events" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}
+          className={`${
+            location.pathname === "/manage/events"
+              ? "visited:text-[#E0580C]"
+              : "hover:text-red-600"
+          } delay-150 transition-all`}
         >
           Manage Events
         </Link>
         <Link
           to={"/event/create"}
-          className={`${location.pathname === "/event/create" ? "visited:text-[#E0580C]" : "hover:text-red-600"} delay-150 transition-all`}
+          className={`${
+            location.pathname === "/event/create"
+              ? "visited:text-[#E0580C]"
+              : "hover:text-red-600"
+          } delay-150 transition-all`}
         >
           Create Event +
         </Link>
       </div>
-      {loading ? <TbLoader2 className="animate-spin text-4xl text-[#E0580C] shadow-lg p-1 rounded-full  border border-[#EBEBEB]" /> :
-       !isAuthenticated ? (
+      {authLoading ? (
+        <TbLoader2 className="animate-spin text-4xl text-[#E0580C] shadow-lg p-1 rounded-full  border border-[#EBEBEB]" />
+      ) : !isAuthenticated ? (
         <div className="flex items-center justify-center gap-4">
           <button
             className="border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
@@ -87,15 +114,27 @@ const Header = () => {
             <HiOutlineBell />
           </div>
 
-          <Link to={"/event/user/profile"} className="p-2 rounded-full shadow-lg border border-[#EBEBEB]  cursor-pointer">
-            <img src="/img/event-user.png" alt="user" />
+          <Link
+            to="/event/user/profile"
+            className="w-[60px] h-[60px] p-2 rounded-full shadow-lg border border-[#EBEBEB] cursor-pointer flex items-center justify-center"
+          >
+            {isLoading ? (
+              <TbLoader2 className="animate-spin text-3xl" />
+            ) : userData.img ? (
+              <img src="/img/event-user.png" alt="user" />
+            ) : (
+              <h1 className="text-2xl font-bold text-[#E0580C] rounded-full">
+                {userData.firstname.charAt(0).toUpperCase() +
+                  userData.lastname.charAt(0).toUpperCase()}
+              </h1>
+            )}
           </Link>
 
           <div
             onClick={handleLogOut}
             className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] hover:text-[#9D3E08]  cursor-pointer"
           >
-            {isLoading ? (
+            {loading ? (
               <TbLoader2 className="animate-spin" />
             ) : (
               <BiLogOutCircle />

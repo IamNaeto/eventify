@@ -9,13 +9,17 @@ import axios from "axios";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import useFetchUserData from "../custom-hook/useFetchUserData";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const EventsMgt = () => {
   const [toggleEvents, setToggleEvents] = useState("Created Events");
   const [createdEventData, setCreatedEventData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("eventify_auth_token");
+
+  const { userData, isLoading } = useFetchUserData(token);
 
   const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
 
@@ -25,7 +29,7 @@ const EventsMgt = () => {
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
+      setLoading(true);
 
       if (!token) {
         toast.error("Unauthorzied user, please login");
@@ -45,7 +49,7 @@ const EventsMgt = () => {
       console.error(error);
       toast.error("Error: " + error.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -70,8 +74,18 @@ const EventsMgt = () => {
   return (
     <main className="min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6 grid gap-6">
       <Toaster position="top-right" richColors />
-      <section className="flex flex-col gap-4 text-[#1E1E1E]">
-        <h1 className="text-2xl font-bold">Welcome Paul,</h1>
+      <section className="flex flex-col gap-4 text-[#1E1E1E] mt-2">
+        <h1 className="text-2xl font-bold">
+          Welcome{" "}
+          <span className="text-[#E0580C]">
+            {isLoading ? (
+              <PulseLoader color="#E0580C" />
+            ) : (
+              userData.firstname + " " + userData.lastname
+            )}
+            ,
+          </span>
+        </h1>
 
         <div className=" grid grid-cols-3 gap-4">
           <div
@@ -126,7 +140,7 @@ const EventsMgt = () => {
 
       <section className="w-full flex items-start gap-6">
         <div className="w-[76%]">
-          {isLoading ? (
+          {loading ? (
             <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
               <div className="text-2xl font-semibold text-[#E0580C]">
                 Loading...
