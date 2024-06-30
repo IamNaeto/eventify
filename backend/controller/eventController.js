@@ -141,7 +141,7 @@ const getAllEvents = async (req, res) => {
   try {
     const events = await eventModel
       .find()
-      .populate("createdBy", "_id fullname email") // Include only id, fullname, and email
+      .populate("createdBy", "_id firstname lastname email") // Include only id, firstname, lastname and email
       .exec();
 
     res.status(200).send(events);
@@ -267,7 +267,7 @@ const registerForEvent = async (req, res) => {
     }
 
     // Fetch user details using user ID
-    const user = await userModel.findById(userId, "fullname email");
+    const user = await userModel.findById(userId, "firstname lastname email");
     if (!user) {
       return res.status(404).send({ msg: "User not found" });
     }
@@ -275,7 +275,8 @@ const registerForEvent = async (req, res) => {
     // Add the user to the attendees list
     event.attendees.push({
       userId: user._id,
-      fullname: user.fullname,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
     });
     await event.save();
@@ -334,7 +335,7 @@ const getAttendees = async (req, res) => {
     // Find the event
     const event = await eventSchema
       .findById(id)
-      .populate("attendees.userId", "fullname email");
+      .populate("attendees.userId", "firstname lastname email");
     if (!event) {
       return res.status(404).send({ msg: "Event not found" });
     }

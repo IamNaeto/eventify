@@ -6,7 +6,8 @@ const attendeeSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
-  fullname: String,
+  firstname: String,
+  lastname: String,
   email: String,
 });
 

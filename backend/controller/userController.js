@@ -35,13 +35,18 @@ const signIn = async (req, res) => {
 // Function to handle user sign-up
 const signUp = async (req, res) => {
   try {
-    if (!req.body.fullname || !req.body.email || !req.body.password) {
+    if (
+      !req.body.firstname ||
+      !req.body.lastname ||
+      !req.body.email ||
+      !req.body.password
+    ) {
       return res
         .status(400)
         .send({ message: "All required fields must be filled" });
     }
 
-    const { fullname, email, password } = req.body;
+    const { firstname, lastname, email, password } = req.body;
 
     const existingUser = await userModel.findOne({ email: email });
     if (existingUser) {
@@ -54,7 +59,8 @@ const signUp = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new userModel({
-      fullname,
+      firstname,
+      lastname,
       email,
       password: hashedPassword,
     });
@@ -69,6 +75,7 @@ const signUp = async (req, res) => {
   }
 };
 
+// Function to get user data
 const getUserData = async (req, res) => {
   try {
     const user = await userModel.findById(req.params.id);
@@ -78,6 +85,54 @@ const getUserData = async (req, res) => {
     }
 
     res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
+
+// Function to update user data
+const updateUserData = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      firstname,
+      lastname,
+      email,
+      bio,
+      website,
+      twitter,
+      linkedIn,
+      instagram,
+    } = req.body;
+
+    const user = await userModel.findById(id);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    if (firstname) user.firstname = firstname;
+    if (lastname) user.lastname = lastname;
+    if (email) {
+      const existingUser = await userModel.findOne({ email });
+      if (existingUser && existingUser._id.toString() !== id) {
+        return res
+          .status(409)
+          .send({ message: "User with this email already exists" });
+      }
+      user.email = email;
+    }
+    if (bio) user.bio = bio;
+    if (website) user.website = website;
+    if (twitter) user.twitter = twitter;
+    if (linkedIn) user.linkedIn = linkedIn;
+    if (instagram) user.instagram = instagram;
+
+    const updatedUser = await user.save();
+    res.send({
+      message: "User updated successfully",
+      user: updatedUser,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal Server Error" });
@@ -108,4 +163,5 @@ module.exports = {
   signUp,
   verifyJWT,
   getUserData,
+  updateUserData,
 };
