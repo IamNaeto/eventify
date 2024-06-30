@@ -9,6 +9,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import { BiSolidError } from "react-icons/bi";
 import { jwtDecode } from "jwt-decode";
 import { Toaster, toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +80,7 @@ const UserProfile = () => {
 
   if (!data)
     return (
-      <div className="flex flex-col items-center justify-center p-10 text-3xl text-red-900 min-h-[70vh]">
+      <div className="flex flex-col items-center justify-center p-10 text-3xl text-red-900 min-h-screen">
         {" "}
         <BiSolidError className="text-6xl" />
         <p>404! User not found</p>
@@ -91,45 +92,53 @@ const UserProfile = () => {
       <Toaster position="top-right" richColors />
       <section className="flex flex-col items-center bg-[#FCEEE7] h-[300px] w-full px-[3%]">
         <div className="relative top-24 flex flex-col items-start w-[80%] min-h-[400px] bg-[#fff] p-5 gap-1 rounded-lg shadow-lg">
-          <div className="p-2 rounded-full shadow-md bg-[#fff]">
-            <img src="/img/user-profile.png" alt="user-profile-picture" />
+          <div className="p-4 w-[150px] h-[150px] rounded-full shadow-md bg-[#fff] flex items-center justify-center border border-[#EBEBEB]">
+            {data.img ? (
+              <img src="/img/user-profile.png" alt="user-profile-picture" />
+            ) : (
+              <h1 className="text-7xl font-bold text-[#E0580C] rounded-full">
+                {data.firstname.charAt(0)}
+                {data.lastname.charAt(0)}
+              </h1>
+            )}
           </div>
 
           <div className="flex items-center justify-between w-full gap-6">
             <div className="grid">
               <h1 className="text-2xl text-[#1E1E1E] font-bold">
-                {data.fullname}
+                {data.firstname + " " + data.lastname}
               </h1>
               <p className="text-[#676767]">{data.email}</p>
             </div>
 
-            <button className="flex items-center justify-center gap-2 p-2 border border-[#E0580C] text-[#E0580C] hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all">
+            <Link
+              to={"/event/user/profile/edit"}
+              className="flex items-center justify-center gap-2 p-2 border border-[#E0580C] text-[#E0580C] hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
+            >
               {" "}
               <TbEdit /> Edit Profile
-            </button>
+            </Link>
           </div>
 
           <div className="grid mt-2">
             <h3 className="text-xl text-[#1E1E1E] font-semibold">About</h3>
             <p className="text-base text-[#676767]">
-              Lorem ipsum dolor sit amet consectetur. Dis non diam neque at ac
-              fringilla in consequat. Facilisis velit in cum lorem feugiat.
-              Libero elementum donec at nulla. Sed auctor nunc phasellus
-              tristique porttitor tortor fames natoque.
+              {" "}
+              {data.bio ? data.bio : "Your short bio goes here"}{" "}
             </p>
           </div>
 
           <div className="flex items-center gap-4 mt-2">
-            <a href="">
+            <a href={data.instagram ? data.instagram : "#"} target="_blank">
               <BsInstagram className="text-xl text-[#1E1E1E] delay-100 transition-all hover:text-[#E0580C]" />
             </a>
-            <a href="">
+            <a href={data.linkedIn ? data.linkedIn : "#"} target="_blank">
               <FaLinkedinIn className="text-xl text-[#1E1E1E] delay-100 transition-all hover:text-[#E0580C]" />
             </a>
-            <a href="">
+            <a href={data.twitter ? data.twitter : "#"} target="_blank">
               <FaXTwitter className="text-xl text-[#1E1E1E] delay-100 transition-all hover:text-[#E0580C]" />
             </a>
-            <a href="">
+            <a href={data.website ? data.website : "#"} target="_blank">
               <FaLink className="text-xl text-[#1E1E1E] delay-100 transition-all hover:text-[#E0580C]" />
             </a>
           </div>

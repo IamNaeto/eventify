@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { TiArrowBackOutline } from "react-icons/ti";
 
 const SignUpAuth = () => {
-  const [fullname, setFullname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,7 +23,7 @@ const SignUpAuth = () => {
 
     setIsLoading(true);
 
-    if (!fullname || !email || !password || !confirmPassword) {
+    if (!firstname ||!lastname || !email || !password || !confirmPassword) {
       toast.error("Ooops! All fields must be filled");
       setIsLoading(false);
       return;
@@ -33,7 +34,8 @@ const SignUpAuth = () => {
     }
 
     const data = {
-      fullname: fullname,
+      firstname: firstname,
+      lastname: lastname,
       email: email,
       password: password,
     };
@@ -95,18 +97,33 @@ const SignUpAuth = () => {
           </div>
 
           <form action="" className="grid gap-2">
-            <label htmlFor="fullname" className="label">
-              Full Name
+            <div className="grid grid-cols-2 gap-4">
+              <label htmlFor="firstname" className="label">
+              Firstname
               <input
                 type="text"
-                id="fullname"
-                name="fullname"
+                id="firstname"
+                name="firstname"
                 className="input"
-                placeholder="Enter Full Name"
-                value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
+                placeholder="Enter Firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
               />
             </label>
+
+              <label htmlFor="lastname" className="label">
+              Lastname
+              <input
+                type="text"
+                id="lastname"
+                name="lastname"
+                className="input"
+                placeholder="Enter Lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+              />
+            </label>
+            </div>
 
             <label htmlFor="email" className="label">
               Email

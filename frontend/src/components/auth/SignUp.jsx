@@ -5,7 +5,8 @@ import { useState } from "react";
 import axios from "axios";
 
 const SignUp = ({ closeModal, setAuthPage }) => {
-  const [fullname, setFullname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,7 +19,7 @@ const SignUp = ({ closeModal, setAuthPage }) => {
 
     setIsLoading(true);
 
-    if (!fullname || !email || !password || !confirmPassword) {
+    if (!firstname || !lastname || !email || !password || !confirmPassword) {
       toast.error("Ooops! All fields must be filled");
       setIsLoading(false);
       return;
@@ -29,7 +30,8 @@ const SignUp = ({ closeModal, setAuthPage }) => {
     }
 
     const data = {
-      fullname: fullname,
+      firstname: firstname,
+      lastname: lastname,
       email: email,
       password: password,
     };
@@ -58,7 +60,7 @@ const SignUp = ({ closeModal, setAuthPage }) => {
     toast.info("Coming soon!");
   };
   return (
-    <div className="flex flex-col gap-2 bg-white p-10 rounded-xl shadow-lg max-w-md mx-auto">
+    <div className="flex flex-col gap-2 bg-white px-10 py-3 rounded-xl shadow-lg max-w-md mx-auto">
       <div className="w-full grid items-start gap-1">
         <div className="w-full flex items-center justify-between gap-4 text-[#020202]">
           <h1 className="text-2xl font-bold">Welcome to Eventify</h1>
@@ -88,16 +90,29 @@ const SignUp = ({ closeModal, setAuthPage }) => {
       </div>
 
       <form action="" className="grid gap-2">
-        <label htmlFor="fullname" className="label">
-          Full Name
+        <label htmlFor="firstname" className="label">
+          First Name
           <input
             type="text"
-            id="fullname"
-            name="fullname"
+            id="firstname"
+            name="firstname"
             className="input"
-            placeholder="Enter Full Name"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
+            placeholder="Enter Firstname"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+        </label>
+
+        <label htmlFor="lastname" className="label">
+          Last Name
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            className="input"
+            placeholder="Enter Lastname"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
           />
         </label>
 

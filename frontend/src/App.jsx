@@ -11,6 +11,7 @@ import SignUpAuth from "./components/pages/SignUpAuth";
 import ExploreEvents from "./components/pages/ExploreEvents";
 import RegisterEvent from "./components/pages/RegisterEvent";
 import Profile from "./components/pages/Profile";
+import ProfileEdit from "./components/pages/ProfileEdit";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/manage/event/:id" element={<ManageEvent />} />
           <Route path="/event/register/:id" element={<RegisterEvent />} />
           <Route path="/event/user/profile" element={<Profile />} />
+          <Route path="/event/user/profile/edit" element={<ProfileEdit />} />
         </Route>
       </Routes>
     </div>

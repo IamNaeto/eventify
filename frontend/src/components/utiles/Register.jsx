@@ -43,7 +43,7 @@ const Register = () => {
         setIsLoading(true);
 
         if (!token) {
-          console.error('Unauthorized user, please login');
+          console.error("Unauthorized user, please login");
           setIsLoading(false);
           return;
         }
@@ -58,25 +58,25 @@ const Register = () => {
         );
 
         setEvent(response.data);
-        console.log('Fetched event:', response.data);
+        console.log("Fetched event:", response.data);
 
         // Decode the token to get payload data
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken.userId;
-          console.log('User ID:', userId);
+          console.log("User ID:", userId);
 
           // Check if user is already registered for this event
           const isUserRegisteredLocal = response.data.attendees.some(
             (attendee) => attendee.userId === userId
           );
-          console.log('Is user registered:', isUserRegisteredLocal);
+          console.log("Is user registered:", isUserRegisteredLocal);
           setIsRegistered(isUserRegisteredLocal);
         } catch (decodeError) {
-          console.error('Error decoding token:', decodeError);
+          console.error("Error decoding token:", decodeError);
         }
       } catch (error) {
-        console.error('Error fetching event details:', error);
+        console.error("Error fetching event details:", error);
       } finally {
         setIsLoading(false);
       }
@@ -116,12 +116,11 @@ const Register = () => {
       setTimeout(() => setShowConfetti(false), 6000);
     } catch (error) {
       console.error("Error registering for the event:", error);
-       if (error.response && error.response.status === 409) {
+      if (error.response && error.response.status === 409) {
         toast.error("Event already registered");
       } else {
         toast.error(error.message);
       }
-      
     } finally {
       setLoading(false);
     }
@@ -215,13 +214,15 @@ const Register = () => {
             <div>
               <p className="text-lg font-semibold">
                 {formatDate(event.event_start_date)} {"to"}
-                {formatDate(event.event_end_date)}  
+                {formatDate(event.event_end_date)}
               </p>
-              { isRegistered ?
-              <p className="text-[16px]">
-                {event.event_start_time} to {event.event_end_time}
-              </p>
-              : <p>************** to **************</p>}
+              {isRegistered ? (
+                <p className="text-[16px]">
+                  {event.event_start_time} to {event.event_end_time}
+                </p>
+              ) : (
+                <p>************** to **************</p>
+              )}
             </div>
           </div>
 
@@ -233,12 +234,15 @@ const Register = () => {
               <p className="text-lg flex items-center gap-1 font-semibold">
                 Location <CgArrowTopRight />
               </p>
-              { isRegistered ? <p className="text-[16px]">
-                {event.event_mode === "Physical"
-                  ? event.event_location
-                  : event.event_link}
-              </p> : <p>***************</p>}
-              
+              {isRegistered ? (
+                <p className="text-[16px]">
+                  {event.event_mode === "Physical"
+                    ? event.event_location
+                    : event.event_link}
+                </p>
+              ) : (
+                <p>***************</p>
+              )}
             </div>
           </div>
 
