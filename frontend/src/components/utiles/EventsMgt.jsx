@@ -166,7 +166,7 @@ const EventsMgt = () => {
               Create Event +
             </button>
             <Link
-              to={""}
+              to={"/event/explore"}
               className="flex items-center justify-center gap-2 w-full border-2 border-[#E0580C] bg-[#FEFEFE] text-center text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
             >
               Explore Events <CiCompass1 />{" "}

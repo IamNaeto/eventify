@@ -7,6 +7,7 @@ import { BiSolidError } from "react-icons/bi";
 import { jwtDecode } from "jwt-decode";
 import { LuLoader2 } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const UserInfoEdit = () => {
   const [firstname, setFirstname] = useState("");
@@ -74,7 +75,7 @@ const UserInfoEdit = () => {
         setTwitter(data.twitter);
         setLinkedIn(data.linkedIn);
         setInstagram(data.instagram);
-        toast.success("Data fetched successfully");
+        // toast.success("Data fetched successfully");
       } catch (error) {
         console.error(error);
         toast.error("Error: " + error.message);
@@ -297,9 +298,9 @@ const UserInfoEdit = () => {
             </div>
 
             <div className="flex items-center justify-center gap-4 mt-4">
-              <button className="min-w-[200px] border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md">
+              <Link to={"/event/user/profile"} className="min-w-[200px] border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md text-center">
                 Cancel
-              </button>
+              </Link>
               <button
                 onClick={handleProfileSave}
                 className="min-w-[200px] border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md flex items-center justify-center"

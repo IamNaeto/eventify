@@ -91,7 +91,7 @@ const UserProfile = () => {
     <main className="min-h-screen w-full relative grid gap-4 top-[76px] bg-[#FAFAFA] ">
       <Toaster position="top-right" richColors />
       <section className="flex flex-col items-center bg-[#FCEEE7] h-[300px] w-full px-[3%]">
-        <div className="relative top-24 flex flex-col items-start w-[80%] min-h-[400px] bg-[#fff] p-5 gap-1 rounded-lg shadow-lg">
+        <div className="relative top-24 flex flex-col items-start justify-center w-[80%] min-h-[400px] bg-[#fff] p-5 gap-1 rounded-lg shadow-lg">
           <div className="p-4 w-[150px] h-[150px] rounded-full shadow-md bg-[#fff] flex items-center justify-center border border-[#EBEBEB]">
             {data.img ? (
               <img src="/img/user-profile.png" alt="user-profile-picture" />
@@ -116,7 +116,7 @@ const UserProfile = () => {
               className="flex items-center justify-center gap-2 p-2 border border-[#E0580C] text-[#E0580C] hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
             >
               {" "}
-              <TbEdit /> Edit Profile
+              <TbEdit className="text-xl"/> Edit Profile
             </Link>
           </div>
 
