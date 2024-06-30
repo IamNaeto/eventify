@@ -10,6 +10,7 @@ import SignInAuth from "./components/pages/SignInAuth";
 import SignUpAuth from "./components/pages/SignUpAuth";
 import ExploreEvents from "./components/pages/ExploreEvents";
 import RegisterEvent from "./components/pages/RegisterEvent";
+import Profile from "./components/pages/Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/manage/events" element={<ManageEvents />} />
           <Route path="/manage/event/:id" element={<ManageEvent />} />
           <Route path="/event/register/:id" element={<RegisterEvent />} />
+          <Route path="/event/user/profile" element={<Profile />} />
         </Route>
       </Routes>
     </div>

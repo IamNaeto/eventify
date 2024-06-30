@@ -87,9 +87,9 @@ const Header = () => {
             <HiOutlineBell />
           </div>
 
-          <div className="p-2 rounded-full shadow-lg border border-[#EBEBEB]  cursor-pointer">
+          <Link to={"/event/user/profile"} className="p-2 rounded-full shadow-lg border border-[#EBEBEB]  cursor-pointer">
             <img src="/img/event-user.png" alt="user" />
-          </div>
+          </Link>
 
           <div
             onClick={handleLogOut}
