@@ -97,8 +97,8 @@ const UserProfile = () => {
               <img src="/img/user-profile.png" alt="user-profile-picture" />
             ) : (
               <h1 className="text-7xl font-bold text-[#E0580C] rounded-full">
-                {data.firstname.charAt(0)}
-                {data.lastname.charAt(0)}
+                {data.firstname.charAt(0).toUpperCase()}
+                {data.lastname.charAt(0).toUpperCase()}
               </h1>
             )}
           </div>

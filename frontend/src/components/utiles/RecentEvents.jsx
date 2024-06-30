@@ -131,7 +131,7 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
                   <p className="text-xs font-medium text-[#676767]">
                     Event created by:{" "}
                     <span className="font-semibold">
-                      {data.createdBy.fullname}
+                      {data.createdBy.firstname + " " + data.createdBy.lastname}
                     </span>
                   </p>
                   {isRegistered && (

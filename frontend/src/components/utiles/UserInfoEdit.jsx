@@ -148,7 +148,7 @@ const UserInfoEdit = () => {
       toast.success("Profile Updated successfully");
       setTimeout(() => {
         navigate("/event/user/profile")
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 409) {
