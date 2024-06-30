@@ -17,10 +17,10 @@ const signIn = async (req, res) => {
       return res.status(401).send({ message: "Invalid email or password" });
     }
 
-    const payLoad = { userId: user._id };
+    const payload = { userId: user._id };
 
-    const token = jwt.sign(payLoad, process.env.APP_SECRET_KEY, {
-      expiresIn: "1hr",
+    const token = jwt.sign(payload, process.env.APP_SECRET_KEY, {
+      expiresIn: "1h",
     });
 
     res.status(200).send({
@@ -69,27 +69,36 @@ const signUp = async (req, res) => {
   }
 };
 
+const getUserData = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
+
 // Middleware to verify JWT token for protected routes
 const verifyJWT = async (req, res, next) => {
-  // Extract the token from the Authorization header
   const token = req.headers.authorization?.split(" ")[1];
 
-  // If there's no token in the request, return an Unauthorized status
   if (!token) {
     return res.status(401).send({ message: "Unauthorized user!" });
   }
 
   try {
-    // Verify the token using the secret key
     const decoded = jwt.verify(token, process.env.APP_SECRET_KEY);
 
-    // Add the decoded user ID to the request object for use in subsequent middleware or route handlers
     req.user = { id: decoded.userId };
 
-    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
-    // If there's an error during verification, send a server error response
     res.status(500).send({ message: error.message });
   }
 };
@@ -98,4 +107,5 @@ module.exports = {
   signIn,
   signUp,
   verifyJWT,
+  getUserData,
 };
