@@ -30,7 +30,7 @@ function formatDate(dateString) {
     .replace(/\. /g, ", ");
 }
 
-const EventOverview = ({ event, isLoading }) => {
+const EventOverview = ({ event, isLoading, setToggleMgt }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -186,13 +186,19 @@ const EventOverview = ({ event, isLoading }) => {
           </div>
 
           <div className="w-full grid grid-cols-2 items-center justify-center gap-2">
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90">
+            <button
+              onClick={() => setToggleMgt("Attendees")}
+              className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
+            >
               {" "}
               <HiOutlineUsers /> View Attendees
             </button>
-            <button className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90">
+            <button
+              onClick={() => setToggleMgt("Share Invites")}
+              className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
+            >
               {" "}
-              <AiOutlineCloudUpload /> Share event
+              <AiOutlineCloudUpload /> Share Invites
             </button>
           </div>
         </div>
