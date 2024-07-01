@@ -81,7 +81,7 @@ const EventMgt = () => {
         {toggleMgt === "Event Overview" ? (
           <EventOverview event={event} isLoading={isLoading} />
         ) : toggleMgt === "Attendees" ? (
-          <Attendees />
+          <Attendees event={event} isLoading={isLoading}/>
         ) : (
           <ShareInvites />
         )}
