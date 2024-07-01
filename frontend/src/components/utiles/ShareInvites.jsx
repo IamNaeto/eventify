@@ -25,7 +25,7 @@ const ShareInvites = ({ eventLink }) => {
               </div>
             </div>
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(eventLink)}`} target="_blank" rel="noopener noreferrer">
-              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[2]" />
+              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[1.5]" />
             </a>
           </div>
 
@@ -38,7 +38,7 @@ const ShareInvites = ({ eventLink }) => {
               </div>
             </div>
             <a href={`https://www.instagram.com/?url=${encodeURIComponent(eventLink)}`} target="_blank" rel="noopener noreferrer">
-              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C]  transition-transform duration-300 ease-in-out transform hover:scale-[2]" />
+              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C]  transition-transform duration-300 ease-in-out transform hover:scale-[1.5]" />
             </a>
           </div>
 
@@ -51,7 +51,7 @@ const ShareInvites = ({ eventLink }) => {
               </div>
             </div>
             <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(eventLink)}`} target="_blank" rel="noopener noreferrer">
-              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C]  transition-transform duration-300 ease-in-out transform hover:scale-[2]" />
+              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C]  transition-transform duration-300 ease-in-out transform hover:scale-[1.5]" />
             </a>
           </div>
 
@@ -64,7 +64,7 @@ const ShareInvites = ({ eventLink }) => {
               </div>
             </div>
             <a href={`https://www.linkedin.com/shareArticle?url=${encodeURIComponent(eventLink)}`} target="_blank" rel="noopener noreferrer">
-              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[2]" />
+              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[1.5]" />
             </a>
           </div>
 
@@ -77,7 +77,7 @@ const ShareInvites = ({ eventLink }) => {
               </div>
             </div>
             <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(eventLink)}`} target="_blank" rel="noopener noreferrer">
-              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[2]" />
+              <TbSend className="text-xl cursor-pointer hover:text-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-[1.5]" />
             </a>
           </div>
 
