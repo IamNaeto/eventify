@@ -37,7 +37,7 @@ const AttendeesList = ({ event, isLoading }) => {
           {event.attendees.map((attendee, index) => (
             <div
               key={attendee.email}
-              className="grid grid-cols-4 items-center p-4 border-b border-b-[#DEDEDE] text-base text-[#535353] font-semibold"
+              className="grid grid-cols-4 items-center p-4 border-t border-t-[#E0580C] text-base text-[#535353] font-semibold"
             >
               <h1>{index + 1}</h1>
               <h2>{attendee.firstname}</h2>
