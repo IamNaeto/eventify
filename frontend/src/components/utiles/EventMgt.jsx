@@ -13,6 +13,8 @@ const EventMgt = () => {
   const { id } = useParams();
   const token = localStorage.getItem("eventify_auth_token");
 
+  const eventLink = `http://localhost:5173/event/register/${id}`;
+
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -83,7 +85,7 @@ const EventMgt = () => {
         ) : toggleMgt === "Attendees" ? (
           <Attendees event={event} isLoading={isLoading}/>
         ) : (
-          <ShareInvites />
+          <ShareInvites eventLink={eventLink}/>
         )}
       </section>
     </div>
