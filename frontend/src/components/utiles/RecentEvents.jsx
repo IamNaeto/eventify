@@ -37,6 +37,9 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // isAttendees = data.attendees?.some((attendee) => attendee.userId === userId);
+  // console.log("Attendess");
+
   if (isLoading)
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
@@ -118,16 +121,26 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <img
-                      src="/img/registered-users.png"
-                      alt="joiners"
-                      className=""
-                    />
-                    <p className="text-xs font-medium text-[#676767]">
-                      +32 People registered
-                    </p>
-                  </div>
+                  {data.attendees ? (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/img/registered-users.png"
+                        alt="joiners"
+                        className=""
+                      />
+                      <p className="text-xs font-medium text-[#676767]">
+                        + <span>{data.attendees.length}</span>{" "}
+                        <span>
+                          {data.attendees.length > 1
+                            ? "People registered"
+                            : "Person registered"}
+                        </span>
+                      </p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
                   <p className="text-xs font-medium text-[#676767]">
                     Event created by:{" "}
                     <span className="font-semibold">
