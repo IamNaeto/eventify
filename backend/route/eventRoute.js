@@ -11,6 +11,7 @@ const {
   registerForEvent,
   cancelRegistration,
   getAttendees,
+  getUserRegisteredEvents,
 } = require("../controller/eventController.js");
 
 const { verifyJWT } = require("../controller/userController.js");
@@ -29,6 +30,9 @@ router.delete("/register/:id", verifyJWT, cancelRegistration);
 
 // Get attendees for an event
 router.get("/attendees/:id", verifyJWT, getAttendees);
+
+// Get user registered events
+router.get("/regEvents", verifyJWT, getUserRegisteredEvents);
 
 // Get all events for the authenticated user
 router.get("/", verifyJWT, getEvents);

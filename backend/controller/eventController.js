@@ -348,6 +348,36 @@ const getAttendees = async (req, res) => {
   }
 };
 
+const getUserRegisteredEvents = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized: No user ID found" });
+    }
+
+    // Find events where the user ID is present in the attendees list
+    const events = await eventSchema
+      .find({
+        attendees: { $elemMatch: { userId: userId } },
+      })
+      .populate("createdBy", "_id firstname lastname email");
+
+    // If no events found, send a 200 with an empty array
+    if (!events.length) {
+      return res.status(200).send([]);
+    }
+
+    res.status(200).send(events);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   createEvents,
   getEvents,
@@ -359,4 +389,5 @@ module.exports = {
   registerForEvent,
   cancelRegistration,
   getAttendees,
+  getUserRegisteredEvents,
 };
