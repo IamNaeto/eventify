@@ -185,7 +185,7 @@ const Edit = () => {
       <div className="w-full flex flex-col gap-2 items-center justify-center">
         <div className="grid gap-2 min-w-[600px]">
           <p className="text-left">Progress</p>
-          <div className="bg-[#EBEBEB] w-full h-2 rounded-full">
+          <div className="bg-[#EBEBEB] w-full h-2 rounded-full box-shadow">
             <div
               className={`bg-[#0D804A] ${
                 progressStage === 1
@@ -241,7 +241,7 @@ const Edit = () => {
             />
           ) : (
             <EventFormSuccess
-              title={"Yooopiiee! Event Updated Sucessfully"}
+              title={"Yooopiiee! Event Updated Successfully"}
               seeAllEvents={seeAllEvents}
               action={viewEvent}
               primaryBtnCaption={"See All Events"}

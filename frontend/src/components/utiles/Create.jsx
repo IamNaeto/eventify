@@ -118,13 +118,17 @@ const Create = () => {
     navigate("/manage/events");
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
+  const exploreAllEvents = () => {
+    navigate("/event/explore");
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  };
 
   return (
     <div className="w-full relative top-[76px] px-[3%] py-10 bg-[#FAFAFA] min-h-screen overflow-x-hidden">
       <div className="w-full flex flex-col gap-2 items-center justify-center">
         <div className="grid gap-2 min-w-[600px]">
           <p className="text-left">Progress</p>
-          <div className="bg-[#EBEBEB] w-full h-2 rounded-full">
+          <div className="bg-[#EBEBEB] w-full h-2 rounded-full box-shadow">
             <div
               className={`bg-[#0D804A] ${
                 progressStage === 1
@@ -181,10 +185,11 @@ const Create = () => {
             />
           ) : (
             <EventFormSuccess
-              title={"Yooopiiee! Event Created Sucessfully"}
+              title={"Yooopiiee! Event Created Successfully"}
               seeAllEvents={seeAllEvents}
-              primaryBtnCaption={"See All Events"}
-              secondaryBtnCaption={"Copy Event Link"}
+              action={exploreAllEvents}
+              primaryBtnCaption={"View Created Events"}
+              secondaryBtnCaption={"Explore All Events"}
             />
           )}
         </div>

@@ -6,11 +6,11 @@ const CreateEventSuccess = ({
   secondaryBtnCaption,
 }) => {
   return (
-    <div className="bg-[rgb(255,255,255)] text-[16px] grid items-center justify-center gap-4 p-10 rounded-xl mt-4 shadow-xl">
+    <div className="bg-[rgb(255,255,255)] text-[16px] grid items-center justify-center gap-2 p-8 rounded-xl mt-4 shadow-xl">
       <h1 className="text-2xl font-bold text-[#1E1E1E]">{title}</h1>
 
       <div className="w-full flex items-center justify-center">
-        <img src="/img/success.png" alt="success image" />
+        <img src="/img/success.png" alt="success image" className="w-[200px]"/>
       </div>
 
       <button
