@@ -15,6 +15,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 const EventsMgt = () => {
   const [toggleEvents, setToggleEvents] = useState("Created Events");
   const [createdEventData, setCreatedEventData] = useState([]);
+  const [registeredEventData, setRegisteredEventData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("eventify_auth_token");
@@ -22,17 +23,21 @@ const EventsMgt = () => {
   const { userData, isLoading } = useFetchUserData(token);
 
   const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
+  const getRegEventsEndpoint = `${
+    import.meta.env.VITE_APP_EVENT_ROUTE_URL
+  }/regEvents`;
 
   useEffect(() => {
     fetchData();
-  }, [getEventsEndpoint]);
+    fetchRegEvents();
+  }, [getEventsEndpoint, getRegEventsEndpoint]);
 
   const fetchData = async () => {
     try {
       setLoading(true);
 
       if (!token) {
-        toast.error("Unauthorzied user, please login");
+        toast.error("Unauthorized user, please login");
         return;
       }
 
@@ -53,20 +58,59 @@ const EventsMgt = () => {
     }
   };
 
-  const handleCreateEventRoute = (id) => {
+  const fetchRegEvents = async () => {
+    try {
+      setLoading(true);
+
+      if (!token) {
+        toast.error("Unauthorized user, please login");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.get(getRegEventsEndpoint, { headers });
+      const data = response.data;
+      setRegisteredEventData(data);
+      console.log("Registered Events", data);
+      // toast.success("Data fetched successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateEventRoute = () => {
     navigate("/event/create");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const currentDate = new Date();
 
-  // Filtering upcoming and past events
+  // Filtering upcoming created events
   const upcomingEvents = createdEventData.filter((event) => {
     const eventEndDate = new Date(event.event_end_date);
     return eventEndDate >= currentDate;
   });
 
+  // Filtering upcoming registered events
+  const upcomingRegEvents = registeredEventData.filter((event) => {
+    const eventEndDate = new Date(event.event_end_date);
+    return eventEndDate >= currentDate;
+  });
+
+  // Filtering past created events
   const pastEvents = createdEventData.filter((event) => {
+    const eventEndDate = new Date(event.event_end_date);
+    return eventEndDate < currentDate;
+  });
+
+  // Filtering past registered events
+  const pastRegEvents = registeredEventData.filter((event) => {
     const eventEndDate = new Date(event.event_end_date);
     return eventEndDate < currentDate;
   });
@@ -87,7 +131,7 @@ const EventsMgt = () => {
           </span>
         </h1>
 
-        <div className=" grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div
             className={`${
               toggleEvents === "Created Events" ? "shadow-sm" : "shadow-lg"
@@ -107,12 +151,14 @@ const EventsMgt = () => {
           <div
             className={`${
               toggleEvents === "Upcoming Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE]  cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+            } flex items-center justify-between gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
             onClick={() => setToggleEvents("Upcoming Events")}
           >
             <div className="grid gap-2">
               <h1 className="text-3xl font-semibold">
-                {upcomingEvents ? upcomingEvents.length : "0"}
+                {upcomingEvents || upcomingRegEvents
+                  ? upcomingEvents.length + upcomingRegEvents.length
+                  : "0"}
               </h1>
               <p className="text-lg font-medium">Upcoming Events</p>
             </div>
@@ -128,7 +174,9 @@ const EventsMgt = () => {
           >
             <div className="grid gap-2">
               <h1 className="text-3xl font-semibold">
-                {pastEvents ? pastEvents.length : "0"}
+                {pastEvents || pastRegEvents
+                  ? pastEvents.length + pastRegEvents.length
+                  : "0"}
               </h1>
               <p className="text-lg font-medium">Past Events</p>
             </div>
@@ -150,9 +198,12 @@ const EventsMgt = () => {
           ) : toggleEvents === "Created Events" ? (
             <CreatedEvents createdEventData={createdEventData} />
           ) : toggleEvents === "Upcoming Events" ? (
-            <UpcomingEvents upcomingEvents={upcomingEvents} />
+            <UpcomingEvents
+              upcomingEvents={upcomingEvents}
+              upcomingRegEvents={upcomingRegEvents}
+            />
           ) : (
-            <PastEvents pastEvents={pastEvents} />
+            <PastEvents pastEvents={pastEvents} pastRegEvents={pastRegEvents} />
           )}
         </div>
         <div className="grid gap-4 w-[25%]">
