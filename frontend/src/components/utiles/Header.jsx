@@ -1,18 +1,24 @@
 import { Link } from "react-router-dom";
 import Auths from "../modal/Auths";
 import { useState, useEffect } from "react";
-import { HiOutlineBell } from "react-icons/hi2";
+import { HiOutlineBellAlert } from "react-icons/hi2";
+import { HiOutlineBellSlash } from "react-icons/hi2";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TbLoader2 } from "react-icons/tb";
 import { useLocation } from "react-router-dom";
 import useFetchUserData from "../custom-hook/useFetchUserData";
+import Notifications from "./Notifications";
+import axios from "axios";
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
+  const [openNotification, setOpenNotification] = useState(false);
+  const [registeredEventData, setRegisteredEventData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const token = localStorage.getItem("eventify_auth_token");
 
@@ -21,13 +27,19 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const getRegEventsEndpoint = `${
+    import.meta.env.VITE_APP_EVENT_ROUTE_URL
+  }/regEvents`;
+
   useEffect(() => {
     const token = localStorage.getItem("eventify_auth_token");
     if (token) {
       setIsAuthenticated(true);
     }
     setAuthLoading(false);
-  }, []);
+
+    fetchRegEvents();
+  }, [getRegEventsEndpoint]);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -42,6 +54,41 @@ const Header = () => {
       setLoading(false);
     }, 3000);
   };
+
+  const fetchRegEvents = async () => {
+    try {
+      setLoader(true);
+
+      if (!token) {
+        toast.error("Unauthorized user, please login");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.get(getRegEventsEndpoint, { headers });
+      const data = response.data;
+      setRegisteredEventData(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error: " + error.message);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  // Filtering upcoming registered events
+  const currentDate = new Date();
+  const upcomingRegEvents = registeredEventData
+    .filter((event) => {
+      const eventStartDate = new Date(event.event_start_date);
+      return eventStartDate >= currentDate;
+    })
+    .sort(
+      (a, b) => new Date(a.event_start_date) - new Date(b.event_start_date)
+    );
 
   return (
     <div className="w-full fixed z-30 bg-[#FEFEFE] flex items-center justify-between py-4 px-[3%] shadow text-[16px] text-[#3C3C3C] font-semibold">
@@ -110,8 +157,28 @@ const Header = () => {
         </div>
       ) : (
         <div className="flex items-center justify-center gap-4 text-[#E0580C] delay-100 transition-all">
-          <div className="text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] hover:text-[#9D3E08] cursor-pointer">
-            <HiOutlineBell />
+          <div
+            onClick={() => setOpenNotification(!openNotification)}
+            className="relative text-3xl shadow-lg p-1 rounded-full  border border-[#EBEBEB] hover:text-[#9D3E08]"
+          >
+            {openNotification ? (
+              <HiOutlineBellSlash className="cursor-pointer" />
+            ) : (
+              <HiOutlineBellAlert className="cursor-pointer" />
+            )}
+
+            {upcomingRegEvents.length > 0 && (
+              <h1 className="absolute top-[-12px] right-[-10px] bg-[#FCEEE7] shadow rounded-full px-2 py-[0.5px] text-[#E0580C] text-base font-semibold">
+                {upcomingRegEvents.length > 0 && upcomingRegEvents.length}
+              </h1>
+            )}
+
+            {openNotification && (
+              <Notifications
+                upcomingRegEvents={upcomingRegEvents}
+                loader={loader}
+              />
+            )}
           </div>
 
           <Link
