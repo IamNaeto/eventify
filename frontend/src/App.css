@@ -36,12 +36,12 @@ label{
 }
 
 .sigup-bg{
-  background-image: url("/img/signup.jpg");
+  background-image: url("/img/signup.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 .sigin-bg{
-  background-image: url("/img/signin.jpg");
+  background-image: url("/img/signin.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
