@@ -20,7 +20,7 @@ const signIn = async (req, res) => {
     const payload = { userId: user._id };
 
     const token = jwt.sign(payload, process.env.APP_SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "1day",
     });
 
     res.status(200).send({

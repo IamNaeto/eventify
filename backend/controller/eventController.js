@@ -1,6 +1,5 @@
 const eventSchema = require("../models/eventModel");
 const userModel = require("../models/userModel");
-const { sendEmail } = require("../utiles/mailer");
 
 // Helps to create an event
 const createEvents = async (req, res) => {
@@ -282,35 +281,6 @@ const registerForEvent = async (req, res) => {
     });
     await event.save();
 
-    // Send email to the user
-    const emailSubject = `Registration Confirmed: ${event.event_name}`;
-    const emailText = `Hi ${
-      user.firstname
-    },\n\nYou have successfully registered for the event: ${
-      event.event_name
-    }.\n\nEvent Details:\nName: ${event.event_name}\nHost: ${
-      event.event_host_name
-    }\nDescription: ${event.event_description}\nStart: ${
-      event.event_start_date
-    } ${event.event_start_time}\nEnd: ${event.event_end_date} ${
-      event.event_end_time
-    }\nLocation: ${event.event_location || event.event_link}\n\nThank you!`;
-    const emailHtml = `<p>Hi ${
-      user.firstname
-    },</p><p>You have successfully registered for the event: <strong>${
-      event.event_name
-    }</strong>.</p><p><strong>Event Details:</strong><br>Name: ${
-      event.event_name
-    }<br>Host: ${event.event_host_name}<br>Description: ${
-      event.event_description
-    }<br>Start: ${event.event_start_date} ${event.event_start_time}<br>End: ${
-      event.event_end_date
-    } ${event.event_end_time}<br>Location: ${
-      event.event_location || event.event_link
-    }</p><p>Thank you!</p>`;
-
-    await sendEmail(user.email, emailSubject, emailText, emailHtml);
-
     res.status(200).send({ msg: "User registered successfully", event, user });
   } catch (error) {
     res
@@ -348,14 +318,6 @@ const cancelRegistration = async (req, res) => {
     // Remove the user from the attendees list
     event.attendees.splice(attendeeIndex, 1);
     await event.save();
-
-    // Send email to the user
-    const user = await userModel.findById(userId, "firstname lastname email");
-    const emailSubject = `Registration Cancelled: ${event.event_name}`;
-    const emailText = `Hi ${user.firstname},\n\nYou have successfully cancelled your registration for the event: ${event.event_name}.\n\nThank you!`;
-    const emailHtml = `<p>Hi ${user.firstname},</p><p>You have successfully cancelled your registration for the event: <strong>${event.event_name}</strong>.</p><p>Thank you!</p>`;
-
-    await sendEmail(user.email, emailSubject, emailText, emailHtml);
 
     res.status(200).send({ msg: "User registration cancelled successfully" });
   } catch (error) {
