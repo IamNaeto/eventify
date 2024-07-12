@@ -52,7 +52,7 @@ const Header = () => {
       navigate("/");
       toast.success("Logout successful");
       setLoading(false);
-    }, 3000);
+    }, 2000);
   };
 
   const fetchRegEvents = async () => {

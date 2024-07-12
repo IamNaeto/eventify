@@ -38,7 +38,7 @@ const SignInAuth = () => {
         setPassword("");
         setIsLoading(false);
         navigate("/event/explore");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.log("Error: ", error);
       if (error.response && error.response.status === 401) {

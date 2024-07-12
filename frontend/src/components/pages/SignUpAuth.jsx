@@ -48,7 +48,7 @@ const SignUpAuth = () => {
       setTimeout(() => {
         setIsLoading(false);
         navigate("/signin");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.log("Error: ", error);
       if (error.response && error.response.status === 409) {

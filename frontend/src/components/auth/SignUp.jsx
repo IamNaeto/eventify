@@ -44,7 +44,7 @@ const SignUp = ({ closeModal, setAuthPage }) => {
       setTimeout(() => {
         setIsLoading(false);
         setAuthPage("Sign In");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.log("Error: ", error);
       if (error.response && error.response.status === 409) {
