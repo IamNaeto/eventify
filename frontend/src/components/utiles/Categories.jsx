@@ -32,7 +32,9 @@ const Categories = ({ allEvents, setFilteredEvents }) => {
 
   return (
     <main className="relative top-[76px] px-[3%] pt-10 pb-5">
-      <h1 className="text-3xl text-[#1E1E1E] font-bold mb-6">Event Categories</h1>
+      <h1 className="text-3xl text-[#1E1E1E] font-bold mb-6">
+        Event Categories
+      </h1>
       <div className="flex items-center justify-center gap-4 flex-wrap">
         {categories.map((category) => (
           <div
