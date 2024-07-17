@@ -37,9 +37,6 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // isAttendees = data.attendees?.some((attendee) => attendee.userId === userId);
-  // console.log("Attendess");
-
   if (isLoading)
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
@@ -55,7 +52,7 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
         <span>({reversedEventData ? reversedEventData.length : "0"})</span>
       </h1>
       {reversedEventData.length > 0 ? (
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {reversedEventData.slice(0, visibleEvents).map((data) => {
             const isRegistered = data.attendees?.some(
               (attendee) => attendee.userId === userId

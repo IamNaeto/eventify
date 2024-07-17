@@ -31,18 +31,18 @@ const Categories = ({ allEvents, setFilteredEvents }) => {
   };
 
   return (
-    <main className="relative top-[76px] px-[3%] pt-10 pb-5">
+    <main className="w-full relative top-[76px] px-[3%] pt-10 pb-5">
       <h1 className="text-3xl text-[#1E1E1E] font-bold mb-6">
         Event Categories
       </h1>
-      <div className="flex items-center justify-center gap-4 flex-wrap">
+      <div className="w-full flex items-center justify-start lg:justify-center gap-4 px-4 py-4 flex-auto lg:flex-wrap overflow-x-auto lg:overflow-auto categories-scrollbar">
         {categories.map((category) => (
           <div
             key={category.id}
-            className="flex items-center justify-center text-sm font-semibold text-[#3C3C3C] hover:text-[#E0580C] border shadow border-[#F2BB9B] hover:bg-[#FCEEE7] rounded-full py-2 px-3 cursor-pointer delay-150 transition-all"
+            className="flex items-center justify-center text-xs md:text-sm font-semibold text-[#3C3C3C] hover:text-[#E0580C] border shadow border-[#F2BB9B] hover:bg-[#FCEEE7] rounded-full py-2 px-3 cursor-pointer delay-150 transition-all max-w-[250px] flex-shrink-0"
             onClick={() => handleCategoryClick(category.name)}
           >
-            <GiPartyPopper className="text-xl mr-2" />
+            <GiPartyPopper className="text-lg md:text-xl mr-1 md:mr-2" />
             <p>{category.name}</p>
           </div>
         ))}

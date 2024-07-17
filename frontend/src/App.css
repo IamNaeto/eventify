@@ -1,7 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-*{
-  border: 2px solid red;
-}
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -19,6 +16,18 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #e0580c;
+}
+
+.categories-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.categories-scrollbar::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.categories-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 20px;
 }
 
 .input {
