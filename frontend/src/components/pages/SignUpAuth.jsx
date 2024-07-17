@@ -23,7 +23,7 @@ const SignUpAuth = () => {
 
     setIsLoading(true);
 
-    if (!firstname ||!lastname || !email || !password || !confirmPassword) {
+    if (!firstname || !lastname || !email || !password || !confirmPassword) {
       toast.error("Ooops! All fields must be filled");
       setIsLoading(false);
       return;
@@ -64,9 +64,9 @@ const SignUpAuth = () => {
     toast.info("Coming soon!");
   };
   return (
-    <div className="w-full grid grid-cols-2 gap-4  min-h-screen">
-      <div className="w-full min-h-screen flex items-center justify-center">
-        <div className="flex flex-col gap-2 bg-white px-10 py-8 rounded-xl ml-4 min-w-[100%] mx-auto">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4  min-h-screen">
+      <div className="w-full min-h-screen flex items-center justify-center p-5 sm:p-20 md:p-0">
+        <div className="flex flex-col gap-2 bg-white p-5 sm:p-10 md:p-5 xl:px-10 xl:py-0 py-8 rounded-xl ml-0 md:ml-4 min-w-[100%] mx-auto shadow md:shadow-none">
           <Link to={"/signin"}>
             <TiArrowBackOutline className="text-3xl text-[#E0580C]" />
           </Link>
@@ -97,32 +97,32 @@ const SignUpAuth = () => {
           </div>
 
           <form action="" className="grid gap-2">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label htmlFor="firstname" className="label">
-              Firstname
-              <input
-                type="text"
-                id="firstname"
-                name="firstname"
-                className="input"
-                placeholder="Enter Firstname"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-              />
-            </label>
+                Firstname
+                <input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  className="input"
+                  placeholder="Enter Firstname"
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+              </label>
 
               <label htmlFor="lastname" className="label">
-              Lastname
-              <input
-                type="text"
-                id="lastname"
-                name="lastname"
-                className="input"
-                placeholder="Enter Lastname"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-            </label>
+                Lastname
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  className="input"
+                  placeholder="Enter Lastname"
+                  value={lastname}
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </label>
             </div>
 
             <label htmlFor="email" className="label">
@@ -183,7 +183,7 @@ const SignUpAuth = () => {
           </form>
         </div>
       </div>
-      <div className="w-full h-screen sigup-bg"></div>
+      <div className="w-full min-h-screen sigup-bg hidden md:flex"></div>
       <Toaster position="top-left" richColors />
     </div>
   );
