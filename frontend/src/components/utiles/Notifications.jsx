@@ -13,7 +13,7 @@ const Notifications = ({ upcomingRegEvents, loader }) => {
   };
 
   return (
-    <main className="absolute top-14 left-0 min-w-[200px] p-2 rounded-2xl border border-[#EBEBEB] bg-[#FEFEFE] shadow-2xl">
+    <main className="absolute top-10 md:top-14 left-[-120px] md:left-[-20px] min-w-[200px] p-2 rounded-2xl border border-[#EBEBEB] bg-[#FEFEFE] shadow-2xl">
       {upcomingRegEvents.length > 0 ? (
         <div className="grid gap-2 p-2">
           <h1 className="py-1 text-[#303030] text-base font-bold border-b border-b-[#E0580C]">

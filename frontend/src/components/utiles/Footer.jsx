@@ -13,13 +13,13 @@ const Footer = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeInOut" }}
         viewport={{ once: true }}
-        className="flex items-center justify-between gap-6"
+        className="flex flex-col md:flex-row items-center justify-between gap-6"
       >
-        <div className="flex items-center justify-between gap-5">
-          <div>
+        <div className="w-full flex-col sm:flex-row md:w-auto flex items-center justify-between gap-2 lg:gap-5">
+          <Link to={"/"}>
             <img src="/img/eventify-logo.svg" alt="" />
-          </div>
-          <div className="flex items-center justify-between gap-4 text-[16px] text-[#3C3C3C] font-semibold">
+          </Link>
+          <div className="flex items-center justify-between gap-4 text-[14px] lg:text-[16px] text-[#3C3C3C] font-semibold">
             <Link
               to={""}
               className="hover:text-[#E0580C] delay-150 transition-all"
@@ -47,18 +47,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap text-[16px] text-[#3C3C3C]">
+        <div className="flex flex-col items-center justify-center gap text-[14px] md:text-[16px] text-[#3C3C3C]">
           <p>Download the app</p>
-          <div className="flex items-center gap-2">
+          <div className="w-full flex items-center justify-between gap-2">
             <img
               src="/img/google-play-badge.png"
               alt=""
-              className="cursor-pointer"
+              className="cursor-pointer w-28 lg:w-32"
             />
             <img
               src="/img/apple-store-badge.png"
               alt=""
-              className="cursor-pointer"
+              className="cursor-pointer w-28 lg:w-32"
             />
           </div>
         </div>
@@ -69,10 +69,21 @@ const Footer = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeInOut" }}
         viewport={{ once: true }}
-        className="flex items-center justify-between gap-4 text-[12px]  text-[#3C3C3C] py-4"
+        className="flex flex-col md:flex-row flex-wrap items-center justify-between gap-2 md:gap-4 text-[12px]  text-[#3C3C3C] py-4"
       >
         <p className="text-[#E0580C] font-medium">
           © 2024 Eventify. All rights reserved.
+        </p>
+
+        <p className="text-[#3C3C3C] font-medium">
+          Developed by{" "}
+          <a
+            href="http://iamnaeto.vercel.app"
+            target="_blank"
+            className="text-[#E0580C]"
+          >
+            Charles Obimnaetochukwu Egesionu
+          </a>
         </p>
 
         <div className="flex items-center justify-center font-medium gap-4">
