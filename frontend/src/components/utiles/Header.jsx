@@ -219,7 +219,7 @@ const Header = () => {
 
             <Link
               to="/event/user/profile"
-              className="w-[60px] h-[60px] p-2 rounded-full shadow-lg border border-[#EBEBEB] cursor-pointer flex items-center justify-center"
+              className="w-[55px] h-[55px] p-2 rounded-full shadow-lg border border-[#EBEBEB] cursor-pointer flex items-center justify-center"
             >
               {isLoading ? (
                 <TbLoader2 className="animate-spin text-3xl" />

@@ -53,7 +53,7 @@ const SignIn = ({ closeModal, setAuthPage }) => {
     toast.info("Coming soon!");
   };
   return (
-    <div className="flex flex-col gap-2 bg-white p-10 rounded-xl shadow-lg max-w-md mx-auto">
+    <div className="flex flex-col gap-2 bg-white p-5 sm:p-10 rounded-xl shadow-lg max-w-md mx-auto">
       <div className="w-full grid items-start gap-1">
         <div className="w-full flex items-center justify-between gap-4 text-[#020202]">
           <h1 className="text-2xl font-bold">Welcome to Eventify</h1>

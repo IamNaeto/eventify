@@ -12,7 +12,7 @@ const Auths = ({ closeModal, modalIsOpen }) => {
       onRequestClose={closeModal}
       contentLabel="Confirm Authentication"
       ariaHideApp={false}
-      className="flex items-center justify-center min-h-screen"
+      className="flex items-center justify-center min-h-screen px-4 sm:px-0"
       overlayClassName="z-50 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
     >
       {authPage === "Sign In" ? (
