@@ -20,7 +20,7 @@ const CreatedEvents = ({ createdEventData = [] }) => {
   return (
     <main>
       {reversedEventData.length > 0 ? (
-        <section className="grid grid-cols-2 gap-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {reversedEventData.map((data) => (
             <div
               key={data._id}
@@ -36,7 +36,7 @@ const CreatedEvents = ({ createdEventData = [] }) => {
               </div>
 
               <div className="grid gap-4 p-4">
-                <div className="text-[#E57435] text-[16px] font-medium flex items-center justify-between gap-4">
+                <div className="text-[#E57435] text-base font-medium flex items-center justify-between gap-4">
                   <p>{FormatDate(data.event_start_date)}</p>
                   {data.event_ticket === "Premium" ? (
                     <p className="py-1 px-3 rounded-md bg-[#FCEEE7]">
@@ -50,7 +50,7 @@ const CreatedEvents = ({ createdEventData = [] }) => {
                 </div>
 
                 <div className="grid gap-2 text-[#676767] text-sm font-medium">
-                  <h1 className="text-[#1E1E1E] text-2xl font-bold">
+                  <h1 className="text-[#1E1E1E] text-xl md:text-2xl font-bold">
                     {data.event_name}
                   </h1>
                   <p className="text-base text-[#E57435] font-medium">
@@ -72,10 +72,10 @@ const CreatedEvents = ({ createdEventData = [] }) => {
 
                 <div>
                   <button
-                    className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-lg font-semibold border-2 border-[#EBEBEB]"
+                    className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-base md:text-lg font-semibold border-2 border-[#EBEBEB]"
                     onClick={() => handleManageEvent(data._id)}
                   >
-                    Manage Event <CgArrowTopRight className="text-xl]" />
+                    Manage Event <CgArrowTopRight className="text-lg md:text-xl]" />
                   </button>
                 </div>
               </div>

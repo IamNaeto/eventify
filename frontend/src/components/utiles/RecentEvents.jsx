@@ -89,7 +89,7 @@ const RecentEvents = ({ allEvents, searchQuery, isLoading, userId }) => {
                   </div>
 
                   <div className="grid gap-2 text-[#676767] text-sm font-medium">
-                    <h1 className="text-[#1E1E1E] text-2xl font-bold">
+                    <h1 className="text-[#1E1E1E] text-xl md:text-2xl font-bold">
                       {data.event_name}
                     </h1>
 

@@ -34,7 +34,7 @@ const CustomCalendar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="hidden lg:flex flex-col items-center justify-center">
       <Calendar
         onChange={onChange}
         value={value}

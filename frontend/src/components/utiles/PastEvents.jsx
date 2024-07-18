@@ -37,25 +37,12 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
     <main className="grid gap-20 w-full mt-4">
       <section className="grid gap-2 w-full">
         <div className="w-full flex items-center justify-between gap-2">
-          <h1 className="text-2xl text-[#1E1E1E] font-bold">
+          <h1 className="text-xl md:text-2xl text-[#1E1E1E] font-bold">
             Past Created Events
           </h1>
-          {reversedPastEvents.length > 2 && (
-            <p
-              className="flex items-center gap-2 text-[#767676] text-base cursor-pointer font-medium"
-              onClick={() => setShowAllEvents(!showAllEvents)}
-            >
-              {showAllEvents ? "See Less" : "See More"}{" "}
-              {showAllEvents ? (
-                <FiEyeOff className="text-2xl" />
-              ) : (
-                <FiEye className="text-2xl" />
-              )}
-            </p>
-          )}
         </div>
         {visibleEvents.length > 0 ? (
-          <div className="grid grid-cols-2 items-center gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-4">
             {visibleEvents.map((event) => (
               <div
                 key={event._id}
@@ -83,7 +70,7 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
                     )}
                   </div>
                   <div className="grid gap-2 text-[#676767] text-sm font-medium">
-                    <h1 className="text-[#1E1E1E] text-2xl font-bold">
+                    <h1 className="text-[#1E1E1E] text-xl md:text-2xl font-bold">
                       {event.event_name}
                     </h1>
                     <p className="flex items-center gap-2">
@@ -100,8 +87,9 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
                     </p>
                   </div>
                   <div className="mt-4">
-                    <button className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-lg font-semibold">
-                      Manage Event <CgArrowTopRight className="text-xl]" />
+                    <button className="bg-[#303030] p-2 rounded-lg text-[#FFF] flex items-center justify-center gap-2 text-base md:text-lg font-semibold">
+                      Manage Event{" "}
+                      <CgArrowTopRight className="text-lg md:text-xl]" />
                     </button>
                   </div>
                 </div>
@@ -111,30 +99,33 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
         ) : (
           <WhatNextHint />
         )}
-      </section>
 
-      <section className="grid gap-4 w-full">
-        <div className="w-full flex items-center justify-between gap-2">
-          <h1 className="text-2xl text-[#1E1E1E] font-bold">
-            Past Registered Events
-          </h1>
-          {reversedPastRegEvents.length > 2 && (
-            <p
-              className="flex items-center gap-2 text-[#767676] text-base cursor-pointer font-medium"
-              onClick={() => setViewAllEvents(!viewAllEvents)}
+        {reversedPastEvents.length > 2 && (
+          <div className="flex items-center justify-center mt-4">
+            <button
+              onClick={() => setShowAllEvents(!showAllEvents)}
+              className="flex items-center justify-center gap-2 border-2 border-[#E0580C] bg-[#FEFEFE] text-[#E0580C] shadow hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
             >
-              {viewAllEvents ? "See Less" : "See More"}{" "}
-              {viewAllEvents ? (
+              {showAllEvents ? "See Less" : "See More"}{" "}
+              {showAllEvents ? (
                 <FiEyeOff className="text-2xl" />
               ) : (
                 <FiEye className="text-2xl" />
               )}
-            </p>
-          )}
+            </button>
+          </div>
+        )}
+      </section>
+
+      <section className="grid gap-4 w-full">
+        <div className="w-full flex items-center justify-between gap-2">
+          <h1 className="text-xl md:text-2xl text-[#1E1E1E] font-bold">
+            Past Registered Events
+          </h1>
         </div>
 
         {visibleRegEvents.length > 0 ? (
-          <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+          <section className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
             {visibleRegEvents.map((data) => (
               <div
                 key={data._id}
@@ -167,7 +158,7 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
                   </div>
 
                   <div className="grid gap-2 text-[#676767] text-sm font-medium">
-                    <h1 className="text-[#1E1E1E] text-2xl font-bold">
+                    <h1 className="text-[#1E1E1E] text-xl md:text-2xl font-bold">
                       {data.event_name}
                     </h1>
 
@@ -223,6 +214,22 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
           </section>
         ) : (
           <WhatNextHint />
+        )}
+
+        {reversedPastRegEvents.length > 2 && (
+          <div className="flex items-center justify-center mt-4">
+            <button
+              onClick={() => setViewAllEvents(!viewAllEvents)}
+              className="flex items-center justify-center gap-2 border-2 border-[#E0580C] bg-[#FEFEFE] text-[#E0580C] shadow hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md"
+            >
+              {viewAllEvents ? "See Less" : "See More"}{" "}
+              {viewAllEvents ? (
+                <FiEyeOff className="text-2xl" />
+              ) : (
+                <FiEye className="text-2xl" />
+              )}
+            </button>
+          </div>
         )}
       </section>
     </main>

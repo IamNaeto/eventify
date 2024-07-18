@@ -119,7 +119,7 @@ const EventsMgt = () => {
     <main className="min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6 grid gap-6">
       <Toaster position="top-right" richColors />
       <section className="flex flex-col gap-4 text-[#1E1E1E] mt-2">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-xl md:text-2xl font-bold">
           Welcome{" "}
           <span className="text-[#E0580C]">
             {isLoading ? (
@@ -131,18 +131,18 @@ const EventsMgt = () => {
           </span>
         </h1>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="w-full flex lg:grid lg:grid-cols-3 items-center gap-4 py-4 flex-wrap ">
           <div
             className={`${
               toggleEvents === "Created Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
             onClick={() => setToggleEvents("Created Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">
+              <h1 className="text-2xl md:text-3xl font-semibold">
                 {createdEventData ? createdEventData.length : "0"}
               </h1>
-              <p className="text-lg font-medium">Created Events</p>
+              <p className="text-base md:text-lg font-medium">Created Events</p>
             </div>
 
             <img src="/img/create-icon.png" alt="create-icon" />
@@ -151,16 +151,18 @@ const EventsMgt = () => {
           <div
             className={`${
               toggleEvents === "Upcoming Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
             onClick={() => setToggleEvents("Upcoming Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">
+              <h1 className="text-2xl md:text-3xl font-semibold">
                 {upcomingEvents || upcomingRegEvents
                   ? upcomingEvents.length + upcomingRegEvents.length
                   : "0"}
               </h1>
-              <p className="text-lg font-medium">Upcoming Events</p>
+              <p className="text-base md:text-lg font-medium">
+                Upcoming Events
+              </p>
             </div>
 
             <img src="/img/upcoming-icon.png" alt="upcoming-icon" />
@@ -169,16 +171,16 @@ const EventsMgt = () => {
           <div
             className={`${
               toggleEvents === "Past Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
             onClick={() => setToggleEvents("Past Events")}
           >
             <div className="grid gap-2">
-              <h1 className="text-3xl font-semibold">
+              <h1 className="text-2xl md:text-3xl font-semibold">
                 {pastEvents || pastRegEvents
                   ? pastEvents.length + pastRegEvents.length
                   : "0"}
               </h1>
-              <p className="text-lg font-medium">Past Events</p>
+              <p className="text-base md:text-lg font-medium">Past Events</p>
             </div>
 
             <img src="/img/delete-icon.png" alt="delete-icon" />
@@ -186,8 +188,8 @@ const EventsMgt = () => {
         </div>
       </section>
 
-      <section className="w-full flex items-start gap-6">
-        <div className="w-[76%]">
+      <section className="w-full flex flex-col-reverse lg:flex-row items-start gap-4">
+        <div className="w-full lg:w-[76%]">
           {loading ? (
             <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
               <div className="text-2xl font-semibold text-[#E0580C]">
@@ -206,10 +208,10 @@ const EventsMgt = () => {
             <PastEvents pastEvents={pastEvents} pastRegEvents={pastRegEvents} />
           )}
         </div>
-        <div className="grid gap-4 w-[25%]">
+        <div className="grid gap-4 w-full lg:w-[30%]">
           <CustomCalendar />
 
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full flex flex-col sm:flex-row lg:flex-col gap-4">
             <button
               onClick={handleCreateEventRoute}
               className="w-full border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] text-center py-2 px-4 rounded-md"
