@@ -23,9 +23,8 @@ const EventsMgt = () => {
   const { userData, isLoading } = useFetchUserData(token);
 
   const getEventsEndpoint = import.meta.env.VITE_APP_EVENT_ROUTE_URL;
-  const getRegEventsEndpoint = `${
-    import.meta.env.VITE_APP_EVENT_ROUTE_URL
-  }/regEvents`;
+  const getRegEventsEndpoint = `${import.meta.env.VITE_APP_EVENT_ROUTE_URL
+    }/regEvents`;
 
   useEffect(() => {
     fetchData();
@@ -118,7 +117,7 @@ const EventsMgt = () => {
   return (
     <main className="min-h-[70vh] w-full relative top-[65px] md:top-[76px] px-[3%] pb-10 pt-6 grid gap-6 border">
       <Toaster position="top-right" richColors />
-      <section className="flex flex-col gap-4 text-[#1E1E1E] mt-2">
+      <section className="w-full grid gap-4 text-[#1E1E1E] mt-2">
         <h1 className="text-xl md:text-2xl font-bold">
           Welcome{" "}
           <span className="text-[#E0580C]">
@@ -131,64 +130,61 @@ const EventsMgt = () => {
           </span>
         </h1>
 
-        <div className="w-full flex lg:grid lg:grid-cols-3 items-center gap-4 py-4 flex-wrap ">
-          <div
-            className={`${
-              toggleEvents === "Created Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
-            onClick={() => setToggleEvents("Created Events")}
-          >
-            <div className="grid gap-2">
-              <h1 className="text-2xl md:text-3xl font-semibold">
-                {createdEventData ? createdEventData.length : "0"}
-              </h1>
-              <p className="text-base md:text-lg font-medium">Created Events</p>
+          <div className="w-full flex lg:grid grid-cols-3 justify-between items-center gap-4 py-2 px-2 lg:px-0 overflow-x-scroll lg:overflow-x-visible customized-scrollbar">
+            <div
+              className={`${toggleEvents === "Created Events" ? "shadow-sm" : "shadow-lg"
+                } flex items-center justify-between min-w-[300px] lg:min-w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+              onClick={() => setToggleEvents("Created Events")}
+            >
+              <div className="grid gap-2">
+                <h1 className="text-2xl md:text-3xl font-semibold">
+                  {createdEventData ? createdEventData.length : "0"}
+                </h1>
+                <p className="text-base md:text-lg font-medium">Created Events</p>
+              </div>
+
+              <img src="/img/create-icon.png" alt="create-icon" />
             </div>
 
-            <img src="/img/create-icon.png" alt="create-icon" />
-          </div>
+            <div
+              className={`${toggleEvents === "Upcoming Events" ? "shadow-sm" : "shadow-lg"
+                } flex items-center justify-between min-w-[300px] lg:min-w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+              onClick={() => setToggleEvents("Upcoming Events")}
+            >
+              <div className="grid gap-2">
+                <h1 className="text-2xl md:text-3xl font-semibold">
+                  {upcomingEvents || upcomingRegEvents
+                    ? upcomingEvents.length + upcomingRegEvents.length
+                    : "0"}
+                </h1>
+                <p className="text-base md:text-lg font-medium">
+                  Upcoming Events
+                </p>
+              </div>
 
-          <div
-            className={`${
-              toggleEvents === "Upcoming Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
-            onClick={() => setToggleEvents("Upcoming Events")}
-          >
-            <div className="grid gap-2">
-              <h1 className="text-2xl md:text-3xl font-semibold">
-                {upcomingEvents || upcomingRegEvents
-                  ? upcomingEvents.length + upcomingRegEvents.length
-                  : "0"}
-              </h1>
-              <p className="text-base md:text-lg font-medium">
-                Upcoming Events
-              </p>
+              <img src="/img/upcoming-icon.png" alt="upcoming-icon" />
             </div>
 
-            <img src="/img/upcoming-icon.png" alt="upcoming-icon" />
-          </div>
+            <div
+              className={`${toggleEvents === "Past Events" ? "shadow-sm" : "shadow-lg"
+                } flex items-center justify-between min-w-[300px] lg:min-w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
+              onClick={() => setToggleEvents("Past Events")}
+            >
+              <div className="grid gap-2">
+                <h1 className="text-2xl md:text-3xl font-semibold">
+                  {pastEvents || pastRegEvents
+                    ? pastEvents.length + pastRegEvents.length
+                    : "0"}
+                </h1>
+                <p className="text-base md:text-lg font-medium">Past Events</p>
+              </div>
 
-          <div
-            className={`${
-              toggleEvents === "Past Events" ? "shadow-sm" : "shadow-lg"
-            } flex items-center justify-between w-full lg:w-full gap-4 p-4 rounded-xl border-[2px] border-[#FEFEFE] shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-90`}
-            onClick={() => setToggleEvents("Past Events")}
-          >
-            <div className="grid gap-2">
-              <h1 className="text-2xl md:text-3xl font-semibold">
-                {pastEvents || pastRegEvents
-                  ? pastEvents.length + pastRegEvents.length
-                  : "0"}
-              </h1>
-              <p className="text-base md:text-lg font-medium">Past Events</p>
+              <img src="/img/delete-icon.png" alt="delete-icon" />
             </div>
-
-            <img src="/img/delete-icon.png" alt="delete-icon" />
           </div>
-        </div>
       </section>
 
-      <section className="w-full flex flex-col-reverse lg:flex-row items-start gap-4">
+      <section className="w-full flex flex-col lg:flex-row items-start gap-4">
         <div className="w-full lg:w-[76%]">
           {loading ? (
             <div className="min-h-[50vh] flex flex-col items-center justify-center gap-2">
@@ -208,7 +204,7 @@ const EventsMgt = () => {
             <PastEvents pastEvents={pastEvents} pastRegEvents={pastRegEvents} />
           )}
         </div>
-        <div className="grid gap-4 w-full lg:w-[30%]">
+        <div className="grid gap-4 w-full lg:w-[30%] mt-10 lg:mt-0">
           <CustomCalendar />
 
           <div className="w-full flex flex-col sm:flex-row lg:flex-col gap-4">

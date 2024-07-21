@@ -81,7 +81,7 @@ const ShareInvites = ({ eventLink }) => {
             </a>
           </div>
 
-          <div className="flex items-center overflow-x-scroll sm:overflow-hidden customized-scrollbar justify-between gap-4 py-3 px-6 font-semibold rounded-lg border-2 border-[#FEFEFE] shadow">
+          <div className="flex items-center overflow-x-scroll sm:overflow-hidden customized-scrollbar justify-between gap-4 py-6 sm:py-3 px-6 font-semibold rounded-lg border-2 border-[#FEFEFE] shadow">
             <p className="text-xs sm:text-sm text-[#767676]">{eventLink}</p>
             <p
               className="min-w-[100px] flex items-center gap-2 text-xs sm:text-sm md:text-sm lg:text-base text-[#E0580C] cursor-pointer  transition-transform duration-300 ease-in-out transform hover:scale-90"

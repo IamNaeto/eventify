@@ -46,7 +46,7 @@ const EventMgt = () => {
   return (
     <div className="min-h-[70vh] w-full relative grid gap-6 top-[65px] px-[3%] pb-10 pt-4 bg-[#FAFAFA] overflow-x-hidden">
       <Toaster position="top-right" richColors />
-      <section className="w-full grid grid-cols-3 items-center justify-between sm:justify-center gap-4 font-bold text-sm sm:text-base md:text-lg text-center py-2 sm:py-0 overflow-x-auto overflow-visible  customized-scrollbar">
+      <section className="w-full flex items-center justify-between sm:justify-center gap-4 font-bold text-sm sm:text-base md:text-lg text-center py-2 sm:py-0 overflow-x-auto overflow-visible  customized-scrollbar">
         <h1
           className={`min-w-[150px] p-2 border-b-2 ${
             toggleMgt === "Event Overview"
