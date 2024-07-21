@@ -116,7 +116,7 @@ const EventsMgt = () => {
   });
 
   return (
-    <main className="min-h-[70vh] w-full relative top-[76px] px-[3%] pb-10 pt-6 grid gap-6">
+    <main className="min-h-[70vh] w-full relative top-[65px] md:top-[76px] px-[3%] pb-10 pt-6 grid gap-6 border">
       <Toaster position="top-right" richColors />
       <section className="flex flex-col gap-4 text-[#1E1E1E] mt-2">
         <h1 className="text-xl md:text-2xl font-bold">

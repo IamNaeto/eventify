@@ -44,11 +44,11 @@ const EventMgt = () => {
   }, [id]);
 
   return (
-    <div className="min-h-[70vh] w-full relative grid gap-6 top-[76px] px-[3%] pb-10 pt-4 bg-[#FAFAFA] overflow-x-hidden">
+    <div className="min-h-[70vh] w-full relative grid gap-6 top-[65px] px-[3%] pb-10 pt-4 bg-[#FAFAFA] overflow-x-hidden">
       <Toaster position="top-right" richColors />
-      <section className="grid grid-cols-3 items-center justify-center gap-4 font-bold text-lg text-center">
+      <section className="w-full grid grid-cols-3 items-center justify-between sm:justify-center gap-4 font-bold text-sm sm:text-base md:text-lg text-center py-2 sm:py-0 overflow-x-auto overflow-visible  customized-scrollbar">
         <h1
-          className={`p-2 border-b-2 ${
+          className={`min-w-[150px] p-2 border-b-2 ${
             toggleMgt === "Event Overview"
               ? "border-b-[#E0580C] text-[#3C3C3C]"
               : "border-b-[#C0C0C0] text-[#C0C0C0]"
@@ -58,7 +58,7 @@ const EventMgt = () => {
           Event Overview
         </h1>
         <h1
-          className={`p-2 border-b-2 ${
+          className={`min-w-[150px] p-2 border-b-2 ${
             toggleMgt === "Attendees"
               ? "border-b-[#E0580C] text-[#3C3C3C]"
               : "border-b-[#C0C0C0] text-[#C0C0C0]"
@@ -68,7 +68,7 @@ const EventMgt = () => {
           Attendees
         </h1>
         <h1
-          className={`p-2 border-b-2 ${
+          className={`min-w-[150px] p-2 border-b-2 ${
             toggleMgt === "Share Invites"
               ? "border-b-[#E0580C] text-[#3C3C3C]"
               : "border-b-[#C0C0C0] text-[#C0C0C0]"

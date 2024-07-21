@@ -35,7 +35,7 @@ const Categories = ({ allEvents, setFilteredEvents }) => {
       <h1 className="text-3xl text-[#1E1E1E] font-bold mb-6">
         Event Categories
       </h1>
-      <div className="w-full flex items-center justify-start lg:justify-center gap-4 px-4 py-4 flex-auto lg:flex-wrap overflow-x-auto lg:overflow-auto categories-scrollbar">
+      <div className="w-full flex items-center justify-start lg:justify-center gap-4 px-4 py-4 flex-auto lg:flex-wrap overflow-x-auto lg:overflow-auto customized-scrollbar">
         {categories.map((category) => (
           <div
             key={category.id}

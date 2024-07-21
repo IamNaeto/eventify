@@ -9,9 +9,9 @@ const ShareInvites = ({ eventLink }) => {
 
   return (
     <section className="min-h-[70vh] text-2xl text-[#3C3C3C] flex flex-col items-center gap-2">
-      <div className="min-w-[60%] grid gap-6">
+      <div className="w-full md:w-[80%] lg:w-[60%] grid gap-6">
         <div className="grid gap-2">
-          <h1 className="text-2xl font-bold">Share Event Link</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold">Share Event Link</h1>
           <p className="text-sm text-[#767676]">Share your invite link across different social media account</p>
         </div>
 
@@ -81,13 +81,13 @@ const ShareInvites = ({ eventLink }) => {
             </a>
           </div>
 
-          <div className="flex items-center justify-between gap-4 py-3 px-6 font-semibold rounded-lg border-2 border-[#FEFEFE] shadow">
-            <p className="text-sm text-[#767676]">{eventLink}</p>
+          <div className="flex items-center overflow-x-scroll sm:overflow-hidden customized-scrollbar justify-between gap-4 py-3 px-6 font-semibold rounded-lg border-2 border-[#FEFEFE] shadow">
+            <p className="text-xs sm:text-sm text-[#767676]">{eventLink}</p>
             <p
-              className="flex items-center gap-2 text-[16px] text-[#E0580C] cursor-pointer  transition-transform duration-300 ease-in-out transform hover:scale-90"
+              className="min-w-[100px] flex items-center gap-2 text-xs sm:text-sm md:text-sm lg:text-base text-[#E0580C] cursor-pointer  transition-transform duration-300 ease-in-out transform hover:scale-90"
               onClick={copyLinkToClipboard}
             >
-              Copy Link <TbCopy className="text-2xl hover:text-[#E0580C]" />
+              Copy Link <TbCopy className="text-lg sm:xl md:text-2xl hover:text-[#E0580C]" />
             </p>
           </div>
         </div>

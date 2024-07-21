@@ -98,7 +98,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full fixed z-30 bg-[#FEFEFE] flex items-center justify-between py-4 px-[3%] shadow text-[16px] text-[#3C3C3C] font-semibold">
+    <div className="w-full fixed top-0 z-30 bg-[#FEFEFE] flex items-center justify-between py-4 px-[3%] shadow text-[16px] text-[#3C3C3C] font-semibold">
       <Link to={"/"}>
         <img src="/img/eventify-logo.svg" alt="" />
       </Link>

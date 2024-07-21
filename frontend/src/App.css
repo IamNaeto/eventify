@@ -18,15 +18,15 @@ body {
   background: #e0580c;
 }
 
-.categories-scrollbar::-webkit-scrollbar {
+.customized-scrollbar::-webkit-scrollbar {
   height: 8px;
 }
 
-.categories-scrollbar::-webkit-scrollbar-track {
+.customized-scrollbar::-webkit-scrollbar-track {
   border-radius: 20px;
 }
 
-.categories-scrollbar::-webkit-scrollbar-thumb {
+.customized-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 20px;
 }
 
