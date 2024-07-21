@@ -88,7 +88,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
   return (
     <main className="grid gap-8 text-[#1E1E1E]">
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="h-[250px] sm:h-[350px] lg:h-[430px] w-full mb-16">
+        <div className="h-[250px] sm:h-[350px] lg:h-[430px] w-full mb-14">
           <img
             src="/img/event-overview.png"
             alt="event-overview-img"
