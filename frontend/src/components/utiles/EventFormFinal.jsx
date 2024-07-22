@@ -19,7 +19,7 @@ const CreateEventFinal = ({
     <form
       action=""
       onSubmit={handleSubmit}
-      className="bg-[rgb(255,255,255)] text-[16px] grid gap-4 p-10 rounded-xl mt-4 shadow-xl"
+      className="bg-[rgb(255,255,255)] text-[16px] grid gap-4 p-4 sm:p-10 rounded-xl mt-4 shadow-xl"
     >
       <h1 className="text-3xl font-bold text-[#1E1E1E]">
         Hey Pal, Almost done!

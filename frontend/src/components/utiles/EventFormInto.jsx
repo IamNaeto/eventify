@@ -29,7 +29,7 @@ const CreateEventIntro = ({
   return (
     <form
       action=""
-      className="bg-[rgb(255,255,255)] text-[16px] grid gap-4 p-10 rounded-xl mt-4 shadow-xl"
+      className="bg-[rgb(255,255,255)] text-[16px] grid gap-4 p-4 sm:p-10 rounded-xl mt-4 shadow-xl"
       onSubmit={handleInitialValidation}
     >
       <input
@@ -61,7 +61,7 @@ const CreateEventIntro = ({
       ></textarea>
 
       <div className="grid gap-4 p-[8px] rounded-lg border border-[#DEDEDE]">
-        <label htmlFor="" className="flex items-center gap-4">
+        <label htmlFor="" className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           Start
           <input
             type="date"
@@ -78,7 +78,7 @@ const CreateEventIntro = ({
             onChange={(e) => setStartTime(e.target.value)}
           />
         </label>
-        <label htmlFor="" className="flex items-center gap-4">
+        <label htmlFor="" className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           End
           <input
             type="date"

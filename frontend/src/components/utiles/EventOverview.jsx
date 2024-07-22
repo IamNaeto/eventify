@@ -231,7 +231,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
         onRequestClose={closeModal}
         contentLabel="Confirm Delete"
         ariaHideApp={false}
-        className="flex items-center justify-center min-h-screen"
+        className="flex items-center justify-center min-h-screen mx-4 sm:mx-0"
         overlayClassName="z-50 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
       >
         <div className="flex flex-col items-center justify-center gap-4 bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto text-center">
