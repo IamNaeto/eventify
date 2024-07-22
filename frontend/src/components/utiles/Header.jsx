@@ -108,7 +108,7 @@ const Header = () => {
           toggleMenu ? "flex" : "hidden"
         }  md:flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-2 lg:gap-4 w-full md:w-auto md:min-w-[70%] md:max-w-[90%]`}
       >
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-2 lg:gap-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-4">
           <Link
             to={"/"}
             className={`${
@@ -177,7 +177,7 @@ const Header = () => {
         {authLoading ? (
           <TbLoader2 className="animate-spin text-4xl text-[#E0580C] shadow-lg p-1 rounded-full  border border-[#EBEBEB]" />
         ) : !isAuthenticated ? (
-          <div className="flex items-center justify-center gap-2 lg:gap-4">
+          <div className="flex items-center justify-center gap-4">
             <button
               className="border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-2 lg:px-4 rounded-md"
               onClick={openModal}
