@@ -2,7 +2,7 @@ import { HiOutlineUsers } from "react-icons/hi2";
 import AttendeesList from "./AttendeesList";
 
 const Attendees = ({ event, isLoading }) => {
-  console.log("Attendees", event ? event.attendees : 'No event data');
+  // console.log("Attendees", event ? event.attendees : 'No event data');
   return (
     <main className="min-h-screen">
       {event && event.attendees && event.attendees.length > 0 ? (

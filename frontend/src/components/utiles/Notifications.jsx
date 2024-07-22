@@ -5,7 +5,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 
 const Notifications = ({ upcomingRegEvents, loader }) => {
   const navigate = useNavigate();
-  console.log("Notification", upcomingRegEvents);
+  // console.log("Notification", upcomingRegEvents);
 
   const handleEventClick = (id) => {
     navigate(`/event/register/${id}`);

@@ -31,7 +31,7 @@ const UserInfoEdit = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
         setUserId(userId);
-        console.log("User ID:", userId);
+        // console.log("User ID:", userId);
       } catch (decodeError) {
         console.error("Error decoding token:", decodeError);
       }
@@ -65,7 +65,7 @@ const UserInfoEdit = () => {
           { headers }
         );
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         setFirstname(data.firstname);
         setLastname(data.lastname);
         setEmail(data.email);
@@ -144,7 +144,7 @@ const UserInfoEdit = () => {
         data,
         { headers }
       );
-      console.log(request);
+      // console.log(request);
       toast.success("Profile Updated successfully");
       setTimeout(() => {
         navigate("/event/user/profile");

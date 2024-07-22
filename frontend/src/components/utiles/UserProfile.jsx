@@ -24,7 +24,7 @@ const UserProfile = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
         setUserId(userId);
-        console.log("User ID:", userId);
+        // console.log("User ID:", userId);
       } catch (decodeError) {
         console.error("Error decoding token:", decodeError);
       }
@@ -58,7 +58,7 @@ const UserProfile = () => {
         );
         const data = response.data;
         setData(data);
-        console.log(data);
+        // console.log(data);
         // toast.success("Data fetched successfully");
       } catch (error) {
         console.error(error);
@@ -149,7 +149,7 @@ const UserProfile = () => {
 
           <Link
             to={"/event/user/profile/edit"}
-            className="sm-hidden flex items-center justify-center mt-4 gap-2 p-2 border border-[#E0580C] text-[#E0580C] text-sm md:text-base hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
+            className="sm:hidden flex items-center justify-center mt-4 gap-2 p-2 border border-[#E0580C] text-[#E0580C] text-sm md:text-base hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
           >
             {" "}
             <TbEdit className="text-lg sm:text-xl" /> Edit Profile

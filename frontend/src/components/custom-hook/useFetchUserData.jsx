@@ -23,7 +23,7 @@ const useFetchUserData = (token) => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
         setUserId(userId);
-        console.log("User ID:", userId);
+        // console.log("User ID:", userId);
       } catch (decodeError) {
         console.error("Error decoding token:", decodeError);
       }
@@ -57,7 +57,7 @@ const useFetchUserData = (token) => {
           { headers }
         );
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         setUserData(data);
         // toast.success("Data fetched successfully");
       } catch (error) {

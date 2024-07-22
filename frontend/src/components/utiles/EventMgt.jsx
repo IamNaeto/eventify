@@ -32,7 +32,7 @@ const EventMgt = () => {
           { headers }
         );
         setEvent(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching product details:", error);
       } finally {

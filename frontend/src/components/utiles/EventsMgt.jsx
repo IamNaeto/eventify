@@ -47,7 +47,7 @@ const EventsMgt = () => {
       const response = await axios.get(getEventsEndpoint, { headers });
       const data = response.data;
       setCreatedEventData(data);
-      console.log(data);
+      // console.log(data);
       // toast.success("Data fetched successfully");
     } catch (error) {
       console.error(error);
@@ -73,7 +73,7 @@ const EventsMgt = () => {
       const response = await axios.get(getRegEventsEndpoint, { headers });
       const data = response.data;
       setRegisteredEventData(data);
-      console.log("Registered Events", data);
+      // console.log("Registered Events", data);
       // toast.success("Data fetched successfully");
     } catch (error) {
       console.error(error);

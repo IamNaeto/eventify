@@ -58,19 +58,19 @@ const Register = () => {
         );
 
         setEvent(response.data);
-        console.log("Fetched event:", response.data);
+        // console.log("Fetched event:", response.data);
 
         // Decode the token to get payload data
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken.userId;
-          console.log("User ID:", userId);
+          // console.log("User ID:", userId);
 
           // Check if user is already registered for this event
           const isUserRegisteredLocal = response.data.attendees.some(
             (attendee) => attendee.userId === userId
           );
-          console.log("Is user registered:", isUserRegisteredLocal);
+          // console.log("Is user registered:", isUserRegisteredLocal);
           setIsRegistered(isUserRegisteredLocal);
         } catch (decodeError) {
           console.error("Error decoding token:", decodeError);
@@ -106,7 +106,7 @@ const Register = () => {
         { headers }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       setIsRegistered(true);
       setShowConfetti(true);
@@ -146,7 +146,7 @@ const Register = () => {
         { headers }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       setIsRegistered(false);
       toast.success("Event registration cancelled successfully");
     } catch (error) {

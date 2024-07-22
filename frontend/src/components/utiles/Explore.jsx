@@ -38,7 +38,7 @@ const Explore = () => {
 
       const response = await axios.get(getAllEventsEndpoint);
       const data = response.data;
-      console.log(data);
+      // console.log(data);
       setAllEvents(data);
 
       // Decode the token to get payload data
@@ -46,7 +46,7 @@ const Explore = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
         setUserId(userId);
-        console.log("User ID:", userId);
+        // console.log("User ID:", userId);
       } catch (decodeError) {
         console.error("Error decoding token:", decodeError);
       }
