@@ -124,7 +124,7 @@ const Create = () => {
   };
 
   return (
-    <div className="w-full relative top-[68px] sm:top-[76px] px-[3%] py-10 bg-[#FAFAFA] min-h-screen overflow-x-hidden">
+    <div className="w-full relative top-[60px] sm:top-[76px] px-[3%] py-10 bg-[#FAFAFA] min-h-screen overflow-x-hidden">
       <div className="w-full flex flex-col gap-2 items-center justify-center">
         <div className="grid gap-2 min-w-[80%] md:min-w-[60%]">
           <p className="text-left">Progress</p>

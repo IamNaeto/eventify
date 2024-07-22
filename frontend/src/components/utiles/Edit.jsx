@@ -181,17 +181,17 @@ const Edit = () => {
   };
 
   return (
-    <div className="w-full relative top-[76px] px-[3%] py-10 bg-[#FAFAFA] min-h-screen overflow-x-hidden">
+    <div className="w-full relative top-[60px] md:top-[76px] px-[3%] py-10 bg-[#FAFAFA] min-h-screen overflow-x-hidden">
       <div className="w-full flex flex-col gap-2 items-center justify-center">
-        <div className="grid gap-2 min-w-[600px]">
+        <div className="grid gap-2 min-w-[80%] md:min-w-[60%]">
           <p className="text-left">Progress</p>
           <div className="bg-[#EBEBEB] w-full h-2 rounded-full box-shadow">
             <div
               className={`bg-[#0D804A] ${
                 progressStage === 1
-                  ? "w-[200px] rounded-tl-full rounded-bl-full"
+                  ? "w-[30%] rounded-tl-full rounded-bl-full"
                   : progressStage === 2
-                  ? "w-[400px] rounded-tl-full rounded-bl-full"
+                  ? "w-[60%] rounded-tl-full rounded-bl-full"
                   : "w-full rounded-full"
               } h-full`}
             ></div>
