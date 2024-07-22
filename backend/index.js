@@ -10,6 +10,21 @@ const app = express(); // express instance
 app.use(cors()); // Use CORS middleware
 
 app.use(express.json()); // registering express json middleware
+
+app.use(
+  express.static("public", {
+    setHeaders: (res, path, stat) => {
+      if (path.endsWith(".js")) {
+        res.set("Content-Type", "application/javascript");
+      } else if (path.endsWith(".css")) {
+        res.set("Content-Type", "text/css");
+      } else if (path.endsWith(".html")) {
+        res.set("Content-Type", "text/html");
+      }
+    },
+  })
+);
+
 app.use(express.urlencoded({ extended: false })); // registering urlencoded to express which helps us to post using a form or urlencoded format
 app.use(process.env.APP_EVENT_ROUTE_URL, eventRoute); //manage event route
 app.use(process.env.APP_EVENT_USER_ROUTE_URL, userRoute); // manage user route
