@@ -59,7 +59,7 @@ const SignInAuth = () => {
       <div className="w-full min-h-screen sigin-bg hidden md:flex"></div>
 
       <div className="flex items-center justify-center w-full p-5 sm:p-20  md:p-0  min-h-screen">
-        <div className="flex flex-col gap-4 bg-white p-5 sm:p-10 md:p-5 xl:p-10 rounded-xl mr-0 md:mr-4 w-full mx-auto shadow md:shadow-none">
+        <div className="flex flex-col gap-4 bg-white p-5 sm:p-10 md:p-5 xl:p-10 rounded-xl mr-0 md:mr-4 w-full mx-auto shadow shadow-[#E0580C] md:shadow-none">
           <div className="w-full grid items-start gap-1">
             <Link to={"/"}>
               <TiArrowBackOutline className="text-3xl text-[#E0580C]" />

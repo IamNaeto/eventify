@@ -66,7 +66,7 @@ const SignUpAuth = () => {
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4  min-h-screen">
       <div className="w-full min-h-screen flex items-center justify-center p-5 sm:p-20 md:p-0">
-        <div className="flex flex-col gap-2 bg-white p-5 sm:p-10 md:p-5 xl:px-10 xl:py-0 py-8 rounded-xl ml-0 md:ml-4 min-w-[100%] mx-auto shadow md:shadow-none">
+        <div className="flex flex-col gap-2 bg-white p-5 sm:p-10 md:p-5 xl:px-10 xl:py-0 py-8 rounded-xl ml-0 md:ml-4 min-w-[100%] mx-auto shadow shadow-[#E0580C] md:shadow-none">
           <Link to={"/signin"}>
             <TiArrowBackOutline className="text-3xl text-[#E0580C]" />
           </Link>
