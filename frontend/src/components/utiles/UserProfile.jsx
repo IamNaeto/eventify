@@ -88,10 +88,10 @@ const UserProfile = () => {
     );
 
   return (
-    <main className="min-h-screen w-full relative grid gap-4 top-[76px] bg-[#FAFAFA] ">
+    <main className="min-h-screen w-full relative grid gap-4 top-[68px] md:top-[76px] bg-[#FAFAFA] ">
       <Toaster position="top-right" richColors />
-      <section className="flex flex-col items-center bg-[#FCEEE7] h-[300px] w-full px-[3%]">
-        <div className="relative top-24 flex flex-col items-start justify-center w-[80%] min-h-[400px] bg-[#fff] p-5 gap-1 rounded-lg shadow-lg">
+      <section className="flex flex-col items-center bg-[#FCEEE7] h-[450px] sm:h-[300px] w-full px-[3%]">
+        <div className="relative top-36 sm:top-24 flex flex-col items-start justify-center w-full md:w-[80%] min-h-[400px] bg-[#fff] p-5 gap-4 sm:first:gap-1 rounded-lg shadow-lg">
           <div className="p-4 w-[150px] h-[150px] rounded-full shadow-md bg-[#fff] flex items-center justify-center border border-[#EBEBEB]">
             {data.img ? (
               <img src="/img/user-profile.png" alt="user-profile-picture" />
@@ -105,24 +105,28 @@ const UserProfile = () => {
 
           <div className="flex items-center justify-between w-full gap-6">
             <div className="grid">
-              <h1 className="text-2xl text-[#1E1E1E] font-bold">
+              <h1 className="text-lg sm:text-2xl text-[#1E1E1E] font-bold">
                 {data.firstname + " " + data.lastname}
               </h1>
-              <p className="text-[#676767]">{data.email}</p>
+              <p className="text-sm md:text-base text-[#676767]">
+                {data.email}
+              </p>
             </div>
 
             <Link
               to={"/event/user/profile/edit"}
-              className="flex items-center justify-center gap-2 p-2 border border-[#E0580C] text-[#E0580C] hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
+              className="hidden sm:flex items-center justify-center gap-2 p-2 border border-[#E0580C] text-[#E0580C] text-sm md:text-base hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
             >
               {" "}
-              <TbEdit className="text-xl"/> Edit Profile
+              <TbEdit className="text-lg sm:text-xl" /> Edit Profile
             </Link>
           </div>
 
           <div className="grid mt-2">
-            <h3 className="text-xl text-[#1E1E1E] font-semibold">About</h3>
-            <p className="text-base text-[#676767]">
+            <h3 className="text-lg sm:text-xl text-[#1E1E1E] font-semibold">
+              About
+            </h3>
+            <p className="text-sm sm:text-base text-[#676767]">
               {" "}
               {data.bio ? data.bio : "Your short bio goes here"}{" "}
             </p>
@@ -142,6 +146,14 @@ const UserProfile = () => {
               <FaLink className="text-xl text-[#1E1E1E] delay-100 transition-all hover:text-[#E0580C]" />
             </a>
           </div>
+
+          <Link
+            to={"/event/user/profile/edit"}
+            className="sm-hidden flex items-center justify-center mt-4 gap-2 p-2 border border-[#E0580C] text-[#E0580C] text-sm md:text-base hover:bg-[#E0580C] hover:text-[#FFF] font-medium rounded-md delay-100 transition-all"
+          >
+            {" "}
+            <TbEdit className="text-lg sm:text-xl" /> Edit Profile
+          </Link>
         </div>
       </section>
     </main>

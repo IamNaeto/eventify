@@ -22,8 +22,7 @@ const UserInfoEdit = () => {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const token = localStorage.getItem("eventify_auth_token");
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const decodeToken = () => {
@@ -148,15 +147,15 @@ const UserInfoEdit = () => {
       console.log(request);
       toast.success("Profile Updated successfully");
       setTimeout(() => {
-        navigate("/event/user/profile")
+        navigate("/event/user/profile");
       }, 2000);
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 409) {
         toast.error("User with this email already exists");
-      } else if(error.response && error.response.status === 404){
-            toast.error("User not found");
-      }else {
+      } else if (error.response && error.response.status === 404) {
+        toast.error("User not found");
+      } else {
         toast.error("Error: " + error.message);
       }
     } finally {
@@ -165,15 +164,17 @@ const UserInfoEdit = () => {
   };
 
   return (
-    <main className="min-h-screen w-full relative flex flex-col items-center justify-center gap-4 top-[76px] bg-[#FAFAFA] ">
-      <section className="grid gap-4 bg-white min-w-[70%] rounded-xl p-8 my-10">
+    <main className="min-h-screen w-full relative flex flex-col items-center justify-center gap-4 top-[68px] md:top-[76px] bg-[#FAFAFA] px-[3%]">
+      <section className="grid gap-4 bg-white min-w-[60%] rounded-xl p-4 sm:p-8 my-10">
         <Toaster position="top-right" richColors />
         <div className="grid gap-4">
-          <div className="rounded-full p-2 bg-[#C0C0C0] flex items-center justify-center w-[100px] h-[100px] cursor-pointer">
-            <BiEdit className="text-2xl w-full" />
+          <div className="relative text-6xl text-gray-400 font-bold rounded-full p-2 bg-[#C0C0C0] flex items-center justify-center w-[100px] h-[100px] cursor-pointer uppercase">
+            {" "}
+            {firstname.charAt(0) + lastname.charAt(0)}
+            <BiEdit className="absolute text-[#000] text-3xl w-full" />
           </div>
           <div className="grid">
-            <h1 className="text-2xl text-[000000] font-bold">Edit Profile</h1>
+            <h1 className="text-2xl text-[#000000] font-bold">Edit Profile</h1>
             <p className="text-base text-[#959595] font-semibold">
               Make changes to your profile
             </p>
@@ -181,7 +182,7 @@ const UserInfoEdit = () => {
         </div>
 
         <form action="" className="w-full grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label htmlFor="firstname">
               First Name
               <input
@@ -243,7 +244,7 @@ const UserInfoEdit = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label htmlFor="website-url">
                 Website Url
                 <input
@@ -270,7 +271,7 @@ const UserInfoEdit = () => {
               </label>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label htmlFor="linkedin">
                 LinkedIn
                 <input
@@ -297,16 +298,22 @@ const UserInfoEdit = () => {
               </label>
             </div>
 
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <Link to={"/event/user/profile"} className="min-w-[200px] border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4">
+              <Link
+                to={"/event/user/profile"}
+                className="min-w-full sm:min-w-[200px] border-2 border-[#E0580C] bg-[#FEFEFE] hover:text-[#E0580C] hover:shadow-lg transition-all delay-150 py-2 px-4 rounded-md text-center"
+              >
                 Cancel
               </Link>
               <button
                 onClick={handleProfileSave}
-                className="min-w-[200px] border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md flex items-center justify-center"
+                className="min-w-full sm:min-w-[200px] border-2 border-[#E0580C] hover:border-[#9D3E08] bg-[#E0580C] hover:bg-[#9D3E08] transition-all delay-150 text-[#FEFEFE] py-2 px-4 rounded-md flex items-center justify-center"
               >
-                {loading ?  <LuLoader2 className="text-2xl animate-spin"/> : "Save Profile" }
-                
+                {loading ? (
+                  <LuLoader2 className="text-2xl animate-spin" />
+                ) : (
+                  "Save Profile"
+                )}
               </button>
             </div>
           </div>
