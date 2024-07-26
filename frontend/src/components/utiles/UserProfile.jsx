@@ -90,8 +90,8 @@ const UserProfile = () => {
   return (
     <main className="min-h-screen w-full relative grid gap-4 top-[68px] md:top-[76px] bg-[#FAFAFA] ">
       <Toaster position="top-right" richColors />
-      <section className="flex flex-col items-center bg-[#FCEEE7] h-[450px] sm:h-[300px] w-full px-[3%]">
-        <div className="relative top-36 sm:top-24 flex flex-col items-start justify-center w-full md:w-[80%] min-h-[400px] bg-[#fff] p-5 gap-4 sm:first:gap-1 rounded-lg shadow-lg">
+      <section className="flex flex-col items-center justify-center place-items-center bg-[#FCEEE7] h-[100vh] sm:h-[450px] md:h-[300px] w-full px-[3%]">
+        <div className="relative top-0 md:top-36 sm:top-24 flex flex-col items-start justify-center w-full md:w-[80%] min-h-[400px] bg-[#fff] p-5 gap-4 sm:first:gap-1 rounded-lg shadow-lg">
           <div className="p-4 w-[150px] h-[150px] rounded-full shadow-md bg-[#fff] flex items-center justify-center border border-[#EBEBEB]">
             {data.img ? (
               <img src="/img/user-profile.png" alt="user-profile-picture" />

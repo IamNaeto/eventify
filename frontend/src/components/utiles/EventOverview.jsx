@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import Modal from "react-modal";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { FaRegUserCircle } from "react-icons/fa";
 
 // formatDate function
 function formatDate(dateString) {
@@ -96,11 +97,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
           />
 
           <div className="flex items-center gap-2 mt-6">
-            <img
-              src="/img/event-user.png"
-              alt=""
-              className="w-[30px] md:w-[40px] h-[30px] md:h-[40px]"
-            />
+          <FaRegUserCircle className="text-2xl sm:text-3xl text-[#E0580C]"/>
             <p className="text-base md:text-lg font-medium">
               {event.event_host_name}
             </p>

@@ -194,7 +194,7 @@ const UpcomingEvents = ({ upcomingEvents = [], upcomingRegEvents }) => {
                   {data.attendees ? (
                     <div className="flex items-center gap-2">
                       <img
-                        src="/img/registered-users.png"
+                        src="/img/registered-users.svg"
                         alt="joiners"
                         className=""
                       />

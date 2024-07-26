@@ -41,7 +41,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeInOut" }}
           viewport={{ once: true }}
         >
-          <img src="/img/joiners.png" alt="" className="w-18 md:w-24" />
+          <img src="/img/joiners.svg" alt="" className="w-18 md:w-24" />
           <p className="text-xs sm:text-sm">
             Join over 12,00+ people in creating events{" "}
           </p>

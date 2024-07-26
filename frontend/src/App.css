@@ -92,6 +92,13 @@ label{
   background-attachment: fixed;
 }
 
+@media only screen and (max-width: 800px) {
+  .explore-bg {
+    background-size: 100px;
+    background-position: left bottom;
+  }
+}
+
 .box-shadow{
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2),
       inset -2px -2px 5px rgba(255, 255, 255, 0.7);

@@ -4,8 +4,14 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
 import { GrInstagram } from "react-icons/gr";
 import { motion } from "framer-motion";
+import { toast, Toaster } from "sonner";
 
 const Footer = () => {
+
+  const handleGoogleSigin = () => {
+    toast.info("Coming soon!");
+  };
+
   return (
     <footer className="grid gap-4 relative top-[76px] shadow w-full px-[3%] py-4">
       <motion.div
@@ -21,7 +27,7 @@ const Footer = () => {
           </Link>
           <div className="flex items-center justify-between gap-4 text-[14px] lg:text-[16px] text-[#3C3C3C] font-semibold">
             <Link
-              to={""}
+              to={"/event/explore"}
               className="hover:text-[#E0580C] delay-150 transition-all"
             >
               Explore
@@ -51,11 +57,13 @@ const Footer = () => {
           <p>Download the app</p>
           <div className="w-full flex items-center justify-between gap-2">
             <img
+            onClick={handleGoogleSigin}
               src="/img/google-play-badge.png"
               alt=""
               className="cursor-pointer w-28 lg:w-32"
             />
             <img
+            onClick={handleGoogleSigin}
               src="/img/apple-store-badge.png"
               alt=""
               className="cursor-pointer w-28 lg:w-32"
@@ -102,6 +110,8 @@ const Footer = () => {
           <GrInstagram className="text-2xl text-[#FB017E] cursor-pointer" />
         </div>
       </motion.div>
+
+      <Toaster position="top-right" richColors />
     </footer>
   );
 };

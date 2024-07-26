@@ -11,6 +11,7 @@ import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { LuLoader2 } from "react-icons/lu";
 import { jwtDecode } from "jwt-decode";
+import { FaRegUserCircle } from "react-icons/fa";
 
 // formatDate function
 function formatDate(dateString) {
@@ -195,11 +196,7 @@ const Register = () => {
           />
 
           <div className="flex items-center gap-2 mt-6">
-            <img
-              src="/img/event-user.png"
-              alt=""
-              className="w-[30px] md:w-[40px] h-40px]"
-            />
+          <FaRegUserCircle className="text-[#E0580C] text-2xl sm:text-3xl"/>
             <p className="text-base md:text-lg font-medium">{event.event_host_name}</p>
           </div>
         </div>
