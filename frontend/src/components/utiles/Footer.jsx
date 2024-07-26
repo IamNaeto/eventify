@@ -58,13 +58,13 @@ const Footer = () => {
           <div className="w-full flex items-center justify-between gap-2">
             <img
             onClick={handleGoogleSigin}
-              src="/img/google-play-badge.png"
+              src="/img/google-play-badge.svg"
               alt=""
               className="cursor-pointer w-28 lg:w-32"
             />
             <img
             onClick={handleGoogleSigin}
-              src="/img/apple-store-badge.png"
+              src="/img/apple-store-badge.svg"
               alt=""
               className="cursor-pointer w-28 lg:w-32"
             />

@@ -143,7 +143,7 @@ const EventsMgt = () => {
                 <p className="text-base md:text-lg font-medium">Created Events</p>
               </div>
 
-              <img src="/img/create-icon.png" alt="create-icon" />
+              <img src="/img/create-icon.svg" alt="create-icon" />
             </div>
 
             <div
@@ -162,7 +162,7 @@ const EventsMgt = () => {
                 </p>
               </div>
 
-              <img src="/img/upcoming-icon.png" alt="upcoming-icon" />
+              <img src="/img/upcoming-icon.svg" alt="upcoming-icon" />
             </div>
 
             <div
@@ -179,7 +179,7 @@ const EventsMgt = () => {
                 <p className="text-base md:text-lg font-medium">Past Events</p>
               </div>
 
-              <img src="/img/delete-icon.png" alt="delete-icon" />
+              <img src="/img/delete-icon.svg" alt="delete-icon" />
             </div>
           </div>
       </section>

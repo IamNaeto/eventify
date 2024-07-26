@@ -10,7 +10,7 @@ const CreateEventSuccess = ({
       <h1 className="text-center text-xl sm:text-2xl font-bold text-[#1E1E1E]">{title}</h1>
 
       <div className="w-full flex items-center justify-center">
-        <img src="/img/success.png" alt="success image" className="w-[200px]"/>
+        <img src="/img/success.svg" alt="success image" className="w-[200px]"/>
       </div>
 
       <button
