@@ -39,8 +39,6 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
-  console.log(event, "Event oooooo");
-
   if (isLoading)
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
