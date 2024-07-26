@@ -39,6 +39,8 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
+  console.log(event, "Event oooooo");
+
   if (isLoading)
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-10 text-2xl text-[#E0580C] min-h-screen">
@@ -51,7 +53,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
       <div className="flex flex-col items-center justify-center p-10 text-3xl  text-red-900 min-h-[70vh]">
         {" "}
         <BiSolidError className="text-6xl" />
-        <p>404! Product not found</p>
+        <p>404! Event not found</p>
       </div>
     );
 
@@ -97,7 +99,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
           />
 
           <div className="flex items-center gap-2 mt-6">
-          <FaRegUserCircle className="text-2xl sm:text-3xl text-[#E0580C]"/>
+            <FaRegUserCircle className="text-2xl sm:text-3xl text-[#E0580C]"/>
             <p className="text-base md:text-lg font-medium">
               {event.event_host_name}
             </p>
@@ -113,8 +115,7 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
             </div>
             <div className="text-sm sm:text-base md:text-lg">
               <p className="font-semibold">
-                {formatDate(event.event_start_date)} to{" "}
-                {formatDate(event.event_end_date)}
+                {formatDate(event.event_start_date)} to {formatDate(event.event_end_date)}
               </p>
               <p>
                 {event.event_start_time} to {event.event_end_time}
@@ -206,17 +207,17 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
               <HiOutlineUsers /> View Attendees
             </button>
             <button
-              onClick={() => setToggleMgt("Share Invites")}
+              onClick={() => setToggleMgt("Uploads")}
               className="flex items-center justify-center gap-2 text-center font-bold py-3 px-8 rounded-lg border-2 border-[#E0580C] text-[#E0580C] hover:shadow-md hover:shadow-[#E0580C] transition-transform duration-300 ease-in-out transform hover:scale-90"
             >
               {" "}
-              <AiOutlineCloudUpload /> Share Invites
+              <AiOutlineCloudUpload /> Uploads
             </button>
           </div>
         </div>
       </section>
 
-      <section className="hidden w-full lg:grid gap-4">
+      <section className="hidden w-full lg:grid gap-4 my-4">
         <h1 className="text-xl sm:text-2xl font-bold">About This Event</h1>
         <p className="text-sm sm:text-base text-[#585858]">
           {event.event_description}
@@ -226,32 +227,30 @@ const EventOverview = ({ event, isLoading, setToggleMgt }) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        contentLabel="Confirm Delete"
-        ariaHideApp={false}
-        className="flex items-center justify-center min-h-screen mx-4 sm:mx-0"
-        overlayClassName="z-50 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
+        contentLabel="Delete Event Modal"
+        className="flex items-center justify-center min-h-screen"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50"
       >
-        <div className="flex flex-col items-center justify-center gap-4 bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto text-center">
-          <div className="bg-[#FCEEE7] p-4 rounded-full">
-            <BiSolidError className=" text-center text-5xl text-[#E0580C]" />
-          </div>
-          <h2 className="text-xl font-bold">Are you sure ?</h2>
-          <p className="text-red-600 font-medium">
-            This action cannot be undone. All the data associated with this
-            event will be lost!
+        <div className="bg-white rounded-lg shadow-lg p-6 mx-4 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4">
+            Confirm Delete
+          </h2>
+          <p className="text-sm sm:text-base text-[#3C3C3C] mb-6">
+            Are you sure you want to delete the event "{event.event_name}"? This
+            action cannot be undone.
           </p>
-          <div className="w-full grid gap-4 font-semibold">
-            <button
-              onClick={confirmDelete}
-              className="bg-[#E0580C] border-2 border-[#E0580C] text-white px-4 py-2 rounded transition-transform duration-300 ease-in-out transform hover:scale-90"
-            >
-              Delete
-            </button>
+          <div className="flex items-center justify-end gap-4">
             <button
               onClick={closeModal}
-              className="bg-[#FFF] text-[#E0580C] border-2 border-[#E0580C] px-4 py-2 rounded transition-transform duration-300 ease-in-out transform hover:scale-90"
+              className="px-4 py-2 rounded-lg bg-gray-300 text-gray-700 font-semibold hover:bg-gray-400 transition-colors"
             >
-              Cancle
+              Cancel
+            </button>
+            <button
+              onClick={confirmDelete}
+              className="px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition-colors"
+            >
+              Delete
             </button>
           </div>
         </div>

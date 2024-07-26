@@ -51,9 +51,10 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
               >
                 <div className="w-full">
                   <img
-                    src={event.event_image || "/img/event-img.png"}
+                    src={event.event_image || "/img/event-img.svg"}
                     alt="event-img"
                     className="w-full"
+                    loading="lazy"
                   />
                 </div>
                 <div className="grid p-4">
@@ -134,9 +135,10 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
               >
                 <div className="w-full">
                   <img
-                    src={data.event_image || "/img/event-img.png"}
+                    src={data.event_image || "/img/event-img.svg"}
                     alt="event-img"
                     className="w-full"
+                    loading="lazy"
                   />
                 </div>
 
@@ -185,6 +187,7 @@ const PastEvents = ({ pastEvents = [], pastRegEvents = [] }) => {
                         src="/img/registered-users.svg"
                         alt="joiners"
                         className=""
+                        loading="lazy"
                       />
                       <p className="text-xs font-medium text-[#676767]">
                         + <span>{data.attendees.length}</span>{" "}

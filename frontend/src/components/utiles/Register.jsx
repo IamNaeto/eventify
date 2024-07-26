@@ -193,6 +193,7 @@ const Register = () => {
             src="/img/event-overview.png"
             alt="event-overview-img"
             className="h-[250px] sm:h-[350px] lg:h-[430px] w-full"
+            loading="lazy"
           />
 
           <div className="flex items-center gap-2 mt-6">

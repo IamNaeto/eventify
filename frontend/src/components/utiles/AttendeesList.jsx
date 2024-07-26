@@ -23,7 +23,7 @@ const AttendeesList = ({ event, isLoading }) => {
           All Attendees Data
         </h1>
         <div className="flex items-center gap-2">
-          <img src="/img/joiners.svg" alt="" className="w-[70px]" />
+          <img src="/img/joiners.svg" alt="" className="w-[70px]" loading="lazy"/>
           <p className="text-sm sm:text-base text-[#535353]">
             {event.attendees.length}{" "}
             {event.attendees.length === 1 ? "Attendee" : "Attendees"}

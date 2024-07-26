@@ -7,6 +7,7 @@ const Hero = () => {
       <div className="flex flex-col gap-4">
         <motion.img
           src="/img/eventify-icon.png"
+          loading="lazy"
           alt="eventify icon"
           className="w-24 md:w-32 lg:w-36"
           animate={{ rotate: 360 }}
@@ -41,7 +42,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeInOut" }}
           viewport={{ once: true }}
         >
-          <img src="/img/joiners.svg" alt="" className="w-18 md:w-24" />
+          <img src="/img/joiners.svg" alt="" className="w-18 md:w-24" loading="lazy"/>
           <p className="text-xs sm:text-sm">
             Join over 12,00+ people in creating events{" "}
           </p>
@@ -66,6 +67,7 @@ const Hero = () => {
       <div className="w-full flex items-end place-items-end mt-4 md:mt-0">
         <motion.img
           src="/img/eventify-hero.png"
+          loading="lazy"
           alt="hero-img"
           className="w-[90%]"
           animate={{ y: [0, -20, 0] }}

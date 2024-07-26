@@ -29,9 +29,10 @@ const CreatedEvents = ({ createdEventData = [] }) => {
             >
               <div className="w-full">
                 <img
-                  src={data.event_image || "/img/event-img.png"}
+                  src={data.event_image || "/img/event-img.svg"}
                   alt="event-img"
                   className="w-full"
+                  loading="lazy"
                 />
               </div>
 
