@@ -211,7 +211,7 @@ const Register = () => {
             </div>
             <div className="text-sm sm:text-base md:text-lg">
               <p className=" font-semibold">
-                {formatDate(event.event_start_date)} {"to"}
+                {formatDate(event.event_start_date)} {" to "} 
                 {formatDate(event.event_end_date)}
               </p>
               {isRegistered ? (
