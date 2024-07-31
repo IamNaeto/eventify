@@ -236,7 +236,7 @@ const Register = () => {
                 <p className="text-sm sm:text-base md:text-lg">
                   {event.event_mode === "Physical"
                     ? event.event_location
-                    : event.event_link}
+                    : <a href={event.event_link} target="_blank" className="text-[#360789] hover:text-[#271546] transition-all delay-150">{event.event_link}</a>}
                 </p>
               ) : (
                 <p>***************</p>
